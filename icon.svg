@@ -2,57 +2,88 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#FFF6D9"/>
-      <stop offset="100%" stop-color="#FFD64A"/>
+      <stop offset="100%" stop-color="#FAF6EC"/>
     </linearGradient>
-    <linearGradient id="col" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FAF6EC"/>
-      <stop offset="100%" stop-color="#E6D6A8"/>
-    </linearGradient>
-    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#FF9F3D"/>
+    <radialGradient id="sun" cx="0.5" cy="0.55" r="0.5">
+      <stop offset="0%" stop-color="#FFD64A"/>
+      <stop offset="55%" stop-color="#FF9F3D"/>
       <stop offset="100%" stop-color="#FF5E8E"/>
     </radialGradient>
+    <linearGradient id="marble" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E8D9B0"/>
+    </linearGradient>
+    <linearGradient id="shadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(124,45,18,0)"/>
+      <stop offset="50%" stop-color="rgba(124,45,18,0.18)"/>
+      <stop offset="100%" stop-color="rgba(124,45,18,0)"/>
+    </linearGradient>
   </defs>
 
+  <!-- Cream background, rounded square -->
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
 
-  <!-- Rising sun behind -->
-  <circle cx="256" cy="380" r="170" fill="url(#sun)" opacity="0.85"/>
+  <!-- Coral sun rising behind the temple -->
+  <circle cx="256" cy="430" r="200" fill="url(#sun)" opacity="0.92"/>
 
-  <!-- Ionic column - simplified -->
-  <!-- Capital (top scroll) -->
-  <rect x="148" y="120" width="216" height="22" fill="url(#col)"/>
-  <circle cx="178" cy="142" r="14" fill="url(#col)"/>
-  <circle cx="334" cy="142" r="14" fill="url(#col)"/>
-  <rect x="160" y="138" width="192" height="16" fill="url(#col)"/>
+  <!-- Stylobate (3-step base) -->
+  <rect x="36" y="400" width="440" height="18" fill="url(#marble)"/>
+  <rect x="46" y="418" width="420" height="18" fill="url(#marble)" opacity="0.97"/>
+  <rect x="56" y="436" width="400" height="22" fill="url(#marble)" opacity="0.93"/>
 
-  <!-- Shaft -->
-  <rect x="176" y="154" width="160" height="248" fill="url(#col)"/>
-  <!-- Fluting -->
-  <g stroke="#C9B984" stroke-width="2" opacity="0.7">
-    <line x1="190" y1="156" x2="190" y2="400"/>
-    <line x1="206" y1="156" x2="206" y2="400"/>
-    <line x1="222" y1="156" x2="222" y2="400"/>
-    <line x1="238" y1="156" x2="238" y2="400"/>
-    <line x1="254" y1="156" x2="254" y2="400"/>
-    <line x1="270" y1="156" x2="270" y2="400"/>
-    <line x1="286" y1="156" x2="286" y2="400"/>
-    <line x1="302" y1="156" x2="302" y2="400"/>
-    <line x1="318" y1="156" x2="318" y2="400"/>
+  <!-- 6 Doric columns with shafts -->
+  <g fill="url(#marble)">
+    <rect x="78"  y="200" width="44" height="200"/>
+    <rect x="148" y="200" width="44" height="200"/>
+    <rect x="218" y="200" width="44" height="200"/>
+    <rect x="288" y="200" width="44" height="200"/>
+    <rect x="358" y="200" width="44" height="200"/>
+    <rect x="428" y="200" width="44" height="200"/>
   </g>
 
-  <!-- Base -->
-  <rect x="160" y="402" width="192" height="14" fill="url(#col)"/>
-  <rect x="148" y="416" width="216" height="20" fill="url(#col)"/>
-
-  <!-- Ground line -->
-  <rect x="60" y="436" width="392" height="6" fill="#7c2d12" opacity="0.4"/>
-
-  <!-- Two laurel branches at the base -->
-  <g fill="#65a30d" opacity="0.85">
-    <ellipse cx="100" cy="430" rx="20" ry="6" transform="rotate(-15 100 430)"/>
-    <ellipse cx="110" cy="418" rx="18" ry="5" transform="rotate(-10 110 418)"/>
-    <ellipse cx="412" cy="430" rx="20" ry="6" transform="rotate(15 412 430)"/>
-    <ellipse cx="402" cy="418" rx="18" ry="5" transform="rotate(10 402 418)"/>
+  <!-- Doric capitals (simple square abacus) -->
+  <g fill="url(#marble)">
+    <rect x="72"  y="188" width="56" height="14"/>
+    <rect x="142" y="188" width="56" height="14"/>
+    <rect x="212" y="188" width="56" height="14"/>
+    <rect x="282" y="188" width="56" height="14"/>
+    <rect x="352" y="188" width="56" height="14"/>
+    <rect x="422" y="188" width="56" height="14"/>
   </g>
+
+  <!-- Fluting (3 vertical lines per column) -->
+  <g stroke="#C9B984" stroke-width="1.4" opacity="0.55">
+    <line x1="89"  y1="204" x2="89"  y2="398"/>
+    <line x1="100" y1="204" x2="100" y2="398"/>
+    <line x1="111" y1="204" x2="111" y2="398"/>
+    <line x1="159" y1="204" x2="159" y2="398"/>
+    <line x1="170" y1="204" x2="170" y2="398"/>
+    <line x1="181" y1="204" x2="181" y2="398"/>
+    <line x1="229" y1="204" x2="229" y2="398"/>
+    <line x1="240" y1="204" x2="240" y2="398"/>
+    <line x1="251" y1="204" x2="251" y2="398"/>
+    <line x1="299" y1="204" x2="299" y2="398"/>
+    <line x1="310" y1="204" x2="310" y2="398"/>
+    <line x1="321" y1="204" x2="321" y2="398"/>
+    <line x1="369" y1="204" x2="369" y2="398"/>
+    <line x1="380" y1="204" x2="380" y2="398"/>
+    <line x1="391" y1="204" x2="391" y2="398"/>
+    <line x1="439" y1="204" x2="439" y2="398"/>
+    <line x1="450" y1="204" x2="450" y2="398"/>
+    <line x1="461" y1="204" x2="461" y2="398"/>
+  </g>
+
+  <!-- Entablature (architrave + frieze) -->
+  <rect x="46" y="156" width="420" height="32" fill="url(#marble)"/>
+  <line x1="46" y1="172" x2="466" y2="172" stroke="#C9B984" stroke-width="1" opacity="0.5"/>
+
+  <!-- Triangular pediment -->
+  <polygon points="256,52 46,156 466,156" fill="url(#marble)"/>
+  <polygon points="256,52 46,156 466,156" fill="none" stroke="#C9B984" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Tiny acroterion (decorative point) at peak -->
+  <circle cx="256" cy="48" r="6" fill="url(#marble)"/>
+
+  <!-- Subtle ground shadow under columns -->
+  <ellipse cx="256" cy="464" rx="220" ry="6" fill="url(#shadow)"/>
 </svg>

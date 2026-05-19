@@ -1,4 +1,4 @@
-Project: Paideia
+Project: Classical Mind
 Type: Self-learning PWA for the classical liberal arts
 Target: Adult learners (or parents teaching older children) wanting a structured way into classical education
 Stack: Plain HTML/CSS/JS PWA, localStorage, no build step

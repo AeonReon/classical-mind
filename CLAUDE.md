@@ -1,4 +1,4 @@
-# Paideia — Project Rules
+# Classical Mind — Project Rules
 
 A standalone app for adult self-learners of the classical liberal arts. The whole formation — Trivium (Grammar, Logic, Rhetoric), Quadrivium (Arithmetic, Geometry, Music, Astronomy), the Great Books, the classical Languages — from beginner to advanced.
 
