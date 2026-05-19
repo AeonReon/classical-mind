@@ -1,4 +1,4 @@
-const CACHE = 'paideia-v1';
+const CACHE = 'classical-mind-v2';
 const ASSETS = [
   './',
   './index.html',
