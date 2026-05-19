@@ -1,0 +1,31 @@
+{
+  "name": "Paideia",
+  "short_name": "Paideia",
+  "description": "The classical liberal arts, from beginner to advanced. A self-learner's guide to Grammar, Logic, Rhetoric, Arithmetic, Geometry, Music, Astronomy, the Great Books, and the classical languages.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FAF6EC",
+  "theme_color": "#FAF6EC",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

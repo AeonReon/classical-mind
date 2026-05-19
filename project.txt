@@ -1,0 +1,20 @@
+Project: Paideia
+Type: Self-learning PWA for the classical liberal arts
+Target: Adult learners (or parents teaching older children) wanting a structured way into classical education
+Stack: Plain HTML/CSS/JS PWA, localStorage, no build step
+Account: AeonReon (GitHub), aeonreon team (Vercel)
+Created: 2026-05-19
+
+API keys: none required
+Contact: n/a
+
+Structure:
+- Foundation (Start Here)
+- Trivium: Grammar, Logic, Rhetoric
+- Quadrivium: Arithmetic, Geometry, Music, Astronomy
+- Great Books (the canon, with reading plans)
+- Languages (Latin and Greek)
+
+Each art has 5 sub-tiles: What it is · The path (beginner→advanced) · Practice · Reading · Masters
+
+Reads aloud via system voice (Daniel on iOS).

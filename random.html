@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF6EC">
+  <title>Paideia — A random practice</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="random-page">
+  <a href="index.html" class="home-link">← Home</a>
+
+  <main class="random-main">
+    <header class="random-hero">
+      <div class="random-eyebrow">Surprise me</div>
+      <h1>A random practice</h1>
+      <p class="lede">One small thing to try today, drawn at random from any of the liberal arts. Press the button for another.</p>
+    </header>
+
+    <div id="card-host"></div>
+
+    <div class="random-actions">
+      <button id="another-btn" class="primary-fill">↻ Another practice</button>
+    </div>
+  </main>
+
+  <script src="assets/arts-data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    function pick() {
+      const withPractice = window.ARTS.filter(a => a.sections && a.sections.practice && a.sections.practice.items && a.sections.practice.items.length);
+      const a = withPractice[Math.floor(Math.random() * withPractice.length)];
+      const items = a.sections.practice.items;
+      const item = items[Math.floor(Math.random() * items.length)];
+      return { a, item };
+    }
+
+    function render() {
+      const { a, item } = pick();
+      document.documentElement.style.setProperty('--m-color', a.color);
+      document.documentElement.style.setProperty('--m-deep', a.colorDeep);
+      document.documentElement.style.setProperty('--m-soft', a.colorSoft);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', a.color);
+
+      document.getElementById('card-host').innerHTML = `
+        <div class="random-card" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">
+          <div class="random-card-eyebrow">From ${a.name}</div>
+          <h2 class="random-card-name">${item.name}</h2>
+          <p class="random-card-body">${item.body}</p>
+          <a class="random-card-link" href="art.html?id=${a.id}">Explore ${a.name} →</a>
+        </div>
+      `;
+    }
+
+    document.getElementById('another-btn').addEventListener('click', render);
+    render();
+  </script>
+</body>
+</html>
