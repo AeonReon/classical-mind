@@ -137,9 +137,9 @@
     </section>
 
     <section class="tile-section">
-      <h2 class="tile-section-title">Schools of thought</h2>
+      <h2 class="tile-section-title">Schools of Thought</h2>
       <p class="tile-section-sub">Whole ways of seeing the world and living well — each on its own terms.</p>
-      <div id="schools-grid" class="tile-grid"></div>
+      <div class="rtile-list" id="schools-cat"></div>
     </section>
 
     <section class="tile-section">
@@ -213,8 +213,6 @@
       const el = document.getElementById(id); if(!el) return;
       el.innerHTML = window.ARTS.filter(a => a.group === group).map(buildTile).join('');
     }
-    fillGroup('schools-grid','Schools of Thought');
-
     // The liberal arts, grouped as categories. Multi-art paths (Trivium,
     // Quadrivium) open a submenu (category.html); single arts link straight in.
     const CATEGORIES = [
@@ -239,6 +237,9 @@
           <span class="rtile-chev" aria-hidden="true">→</span>
         </a>`;
     }
+    // Schools of Thought — its own tab: one tile into the full set.
+    const SCHOOLS_CAT = { name:'The Six Schools', tagline:'Stoicism, Plato, Aristotle, Epicurus, Diogenes and Confucius — each on its own terms.', count:'Stoic · Platonist · Aristotelian · Epicurean · Cynic · Confucian', href:'category.html?id=schools', image:'assets/schools/platonism.jpg', icon:'column', color:'#4F6D7A', colorDeep:'#2F4550' };
+    document.getElementById('schools-cat').innerHTML = rtile(SCHOOLS_CAT);
     document.getElementById('arts-cats').innerHTML = CATEGORIES.map(rtile).join('');
     document.getElementById('tools-list').innerHTML = TOOLS.map(rtile).join('');
 

@@ -9,6 +9,13 @@
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .art-banner{ position:relative; border-radius:18px; overflow:hidden; height:172px; margin:44px 0 16px; box-shadow:0 3px 8px rgba(60,45,20,.10),0 14px 32px rgba(60,45,20,.14); }
+    .art-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .art-banner::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.18)); }
+    .method-page .method-hero{ padding-top:0; }
+    .sub-tile-section .rtile-list{ margin-top:4px; }
+  </style>
 </head>
 <body class="method-page">
   <a href="index.html" class="home-link">← Home</a>
@@ -43,6 +50,14 @@
       'reading': 'Primary sources & modern guides',
       'masters': 'The great figures of this art'
     };
+    // One image per sub-section type, shared across every art and school page.
+    const SUB_IMAGES = {
+      'what-it-is': 'assets/sub/what-it-is.jpg',
+      'the-path': 'assets/sub/the-path.jpg',
+      'practice': 'assets/sub/practice.jpg',
+      'reading': 'assets/sub/reading.jpg',
+      'masters': 'assets/sub/masters.jpg'
+    };
 
     const id = new URLSearchParams(location.search).get('id') || 'foundation';
     const a = window.ART_BY_ID(id);
@@ -68,17 +83,21 @@
       const subTiles = SECTION_ORDER.map(key => {
         const s = a.sections && a.sections[key];
         const built = !!s;
+        const img = SUB_IMAGES[key];
         return `
-          <a class="sub-tile ${built ? '' : 'sub-tile-stub'}" ${built ? `href="art.html?id=${a.id}&s=${key}"` : ''}>
-            ${built ? '' : '<span class="tile-badge">Coming soon</span>'}
-            <div class="sub-tile-icon"><svg viewBox="0 0 64 64">${SUB_ICONS[key]}</svg></div>
-            <div class="sub-tile-name">${SUB_TITLES[key]}</div>
-            <div class="sub-tile-tag">${SUB_TAGS[key]}</div>
+          <a class="rtile ${built ? '' : 'sub-tile-stub'}" ${built ? `href="art.html?id=${a.id}&s=${key}"` : ''} style="--c:${a.color};--cd:${a.colorDeep};">
+            <span class="rtile-photo">${img ? `<img src="${img}" alt="" loading="lazy" onerror="this.remove()">` : ''}<span class="rtile-ic"><svg viewBox="0 0 64 64">${SUB_ICONS[key]}</svg></span></span>
+            <span class="rtile-body">
+              <span class="rtile-name">${SUB_TITLES[key]}</span>
+              <span class="rtile-tagline">${SUB_TAGS[key]}</span>
+            </span>
+            <span class="rtile-chev" aria-hidden="true">${built ? '→' : ''}</span>
           </a>
         `;
       }).join('');
 
       root.innerHTML = `
+        ${a.image ? `<div class="art-banner"><img src="${a.image}" alt="" onerror="this.parentNode.remove()"></div>` : ''}
         <header class="method-hero">
           <div class="method-hero-eyebrow">${a.group}</div>
           <h1>${a.name}</h1>
@@ -88,7 +107,7 @@
 
         <section class="sub-tile-section">
           <h2>Explore</h2>
-          <div class="sub-tile-grid">${subTiles}</div>
+          <div class="rtile-list">${subTiles}</div>
         </section>
       `;
     }

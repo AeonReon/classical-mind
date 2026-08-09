@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v9';
+const CACHE = 'classical-mind-v10';
 const ASSETS = [
   './',
   './index.html',
@@ -38,7 +38,12 @@ const ASSETS = [
   './assets/arts/arithmetic.jpg',
   './assets/arts/geometry.jpg',
   './assets/arts/music.jpg',
-  './assets/arts/astronomy.jpg'
+  './assets/arts/astronomy.jpg',
+  './assets/sub/what-it-is.jpg',
+  './assets/sub/the-path.jpg',
+  './assets/sub/practice.jpg',
+  './assets/sub/reading.jpg',
+  './assets/sub/masters.jpg'
 ];
 
 self.addEventListener('install', (e) => {
