@@ -54,7 +54,9 @@
     .today-bar .tb-kicker{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--tcd); display:inline-flex; gap:.4em; align-items:center; }
     .today-bar .tb-title{ font-weight:800; font-size:1.05em; letter-spacing:-.01em; color:var(--ink,#2A2038); line-height:1.18; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .today-bar .tb-teaser{ font-size:.88em; color:#7a7488; line-height:1.34; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-    .today-bar .tb-glyph{ flex:none; width:76px; align-self:stretch; display:grid; place-items:center; font-size:2rem; color:#fff; background:linear-gradient(150deg,var(--tc),var(--tcd)); }
+    .today-bar .tb-photo{ flex:none; width:92px; align-self:stretch; position:relative; overflow:hidden; background:linear-gradient(150deg,var(--tc),var(--tcd)); }
+    .today-bar .tb-glyph{ position:absolute; inset:0; display:grid; place-items:center; font-size:2rem; color:#fff; z-index:0; filter:drop-shadow(0 1px 2px rgba(0,0,0,.3)); }
+    .today-bar .tb-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
 
     /* ---- Daily modal ---- */
     .cm-modal-overlay{ position:fixed; inset:0; z-index:80; background:rgba(30,22,15,.5); backdrop-filter:blur(3px); display:flex; align-items:flex-end; justify-content:center; padding:0; opacity:0; pointer-events:none; transition:opacity .2s ease; }
@@ -282,7 +284,7 @@
             <span class="tb-title">${esc(title)}</span>
             <span class="tb-teaser">${esc(teaser)}</span>
           </span>
-          <span class="tb-glyph" aria-hidden="true">${emoji}</span>`;
+          <span class="tb-photo" aria-hidden="true"><span class="tb-glyph">${emoji}</span><img src="assets/daily/${type}.jpg" alt="" loading="lazy" onerror="this.remove()"></span>`;
         b.addEventListener('click', onOpen);
         return b;
       }
