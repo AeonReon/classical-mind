@@ -143,46 +143,14 @@
     </section>
 
     <section class="tile-section">
-      <h2 class="tile-section-title">Begin</h2>
-      <p class="tile-section-sub">Start here if you are new to the classical tradition.</p>
-      <div id="begin-grid" class="tile-grid"></div>
-    </section>
-
-    <section class="tile-section">
-      <h2 class="tile-section-title">Trivium</h2>
-      <p class="tile-section-sub">The three arts of language and reasoning.</p>
-      <div id="trivium-grid" class="tile-grid"></div>
-    </section>
-
-    <section class="tile-section">
-      <h2 class="tile-section-title">Quadrivium</h2>
-      <p class="tile-section-sub">The four arts of number, magnitude, and proportion.</p>
-      <div id="quadrivium-grid" class="tile-grid"></div>
-    </section>
-
-    <section class="tile-section">
-      <h2 class="tile-section-title">Beyond the arts</h2>
-      <p class="tile-section-sub">Where the seven arts meet — the canon, and the languages that open it.</p>
-      <div id="beyond-grid" class="tile-grid"></div>
+      <h2 class="tile-section-title">The Liberal Arts</h2>
+      <p class="tile-section-sub">The classical curriculum, arranged as the tradition itself arranged it. Tap a path to see what's inside.</p>
+      <div class="rtile-list" id="arts-cats"></div>
     </section>
 
     <section class="tile-section">
       <h2 class="tile-section-title">Tools</h2>
-      <p class="tile-section-sub">Quick ways in.</p>
-      <div class="tile-grid">
-        <a href="random.html" class="tile" style="--c:#7c3aed;--cd:#5b21b6;--cs:#ede9fe;">
-          <div class="tile-icon-wrap">
-            <svg viewBox="0 0 64 64" class="tile-icon">
-              <rect x="14" y="14" width="36" height="36" rx="6" fill="currentColor"/>
-              <circle cx="24" cy="24" r="3" fill="white"/><circle cx="40" cy="24" r="3" fill="white"/><circle cx="32" cy="32" r="3" fill="white"/><circle cx="24" cy="40" r="3" fill="white"/><circle cx="40" cy="40" r="3" fill="white"/>
-            </svg>
-          </div>
-          <div class="tile-body">
-            <div class="tile-name">Surprise me</div>
-            <div class="tile-tagline">A random practice from any art. Press for another.</div>
-          </div>
-        </a>
-      </div>
+      <div class="rtile-list" id="tools-list"></div>
     </section>
 
   </main>
@@ -246,10 +214,33 @@
       el.innerHTML = window.ARTS.filter(a => a.group === group).map(buildTile).join('');
     }
     fillGroup('schools-grid','Schools of Thought');
-    fillGroup('begin-grid','Begin');
-    fillGroup('trivium-grid','Trivium');
-    fillGroup('quadrivium-grid','Quadrivium');
-    fillGroup('beyond-grid','Beyond the Arts');
+
+    // The liberal arts, grouped as categories. Multi-art paths (Trivium,
+    // Quadrivium) open a submenu (category.html); single arts link straight in.
+    const CATEGORIES = [
+      { name:'Foundation', tagline:'What classical learning is, and how to begin.', count:'Start here', href:'art.html?id=foundation', image:'assets/arts/foundation.jpg', icon:'sun', color:'#D98A1E', colorDeep:'#92400E' },
+      { name:'The Trivium', tagline:'The three arts of language and reasoning.', count:'Grammar · Logic · Rhetoric', href:'category.html?id=trivium', image:'assets/arts/trivium.jpg', icon:'mouth', color:'#2F9E77', colorDeep:'#1F6B52' },
+      { name:'The Quadrivium', tagline:'The four arts of number, magnitude, and proportion.', count:'Arithmetic · Geometry · Music · Astronomy', href:'category.html?id=quadrivium', image:'assets/arts/quadrivium.jpg', icon:'triangle', color:'#3F72B8', colorDeep:'#294E85' },
+      { name:'The Great Books', tagline:'The canon, read as one long conversation.', count:'The reading plan', href:'art.html?id=great-books', image:'assets/arts/great-books.jpg', icon:'books', color:'#4C63B6', colorDeep:'#33468C' },
+      { name:'Classical Languages', tagline:'Latin and Greek — the keys to the sources.', count:'Latin · Greek', href:'art.html?id=languages', image:'assets/arts/languages.jpg', icon:'alpha', color:'#8A5CB4', colorDeep:'#5E3A85' },
+    ];
+    const TOOLS = [
+      { name:'Surprise me', tagline:'A random practice from any art or school. Press for another.', count:'Random', href:'random.html', image:'', icon:'star', color:'#7C3AED', colorDeep:'#5B21B6' },
+    ];
+    function rtile(c){
+      const icon = ICONS[c.icon] || ICONS.sun;
+      return `<a href="${c.href}" class="rtile" style="--c:${c.color};--cd:${c.colorDeep};">
+          <span class="rtile-photo">${c.image ? `<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()">` : ''}<span class="rtile-ic"><svg viewBox="0 0 64 64">${icon}</svg></span></span>
+          <span class="rtile-body">
+            <span class="rtile-name">${c.name}</span>
+            <span class="rtile-tagline">${c.tagline}</span>
+            <span class="rtile-count">${c.count}</span>
+          </span>
+          <span class="rtile-chev" aria-hidden="true">→</span>
+        </a>`;
+    }
+    document.getElementById('arts-cats').innerHTML = CATEGORIES.map(rtile).join('');
+    document.getElementById('tools-list').innerHTML = TOOLS.map(rtile).join('');
 
     // ---------- "For today" feed ----------
     (function(){

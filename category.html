@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FAF6EC">
+  <title>Classical Mind</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="method-page">
+  <a href="index.html" class="home-link">← Home</a>
+  <main id="root" class="method-main"></main>
+
+  <script src="assets/arts-data.js"></script>
+  <script src="assets/schools-data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const META = {
+      trivium: {
+        eyebrow: 'The Liberal Arts',
+        name: 'The Trivium',
+        tagline: 'The three arts of language and reasoning',
+        blurb: 'The Trivium — Grammar, Logic, and Rhetoric — is the classical education in words. First you learn to read and know a language exactly (Grammar); then to reason and judge what is true (Logic); then to say it well and move others (Rhetoric). Master the three and you can take in any serious text, think it through, and give it back rightly.',
+        group: 'Trivium', color: '#2F9E77', colorDeep: '#1F6B52'
+      },
+      quadrivium: {
+        eyebrow: 'The Liberal Arts',
+        name: 'The Quadrivium',
+        tagline: 'The four arts of number, magnitude, and proportion',
+        blurb: 'The Quadrivium — Arithmetic, Geometry, Music, and Astronomy — is the classical education in number. Arithmetic is number in itself; Geometry, number in space; Music, number in time; Astronomy, number in motion. Together they train the mind to see the order beneath appearances, and were held to prepare the soul for the highest study of all.',
+        group: 'Quadrivium', color: '#3F72B8', colorDeep: '#294E85'
+      }
+    };
+
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const m = META[id];
+    const root = document.getElementById('root');
+
+    function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    if (!m) {
+      root.innerHTML = '<header class="method-hero"><h1>Not found</h1><p class="method-blurb">That path doesn\'t exist. <a href="index.html">Back home</a>.</p></header>';
+    } else {
+      document.title = m.name + ' — Classical Mind';
+      const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute('content', m.colorDeep);
+      const arts = (window.ARTS || []).filter(a => a.group === m.group);
+
+      const tiles = arts.map(a => `
+        <a href="art.html?id=${a.id}" class="rtile" style="--c:${a.color};--cd:${a.colorDeep};">
+          <span class="rtile-photo">${a.image ? `<img src="${esc(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ''}</span>
+          <span class="rtile-body">
+            <span class="rtile-name">${esc(a.name)}</span>
+            <span class="rtile-tagline">${esc(a.tagline)}</span>
+            ${a.short ? `<span class="rtile-count">${esc(a.short)}</span>` : ''}
+          </span>
+          <span class="rtile-chev" aria-hidden="true">→</span>
+        </a>`).join('');
+
+      root.innerHTML = `
+        <header class="method-hero" style="--m-color:${m.color};--m-deep:${m.colorDeep};">
+          <div class="method-hero-eyebrow">${esc(m.eyebrow)}</div>
+          <h1>${esc(m.name)}</h1>
+          <p class="method-tagline">${esc(m.tagline)}</p>
+          <p class="method-blurb">${esc(m.blurb)}</p>
+        </header>
+        <section class="tile-section" style="margin-top:6px;">
+          <div class="rtile-list">${tiles}</div>
+        </section>`;
+    }
+  </script>
+</body>
+</html>

@@ -1,8 +1,9 @@
-const CACHE = 'classical-mind-v8';
+const CACHE = 'classical-mind-v9';
 const ASSETS = [
   './',
   './index.html',
   './art.html',
+  './category.html',
   './random.html',
   './manifest.json',
   './icon-192.png',
@@ -25,7 +26,19 @@ const ASSETS = [
   './assets/daily/do.jpg',
   './assets/daily/verse.jpg',
   './assets/daily/passage.jpg',
-  './assets/daily/word.jpg'
+  './assets/daily/word.jpg',
+  './assets/arts/foundation.jpg',
+  './assets/arts/trivium.jpg',
+  './assets/arts/quadrivium.jpg',
+  './assets/arts/great-books.jpg',
+  './assets/arts/languages.jpg',
+  './assets/arts/grammar.jpg',
+  './assets/arts/logic.jpg',
+  './assets/arts/rhetoric.jpg',
+  './assets/arts/arithmetic.jpg',
+  './assets/arts/geometry.jpg',
+  './assets/arts/music.jpg',
+  './assets/arts/astronomy.jpg'
 ];
 
 self.addEventListener('install', (e) => {

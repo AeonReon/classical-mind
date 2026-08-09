@@ -6,6 +6,7 @@
 window.ARTS = [
   {
     id: 'foundation',
+    image: 'assets/arts/foundation.jpg',
     name: 'Foundation',
     short: 'Start here',
     tagline: 'What classical learning is, and how to begin',
@@ -101,6 +102,7 @@ window.ARTS = [
   },
   {
     id: 'grammar',
+    image: 'assets/arts/grammar.jpg',
     name: 'Grammar',
     short: 'Grammar',
     tagline: 'The art of words rightly used',
@@ -195,6 +197,7 @@ window.ARTS = [
   },
   {
     id: 'logic',
+    image: 'assets/arts/logic.jpg',
     name: 'Logic',
     short: 'Logic',
     tagline: 'The art of reasoning rightly',
@@ -287,6 +290,7 @@ window.ARTS = [
   },
   {
     id: 'rhetoric',
+    image: 'assets/arts/rhetoric.jpg',
     name: 'Rhetoric',
     short: 'Rhetoric',
     tagline: 'The art of persuasion in service of truth',
@@ -386,6 +390,7 @@ window.ARTS = [
   },
   {
     id: 'arithmetic',
+    image: 'assets/arts/arithmetic.jpg',
     name: 'Arithmetic',
     short: 'Arithmetic',
     tagline: 'The science of number',
@@ -481,6 +486,7 @@ window.ARTS = [
   },
   {
     id: 'geometry',
+    image: 'assets/arts/geometry.jpg',
     name: 'Geometry',
     short: 'Geometry',
     tagline: 'The science of shape, space, and proof',
@@ -573,6 +579,7 @@ window.ARTS = [
   },
   {
     id: 'music',
+    image: 'assets/arts/music.jpg',
     name: 'Music',
     short: 'Music',
     tagline: 'Number heard — the harmony of ratios',
@@ -668,6 +675,7 @@ window.ARTS = [
   },
   {
     id: 'astronomy',
+    image: 'assets/arts/astronomy.jpg',
     name: 'Astronomy',
     short: 'Astronomy',
     tagline: 'The science of the heavens',
@@ -766,6 +774,7 @@ window.ARTS = [
   },
   {
     id: 'great-books',
+    image: 'assets/arts/great-books.jpg',
     name: 'Great Books',
     short: 'Great Books',
     tagline: 'The two-thousand-year conversation',
@@ -888,6 +897,7 @@ window.ARTS = [
   },
   {
     id: 'languages',
+    image: 'assets/arts/languages.jpg',
     name: 'Languages',
     short: 'Languages',
     tagline: 'Latin and Greek, the keys to the canon',

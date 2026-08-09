@@ -1661,3 +1661,42 @@ body.random-page {
   font-size: 1em;
   padding: 0.85em 1.6em;
 }
+
+/* ---- Horizontal photo tiles (Conscious Parenting "Every day" style) ---- */
+/* Used on the home launcher for category tiles and inside category pages. */
+.rtile-list { display: flex; flex-direction: column; gap: 0.7em; }
+.rtile {
+  position: relative; display: flex; align-items: stretch; width: 100%;
+  text-decoration: none; background: #fff; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 2px 4px rgba(60,45,20,.07), 0 10px 24px rgba(60,45,20,.09);
+  transition: transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease;
+}
+.rtile::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; z-index: 3;
+  background: linear-gradient(180deg, var(--c), var(--cd));
+}
+.rtile:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,45,20,.14); }
+.rtile:active { transform: scale(.99); }
+.rtile-photo {
+  flex: none; width: 108px; align-self: stretch; position: relative; overflow: hidden;
+  background: linear-gradient(150deg, var(--c), var(--cd));
+}
+.rtile-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.rtile-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0) 60%, rgba(0,0,0,.12)); z-index: 2; }
+.rtile-ic {
+  position: absolute; left: 8px; bottom: 8px; z-index: 3; width: 32px; height: 32px;
+  border-radius: 9px; background: linear-gradient(150deg, var(--c), var(--cd));
+  display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.28); border: 2px solid #fff;
+}
+.rtile-ic svg { width: 19px; height: 19px; color: #fff; }
+.rtile-body {
+  flex: 1; min-width: 0; padding: 13px 12px 13px 16px;
+  display: flex; flex-direction: column; justify-content: center; gap: .18em;
+}
+.rtile-name { font-weight: 800; font-size: 1.06em; letter-spacing: -.01em; color: var(--ink); line-height: 1.15; }
+.rtile-tagline { font-size: .88em; line-height: 1.35; color: var(--ink-mute); }
+.rtile-count {
+  margin-top: .3em; font-size: .72rem; font-weight: 800; letter-spacing: .02em;
+  text-transform: uppercase; color: var(--cd);
+}
+.rtile-chev { flex: none; align-self: center; padding-right: 14px; color: var(--ink-mute); font-size: 1.2em; opacity: .6; }
