@@ -1700,3 +1700,26 @@ body.random-page {
   text-transform: uppercase; color: var(--cd);
 }
 .rtile-chev { flex: none; align-self: center; padding-right: 14px; color: var(--ink-mute); font-size: 1.2em; opacity: .6; }
+
+/* ---- Corner navigation: Back (history) left, Home right ---- */
+.corner-nav {
+  position: fixed;
+  top: calc(0.8em + env(safe-area-inset-top, 0px));
+  z-index: 9999;
+  background: #fff;
+  color: var(--ink);
+  padding: 0.52em 1.05em;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 0.82em;
+  font-weight: 800;
+  text-decoration: none;
+  border: 1.5px solid var(--rule);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.corner-nav:hover { box-shadow: 0 4px 12px rgba(60,45,20,.16); }
+.corner-nav:active { transform: scale(.94); }
+.corner-back { left: 0.8em; }
+.corner-home { right: 0.8em; }

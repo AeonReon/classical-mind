@@ -1,10 +1,20 @@
-const APP_VERSION = 'v9';
+const APP_VERSION = 'v10';
 
-function renderHomeLink() {
+// Back = browser history, so it returns you to the EXACT spot you left
+// (scroll and all). Home = straight to the launcher. Falls back to Home if
+// there's no history to go back to (e.g. opened this page directly).
+function cmBack() {
+  if (window.history.length > 1) window.history.back();
+  else window.location.href = 'index.html';
+}
+window.cmBack = cmBack;
+
+function renderNav() {
   const here = location.pathname.split('/').pop() || 'index.html';
-  if (here === 'index.html' || here === '' || here === 'art.html') return;
+  if (here === 'index.html' || here === '') return; // the launcher itself needs no nav
   document.body.insertAdjacentHTML('afterbegin',
-    '<a href="index.html" class="home-link">← Home</a>'
+    '<button type="button" class="corner-nav corner-back" onclick="cmBack()">← Back</button>' +
+    '<a href="index.html" class="corner-nav corner-home">Home ⌂</a>'
   );
 }
 
@@ -35,7 +45,7 @@ function save(key, value) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderHomeLink();
+  renderNav();
   renderVersionPill();
   registerSW();
 });

@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-    .art-banner{ position:relative; border-radius:18px; overflow:hidden; height:172px; margin:44px 0 16px; box-shadow:0 3px 8px rgba(60,45,20,.10),0 14px 32px rgba(60,45,20,.14); }
+    .art-banner{ position:relative; border-radius:18px; overflow:hidden; height:172px; margin:2px 0 18px; box-shadow:0 3px 8px rgba(60,45,20,.10),0 14px 32px rgba(60,45,20,.14); }
     .art-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
     .art-banner::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.18)); }
     .method-page .method-hero{ padding-top:0; }
@@ -18,8 +18,6 @@
   </style>
 </head>
 <body class="method-page">
-  <a href="index.html" class="home-link">← Home</a>
-
   <main id="root" class="method-main"></main>
 
   <script src="assets/arts-data.js"></script>
@@ -114,7 +112,6 @@
 
     function renderSubSection(a, key) {
       const s = a.sections[key];
-      const back = `<div class="sub-back"><a href="art.html?id=${a.id}">← Back to ${a.name}</a></div>`;
       let body = '';
 
       if (key === 'what-it-is') {
@@ -176,7 +173,6 @@
       }
 
       root.innerHTML = `
-        ${back}
         <header class="sub-hero">
           <div class="sub-hero-eyebrow">${a.name}</div>
           <h1>${SUB_TITLES[key]}</h1>

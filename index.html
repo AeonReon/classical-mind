@@ -40,6 +40,10 @@
     .welcome-body{ padding:14px 15px 16px; font-size:15px; line-height:1.55; color:#4d4658; }
     .welcome-body p{ margin:0 0 .7em; } .welcome-body p:last-child{ margin-bottom:0; }
     .welcome-body b{ color:var(--ink,#2A2038); }
+    .wl-play{ display:inline-flex; align-items:center; gap:9px; border:0; cursor:pointer; background:var(--grad-sky-app); color:#fff; font:800 14.5px -apple-system,system-ui,sans-serif; padding:.7em 1.25em; border-radius:999px; margin:0 0 13px; box-shadow:0 4px 13px rgba(46,132,189,.32); transition:transform .15s ease; }
+    .wl-play:hover{ transform:translateY(-1px); } .wl-play:active{ transform:scale(.97); }
+    .wl-play:disabled{ opacity:.55; cursor:default; box-shadow:none; }
+    .wl-play .wl-play-ic{ font-size:11px; }
 
     /* ---- "For today" feed ---- */
     .today-head{ display:flex; align-items:center; justify-content:space-between; margin:0 0 12px; }
@@ -118,13 +122,17 @@
     <details class="welcome" id="welcomeBox">
       <summary class="welcome-sum">
         <span class="wl-badge" aria-hidden="true">📖</span>
-        <span class="wl-sumtxt"><b>New here?</b> How to use this — in one minute</span>
+        <span class="wl-sumtxt"><b>New here?</b> Take a 2-minute listen — why the classics, and what this is</span>
         <span class="wl-chev" aria-hidden="true">▾</span>
       </summary>
       <div class="welcome-body">
-        <p>This is a companion for recovering the kind of formation the ancients called <b>paideia</b> — the making of a whole, free, thinking person. You don't need a course or a schedule.</p>
-        <p><b>Start with today.</b> Each morning the feed gives you a handful of small things — read the quote, sit with the thought, do the one practice, learn the verse across the week. That's the whole method: a little, daily, for years.</p>
-        <p><b>Then wander.</b> Under the feed sit the schools of thought and the seven liberal arts. Open whichever pulls you. Take what serves; leave what does not.</p>
+        <button type="button" class="wl-play" id="wlPlay">
+          <span class="wl-play-ic" aria-hidden="true">▶</span><span id="wlPlayLabel">Listen · 2 min</span>
+        </button>
+        <p>For more than two thousand years, the finest minds who ever lived wrote down what they learned about how to think, how to live, and how to be free. This is your way in — the <b>classical mind</b>, a little at a time.</p>
+        <p>The people who drank from this well didn't just know things. They knew themselves, understood others, and saw the world clearly. It built civilisations, raised the great architects, and formed the founders of the freest nations in history.</p>
+        <p><b>The whole method:</b> read the quote, sit with the thought, learn one line by heart. A little, every day, for the rest of your life.</p>
+        <audio id="wlAudio" src="assets/audio/welcome.mp3" preload="none"></audio>
       </div>
     </details>
 
@@ -377,6 +385,24 @@
       render(off);
       const shuf = el('todayShuffle');
       if (shuf) shuf.addEventListener('click', () => { off++; render(off); });
+    })();
+
+    // "New here?" narration — play/pause, degrades gracefully if the file's missing.
+    (function () {
+      const audio = document.getElementById('wlAudio');
+      const btn = document.getElementById('wlPlay');
+      const label = document.getElementById('wlPlayLabel');
+      const ic = btn && btn.querySelector('.wl-play-ic');
+      if (!audio || !btn) return;
+      audio.addEventListener('error', () => { btn.disabled = true; label.textContent = 'Audio coming soon'; if (ic) ic.textContent = '🔇'; });
+      audio.addEventListener('ended', () => { if (ic) ic.textContent = '▶'; label.textContent = 'Listen again · 2 min'; });
+      audio.addEventListener('pause', () => { if (!audio.ended && ic) { ic.textContent = '▶'; label.textContent = 'Listen · 2 min'; } });
+      btn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play().then(() => { if (ic) ic.textContent = '❚❚'; label.textContent = 'Pause'; })
+            .catch(() => { btn.disabled = true; label.textContent = 'Audio unavailable'; });
+        } else { audio.pause(); }
+      });
     })();
 
     // ---------- PWA + install ----------
