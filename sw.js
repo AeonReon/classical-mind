@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v5';
+const CACHE = 'classical-mind-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -12,7 +12,14 @@ const ASSETS = [
   './assets/app.js',
   './assets/reader.js',
   './assets/arts-data.js',
+  './assets/schools-data.js',
   './assets/daily-data.js',
+  './assets/schools/stoicism.jpg',
+  './assets/schools/platonism.jpg',
+  './assets/schools/aristotle.jpg',
+  './assets/schools/epicureanism.jpg',
+  './assets/schools/cynicism.jpg',
+  './assets/schools/confucius.jpg',
   './assets/daily/quote.jpg',
   './assets/daily/thought.jpg',
   './assets/daily/do.jpg',

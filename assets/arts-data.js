@@ -1012,6 +1012,7 @@ window.ARTS = [
     colorDeep: '#2F4550',
     colorSoft: '#E3ECF0',
     icon: 'column',
+    image: 'assets/schools/stoicism.jpg',
     blurb: 'Founded by Zeno of Citium in the painted colonnade — the Stoa — of Athens around 300 BC, and carried to Rome by Seneca, Epictetus, and the emperor Marcus Aurelius, Stoicism is the most practical of the ancient schools. Its single great insight: some things are within our power and some are not, and nearly all human misery comes from confusing the two. Master that distinction and you become, in the Stoic phrase, invincible — not because nothing can touch your body or your fortune, but because nothing can touch the one thing that is truly yours, the governing reason within.',
     sections: {
       'what-it-is': {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#C6811A">
+  <meta name="theme-color" content="#3F8FCB">
   <title>Classical Mind — a little wisdom every day</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
@@ -11,11 +11,12 @@
   <link rel="stylesheet" href="assets/style.css">
   <style>
     /* ---- App bar ---- */
-    body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A); }
-    .appbar{ background:var(--grad-gold); box-shadow:0 2px 10px rgba(140,90,10,.20); position:sticky; top:0; z-index:40; }
+    body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A);
+          --sky:#5FB1DD; --sky-deep:#3F8FCB; --grad-sky-app:linear-gradient(135deg,#5FB1DD,#3F8FCB); }
+    .appbar{ background:var(--grad-sky-app); box-shadow:0 2px 10px rgba(31,90,140,.22); position:sticky; top:0; z-index:40; }
     .appbar .row{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:56px; max-width:820px; margin:0 auto; padding:0 14px; }
     .appbar .abico{ width:34px; height:34px; border-radius:9px; justify-self:start; box-shadow:0 2px 6px rgba(0,0,0,.22); }
-    .appbar .brand{ justify-self:center; font-weight:800; font-size:17px; letter-spacing:-.01em; color:#fff; text-shadow:0 1px 2px rgba(120,70,0,.35); }
+    .appbar .brand{ justify-self:center; font-weight:800; font-size:17px; letter-spacing:-.01em; color:#fff; text-shadow:0 1px 2px rgba(18,58,96,.4); }
     .appbar .hbtn{ justify-self:end; display:inline-flex; align-items:center; gap:6px; color:#fff; background:rgba(255,255,255,.18); border:0; cursor:pointer; font:700 12.5px/1 -apple-system,system-ui,sans-serif; padding:9px 13px; border-radius:999px; }
     .appbar .hbtn svg{ width:15px; height:15px; }
     @media(max-width:440px){ .appbar .hbtn span{ display:none; } }
@@ -79,6 +80,20 @@
     .cm-morelink{ display:inline-block; margin-top:1.1em; font:800 14px -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); padding:.6em 1.15em; border-radius:999px; text-decoration:none; }
     .cm-read{ display:inline-flex; align-items:center; gap:.5em; margin-top:1.1em; margin-right:.6em; cursor:pointer; font:800 14px -apple-system,system-ui,sans-serif; color:var(--mcd,#8A5A0F); background:#fff; border:1.6px solid currentColor; padding:.55em 1.05em; border-radius:999px; }
     .cm-mclose{ position:absolute; top:14px; right:14px; z-index:2; width:34px; height:34px; border-radius:50%; border:0; cursor:pointer; background:rgba(255,255,255,.22); color:#fff; font-size:20px; line-height:34px; text-align:center; }
+
+    /* ---- School photo tiles (Conscious Parenting style) ---- */
+    .stile{ position:relative; display:block; text-decoration:none; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 12px 26px rgba(60,45,20,.10); transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s ease; }
+    .stile::before{ content:""; position:absolute; inset:0; border-radius:inherit; padding:2px; background:linear-gradient(135deg,var(--c),var(--cd)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:4; }
+    .stile:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(60,45,20,.16); }
+    .stile:active{ transform:scale(.99); }
+    .stile-photo{ position:relative; height:118px; background:linear-gradient(150deg,var(--c),var(--cd)); overflow:hidden; }
+    .stile-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .stile-photo::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 52%,rgba(0,0,0,.30)); }
+    .stile-badge{ position:absolute; left:13px; top:94px; z-index:3; width:46px; height:46px; border-radius:13px; background:linear-gradient(150deg,var(--c),var(--cd)); display:grid; place-items:center; box-shadow:0 3px 9px rgba(0,0,0,.26); border:2.5px solid #fff; }
+    .stile-badge svg{ width:27px; height:27px; color:#fff; }
+    .stile-body{ padding:28px 15px 15px; }
+    .stile-name{ font-weight:800; font-size:1.08em; letter-spacing:-.01em; color:var(--ink,#2A2038); }
+    .stile-tagline{ margin-top:.22em; font-size:.9em; line-height:1.35; color:#6b6478; }
   </style>
 </head>
 <body class="launcher">
@@ -186,6 +201,7 @@
   </div>
 
   <script src="assets/arts-data.js"></script>
+  <script src="assets/schools-data.js"></script>
   <script src="assets/daily-data.js"></script>
   <script src="assets/reader.js"></script>
   <script src="assets/app.js"></script>
@@ -206,6 +222,16 @@
     };
 
     function buildTile(a){
+      if (a.image) {
+        return `<a href="art.html?id=${a.id}" class="stile" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">
+          <div class="stile-photo"><img src="${a.image}" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="stile-badge"><svg viewBox="0 0 64 64">${ICONS[a.icon] || ICONS.sun}</svg></div>
+          <div class="stile-body">
+            <div class="stile-name">${a.name}</div>
+            <div class="stile-tagline">${a.tagline}</div>
+          </div>
+        </a>`;
+      }
       return `<a href="art.html?id=${a.id}" class="tile" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">
           <div class="tile-icon-wrap"><svg viewBox="0 0 64 64" class="tile-icon">${ICONS[a.icon] || ICONS.sun}</svg></div>
           <div class="tile-body">
