@@ -63,13 +63,13 @@
     .today-bar .tb-glyph{ position:absolute; inset:0; display:grid; place-items:center; font-size:2rem; color:#fff; z-index:0; filter:drop-shadow(0 1px 2px rgba(0,0,0,.3)); }
     .today-bar .tb-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
 
-    /* ---- Daily modal ---- */
-    .cm-modal-overlay{ position:fixed; inset:0; z-index:80; background:rgba(30,22,15,.5); backdrop-filter:blur(3px); display:flex; align-items:flex-end; justify-content:center; padding:0; opacity:0; pointer-events:none; transition:opacity .2s ease; }
-    @media(min-width:560px){ .cm-modal-overlay{ align-items:center; padding:20px; } }
+    /* ---- Daily modal — always centred, generous space all around, scrolls inside ---- */
+    .cm-modal-overlay{ position:fixed; inset:0; z-index:80; background:rgba(30,22,15,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center;
+      padding:max(36px,calc(env(safe-area-inset-top) + 20px)) 24px max(36px,calc(env(safe-area-inset-bottom) + 20px)); opacity:0; pointer-events:none; transition:opacity .2s ease; }
     .cm-modal-overlay.open{ opacity:1; pointer-events:auto; }
-    .cm-modal{ position:relative; width:100%; max-width:560px; max-height:88vh; overflow-y:auto; background:#fff; border-radius:22px 22px 0 0; box-shadow:0 -8px 40px rgba(0,0,0,.3); transform:translateY(30px); transition:transform .25s cubic-bezier(0.34,1.56,0.64,1); }
-    @media(min-width:560px){ .cm-modal{ border-radius:22px; } }
-    .cm-modal-overlay.open .cm-modal{ transform:translateY(0); }
+    .cm-modal{ position:relative; width:100%; max-width:440px; max-height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; background:#fff; border-radius:22px; box-shadow:0 24px 64px rgba(0,0,0,.38);
+      transform:scale(.9); opacity:0; transition:transform .26s cubic-bezier(0.34,1.56,0.64,1), opacity .18s ease; }
+    .cm-modal-overlay.open .cm-modal{ transform:scale(1); opacity:1; }
     .cm-mhead{ padding:22px 22px 16px; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); }
     .cm-mkicker{ display:inline-flex; align-items:center; gap:.5em; font:800 11px/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; opacity:.95; }
     .cm-mtitle{ margin:.5em 0 0; font-weight:800; font-size:clamp(22px,5.5vw,28px); letter-spacing:-.02em; line-height:1.12; }
