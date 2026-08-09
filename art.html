@@ -15,6 +15,15 @@
     .art-banner::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.18)); }
     .method-page .method-hero{ padding-top:0; }
     .sub-tile-section .rtile-list{ margin-top:4px; }
+    /* Continue footer — carry the reader 1→2→3→4→5 without going back out */
+    .sub-nav{ display:flex; gap:10px; align-items:stretch; margin:30px 0 10px; }
+    .sub-nav-btn{ text-decoration:none; border-radius:14px; padding:12px 16px; font-family:var(--sans); font-weight:800; box-shadow:var(--shadow-sm); transition:transform .15s ease, box-shadow .15s ease; display:flex; flex-direction:column; justify-content:center; }
+    .sub-nav-btn:active{ transform:scale(.98); }
+    .sub-prev{ flex:none; align-self:stretch; display:flex; align-items:center; background:#fff; color:var(--ink); border:1.5px solid var(--rule); font-size:.86em; }
+    .sub-next{ flex:1; text-align:right; color:#fff; gap:2px; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); box-shadow:0 4px 14px rgba(60,45,20,.2); }
+    .sub-next .sn-kick{ font-size:.68em; font-weight:800; letter-spacing:.06em; text-transform:uppercase; opacity:.92; }
+    .sub-next .sn-title{ font-size:1.06em; }
+    .sub-finish{ background:linear-gradient(135deg,#2FA96B,#1B7A4A); }
   </style>
 </head>
 <body class="method-page">
@@ -112,6 +121,11 @@
 
     function renderSubSection(a, key) {
       const s = a.sections[key];
+      const builtSections = SECTION_ORDER.filter(k => a.sections && a.sections[k]);
+      const idx = builtSections.indexOf(key);
+      const total = builtSections.length;
+      const prevKey = builtSections[idx - 1];
+      const nextKey = builtSections[idx + 1];
       let body = '';
 
       if (key === 'what-it-is') {
@@ -174,11 +188,19 @@
 
       root.innerHTML = `
         <header class="sub-hero">
-          <div class="sub-hero-eyebrow">${a.name}</div>
+          <div class="sub-hero-eyebrow">${a.name} · ${idx + 1} of ${total}</div>
           <h1>${SUB_TITLES[key]}</h1>
           <button class="read-btn" id="sub-read-btn">▶ Read aloud</button>
         </header>
         ${body}
+        <nav class="sub-nav">
+          ${prevKey
+            ? `<a class="sub-nav-btn sub-prev" href="art.html?id=${a.id}&s=${prevKey}">← ${SUB_TITLES[prevKey]}</a>`
+            : `<a class="sub-nav-btn sub-prev" href="art.html?id=${a.id}">← Overview</a>`}
+          ${nextKey
+            ? `<a class="sub-nav-btn sub-next" href="art.html?id=${a.id}&s=${nextKey}"><span class="sn-kick">Next · ${idx + 2} of ${total}</span><span class="sn-title">${SUB_TITLES[nextKey]} →</span></a>`
+            : `<a class="sub-nav-btn sub-next sub-finish" href="art.html?id=${a.id}"><span class="sn-kick">You've finished ${a.name}</span><span class="sn-title">Back to overview ✓</span></a>`}
+        </nav>
       `;
       window.scrollTo(0, 0);
       const readBtn = document.getElementById('sub-read-btn');
