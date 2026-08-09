@@ -1000,9 +1000,99 @@ window.ARTS = [
         ]
       }
     }
+  },
+
+  {
+    id: 'stoicism',
+    name: 'Stoicism',
+    short: 'The examined will',
+    tagline: 'What is in your power, and what is not',
+    group: 'Schools of Thought',
+    color: '#4F6D7A',
+    colorDeep: '#2F4550',
+    colorSoft: '#E3ECF0',
+    icon: 'column',
+    blurb: 'Founded by Zeno of Citium in the painted colonnade — the Stoa — of Athens around 300 BC, and carried to Rome by Seneca, Epictetus, and the emperor Marcus Aurelius, Stoicism is the most practical of the ancient schools. Its single great insight: some things are within our power and some are not, and nearly all human misery comes from confusing the two. Master that distinction and you become, in the Stoic phrase, invincible — not because nothing can touch your body or your fortune, but because nothing can touch the one thing that is truly yours, the governing reason within.',
+    sections: {
+      'what-it-is': {
+        title: 'What Stoicism is',
+        intro: 'The Stoics held that the good life is the life lived according to nature and reason, and that virtue — wisdom, justice, courage, self-control — is the only true good. Everything else, health, wealth, reputation, even life itself, is "indifferent": to be used well when it comes, released without complaint when it goes.',
+        principles: [
+          { name: 'The dichotomy of control', body: 'Epictetus opens his handbook with it: some things are up to us — our judgements, desires, aversions, our own acts — and some are not — our body, property, reputation, office. The whole of Stoic practice is learning to invest your peace only in the first kind.', why: 'Almost all anxiety comes from staking your wellbeing on things you do not control. Withdraw that stake and place it on your own conduct, and no event and no person can any longer make you wretched without your consent.' },
+          { name: 'Virtue is the only good', body: 'For the Stoic, a good man on the rack is happier than a bad man on a throne, because happiness (eudaimonia) is not a feeling but a condition of the soul — the soul acting with excellence. Externals are raw material for virtue, never its substitute.', why: 'If virtue is the only good, then the good life is always available, in any circumstance, to anyone willing to act well. Nothing outside you is needed. This is the Stoic\'s freedom.' },
+          { name: 'Live according to nature', body: 'Two natures are meant: the rational order of the whole cosmos (the logos), and your own nature as a reasoning, social animal. To live well is to align your will with both — to accept what the whole sends, and to do the work of a human being among humans.', why: 'Fighting reality is exhausting and futile. Accepting it — amor fati, the love of one\'s fate — is not resignation but a redirection of energy from what you cannot change to what you can: your own response.' },
+          { name: 'The disturbance is in the judgement', body: 'It is not things that disturb us, said Epictetus, but our opinions about things. Between event and emotion there is always a judgement — "this is bad," "this should not be" — and the judgement is yours to examine, and often to revise.', why: 'You cannot always change the event, but you can nearly always examine the judgement bolted onto it. That gap between stimulus and response is the whole workshop of Stoic freedom.' },
+          { name: 'Memento mori — the view from above', body: 'The Stoics kept death in constant view, not morbidly but to sharpen life. Marcus reminds himself he could leave life at any moment; Seneca counts each day as a whole life. Set beside the vastness of time, most of what agitates us shrinks to nothing.', why: 'Remembering that you will die strips the trivial of its power and returns you to what matters: acting well, now, with the time you actually have. Urgency and calm, together.' },
+          { name: 'A cosmopolis of reason', body: 'Because all people share in the same reason, the Stoics were the first true cosmopolitans — Marcus calls himself a citizen of the world, and holds that we were born to work together, like the two rows of teeth. Justice is not a rule imposed on us but our own rational nature extended to others.', why: 'A philosophy that ended in private tranquillity alone would be mere selfishness. The Stoic\'s inner citadel is built so that he can go out and do his duty to others unshaken.' }
+        ]
+      },
+      'the-path': {
+        title: 'The path, beginner to advanced',
+        intro: 'Stoicism is learned by practice, not only by reading. Begin with the handbook, take up a daily discipline, then read deeper and test it against your own days.',
+        levels: [
+          { stage: 'Beginner', items: [
+            'Read Epictetus\'s Enchiridion ("the handbook") straight through — it is short, and it is the doorway.',
+            'Learn the dichotomy of control cold: at any upset, ask "is this up to me?"',
+            'Read a single section of Marcus Aurelius\'s Meditations each morning.',
+            'Begin an evening review: three questions — what did I do badly, what well, what was left undone?'
+          ] },
+          { stage: 'Intermediate', items: [
+            'Read Seneca\'s Letters to Lucilius — a few at a time, as if written to you.',
+            'Practise the "premeditation of adversity" (premeditatio malorum): calmly rehearse what could go wrong before it does.',
+            'Take one "indifferent" you cling to — money, praise, comfort — and deliberately go without it for a time.',
+            'Read the Meditations entire, slowly, more than once.'
+          ] },
+          { stage: 'Advanced', items: [
+            'Read Epictetus\'s Discourses (the fuller record of his teaching) and Seneca\'s essays (On the Shortness of Life, On the Happy Life).',
+            'Study the Stoic theory behind the practice: their logic, physics, and the logos.',
+            'Read Cicero\'s On Duties and On the Ends of Good and Evil for the Roman synthesis.',
+            'Test the philosophy where it is hard — in grief, injustice, and fear — and keep the journal that Marcus kept.'
+          ] }
+        ]
+      },
+      'practice': {
+        title: 'Stoic practices',
+        intro: 'The Stoics called philosophy an art of living and gave it daily exercises (askēsis). None require belief you have not tested; all can be begun today.',
+        items: [
+          { name: 'The morning preparation', body: 'Before the day begins, rehearse it as Marcus does: today I shall meet interference, ingratitude, and ill-will — and none of it can touch my own reason. You arrive at the day already braced, and so cannot be ambushed by it.' },
+          { name: 'The evening review', body: 'At night, replay the day like Seneca: where did I fall short, where did I do well, what shall I do differently? Judge yourself as a fair friend would — honestly, without cruelty. This is the engine of slow change.' },
+          { name: 'The dichotomy check', body: 'At any moment of distress, stop and sort: what here is up to me, what is not? Release your grip on the second. Pour your whole effort into the first. Repeat until it becomes reflex.' },
+          { name: 'Premeditatio malorum', body: 'Calmly foresee loss before it comes — a delayed train, a harsh word, illness, death. Not to dread it, but to disarm it. What you have already faced in imagination cannot blindside you in fact.' },
+          { name: 'The view from above', body: 'Picture your situation from high up — the city, the country, the turning earth, the sweep of centuries. Most of what enrages us cannot even be seen from there. Perspective is a Stoic medicine.' },
+          { name: 'Voluntary discomfort', body: 'Now and then choose the cold shower, the plain meal, the long walk, the missed luxury. You learn that you can bear far more than you feared, and fear of losing comfort loosens its hold.' },
+          { name: 'Keep a Stoic journal', body: 'The Meditations were Marcus writing to himself. Do the same: address your own reason, argue yourself back to sense, record the maxims that hold. A philosophy written in your own hand goes deeper than one merely read.' },
+          { name: 'Memorise the key maxims', body: 'Carry a handful always ready: "It is not things that disturb us." "Waste no time arguing what a good man should be — be one." "You have power over your mind, not outside events." A maxim recalled at the right moment does the work of a whole argument.' }
+        ]
+      },
+      'reading': {
+        title: 'What to read',
+        intro: 'Read the three Roman Stoics first — they wrote to be used, and remain the most usable philosophy ever written. Then the founders (in fragments), then the modern guides if the primary texts prove steep.',
+        books: [
+          { title: 'Meditations', author: 'Marcus Aurelius (2nd c. AD)', note: 'PRIMARY. The private notebook of a Roman emperor, never meant for us to read. The single best entry to Stoicism. The Hays translation is the most readable; the Farquharson the most exact.' },
+          { title: 'Enchiridion (The Handbook) and Discourses', author: 'Epictetus (recorded by Arrian, 2nd c. AD)', note: 'PRIMARY. Start with the Enchiridion — a few pages, and the clearest statement of the dichotomy of control ever made. The Discourses give the fuller teaching.' },
+          { title: 'Letters to Lucilius, and the Essays', author: 'Seneca (1st c. AD)', note: 'PRIMARY. Letters of a wise friend on every practical question of living. Begin with On the Shortness of Life — twenty pages that rearrange your sense of time.' },
+          { title: 'The fragments of the early Stoa', author: 'Zeno, Cleanthes, Chrysippus', note: 'PRIMARY, but only in fragments and reports (much is in Diogenes Laërtius, Lives of the Eminent Philosophers, Book VII). For the reader who wants the school\'s origins and full system.' },
+          { title: 'On Duties (De Officiis)', author: 'Cicero (1st c. BC)', note: 'PRIMARY-adjacent. Not a Stoic himself, Cicero gives the fullest ancient account of Stoic ethics in action. The handbook of Roman virtue.' },
+          { title: 'A Guide to the Good Life', author: 'William B. Irvine', note: 'ON-RAMP. The clearest modern introduction — rebuilds Stoicism as a practical programme. Read if the ancients feel scattered.' },
+          { title: 'How to Be a Stoic', author: 'Massimo Pigliucci', note: 'ON-RAMP. A working philosopher applies Epictetus to modern life. Warm and rigorous.' },
+          { title: 'The Inner Citadel', author: 'Pierre Hadot', note: 'ON-RAMP (deeper). The great scholarly reading of the Meditations and of philosophy as a way of life. Read once Marcus has taken hold of you.' }
+        ]
+      },
+      'masters': {
+        title: 'The masters',
+        intro: 'Stoicism runs from a shipwrecked merchant in Athens to a slave and an emperor in Rome — a philosophy that proved itself at every station of life.',
+        figures: [
+          { name: 'Zeno of Citium (c. 334–262 BC)', what: 'The founder. A merchant who, shipwrecked and ruined, wandered into an Athens bookshop, read of Socrates, and asked where such men were found. He began teaching in the Stoa Poikilē — the Painted Porch — which gave the school its name.' },
+          { name: 'Cleanthes and Chrysippus (3rd c. BC)', what: 'The second and third heads of the school. Chrysippus was its great systematiser: "Without Chrysippus, there would be no Stoa," they said. He gave the philosophy its logic and physics.' },
+          { name: 'Seneca (c. 4 BC–65 AD)', what: 'Statesman, playwright, and tutor to Nero, immensely rich and endlessly writing on how little wealth matters. Ordered by Nero to take his own life, he did so with Stoic composure. The tension between his life and his letters is itself instructive.' },
+          { name: 'Epictetus (c. 55–135 AD)', what: 'Born a slave, lame from a master\'s cruelty, freed, and become the most influential teacher of the age. He wrote nothing; his pupil Arrian recorded him. The purest and most bracing Stoic voice.' },
+          { name: 'Marcus Aurelius (121–180 AD)', what: 'Roman emperor at the height of the empire, and a Stoic to the marrow. Amid plague, war, and betrayal he wrote the Meditations — to no one but himself. The rare case of the philosopher-king the ancients dreamed of.' }
+        ]
+      }
+    }
   }
 ];
 
 window.ART_BY_ID = (id) => window.ARTS.find(a => a.id === id);
 
-window.ART_GROUPS = ['Begin', 'Trivium', 'Quadrivium', 'Beyond the Arts'];
+window.ART_GROUPS = ['Begin', 'Schools of Thought', 'Trivium', 'Quadrivium', 'Beyond the Arts'];

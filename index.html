@@ -3,27 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#FAF6EC">
-  <title>Classical Mind — Classical learning, from the ground up</title>
+  <meta name="theme-color" content="#C6811A">
+  <title>Classical Mind — a little wisdom every day</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* ---- App bar ---- */
+    body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A); }
+    .appbar{ background:var(--grad-gold); box-shadow:0 2px 10px rgba(140,90,10,.20); position:sticky; top:0; z-index:40; }
+    .appbar .row{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:56px; max-width:820px; margin:0 auto; padding:0 14px; }
+    .appbar .abico{ width:34px; height:34px; border-radius:9px; justify-self:start; box-shadow:0 2px 6px rgba(0,0,0,.22); }
+    .appbar .brand{ justify-self:center; font-weight:800; font-size:17px; letter-spacing:-.01em; color:#fff; text-shadow:0 1px 2px rgba(120,70,0,.35); }
+    .appbar .hbtn{ justify-self:end; display:inline-flex; align-items:center; gap:6px; color:#fff; background:rgba(255,255,255,.18); border:0; cursor:pointer; font:700 12.5px/1 -apple-system,system-ui,sans-serif; padding:9px 13px; border-radius:999px; }
+    .appbar .hbtn svg{ width:15px; height:15px; }
+    @media(max-width:440px){ .appbar .hbtn span{ display:none; } }
+
+    .launcher-main{ max-width:820px; margin:0 auto; padding:18px 16px 40px; }
+
+    /* ---- Compact hero ---- */
+    .cm-hero{ margin:6px 0 20px; }
+    .cm-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,36px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink,#2A2038); }
+    .cm-hero p{ margin:.5em 0 0; font-size:16px; line-height:1.5; color:#6b6478; max-width:52ch; }
+
+    /* ---- "New here?" welcome ---- */
+    .welcome{ margin:0 0 20px; border-radius:15px; overflow:hidden; background:linear-gradient(135deg,#FFF6E2,#FDEFCF); border:1.5px solid #F0DCA8; }
+    .welcome[open]{ background:#fff; border-color:#EADFC6; box-shadow:0 2px 4px rgba(60,45,20,.06),0 10px 24px rgba(60,45,20,.08); }
+    .welcome-sum{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; padding:12px 14px; color:#8A6410; }
+    .welcome-sum::-webkit-details-marker{ display:none; }
+    .welcome[open] .welcome-sum{ color:var(--ink,#2A2038); border-bottom:1px solid #EADFC6; }
+    .wl-badge{ font-size:19px; line-height:1; }
+    .wl-sumtxt{ flex:1; font:600 14px/1.35 -apple-system,system-ui,sans-serif; } .wl-sumtxt b{ font-weight:800; }
+    .wl-chev{ transition:transform .2s; opacity:.6; } .welcome[open] .wl-chev{ transform:rotate(180deg); }
+    .welcome-body{ padding:14px 15px 16px; font-size:15px; line-height:1.55; color:#4d4658; }
+    .welcome-body p{ margin:0 0 .7em; } .welcome-body p:last-child{ margin-bottom:0; }
+    .welcome-body b{ color:var(--ink,#2A2038); }
+
+    /* ---- "For today" feed ---- */
+    .today-head{ display:flex; align-items:center; justify-content:space-between; margin:0 0 12px; }
+    .daily-lead{ font-weight:800; font-size:1.22em; letter-spacing:-.02em; color:var(--ink,#2A2038); }
+    .today-shuffle{ cursor:pointer; font:800 .8em -apple-system,system-ui,sans-serif; color:var(--gold-deep); background:#fff; border:1.5px solid #EADFC6; border-radius:999px; display:inline-flex; gap:.45em; align-items:center; padding:.5em .95em; box-shadow:0 2px 4px rgba(60,45,20,.06); transition:transform .15s ease, border-color .15s ease; }
+    .today-shuffle:hover{ border-color:var(--gold); } .today-shuffle:active{ transform:scale(.95); }
+    .today-list{ display:flex; flex-direction:column; gap:.7em; margin-bottom:30px; }
+    .today-bar{ position:relative; display:flex; align-items:stretch; width:100%; border:none; padding:0; cursor:pointer; text-align:left; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 10px 24px rgba(60,45,20,.09); transition:transform .15s cubic-bezier(0.34,1.56,0.64,1), box-shadow .15s ease; }
+    .today-bar::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; z-index:3; background:linear-gradient(180deg,var(--tc),var(--tcd)); }
+    .today-bar:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(60,45,20,.13); }
+    .today-bar:active{ transform:scale(.99); }
+    .today-bar .tb-text{ flex:1; min-width:0; padding:.85em 1em .85em 1.2em; display:flex; flex-direction:column; justify-content:center; gap:.22em; }
+    .today-bar .tb-kicker{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--tcd); display:inline-flex; gap:.4em; align-items:center; }
+    .today-bar .tb-title{ font-weight:800; font-size:1.05em; letter-spacing:-.01em; color:var(--ink,#2A2038); line-height:1.18; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .today-bar .tb-teaser{ font-size:.88em; color:#7a7488; line-height:1.34; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .today-bar .tb-glyph{ flex:none; width:76px; align-self:stretch; display:grid; place-items:center; font-size:2rem; color:#fff; background:linear-gradient(150deg,var(--tc),var(--tcd)); }
+
+    /* ---- Daily modal ---- */
+    .cm-modal-overlay{ position:fixed; inset:0; z-index:80; background:rgba(30,22,15,.5); backdrop-filter:blur(3px); display:flex; align-items:flex-end; justify-content:center; padding:0; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+    @media(min-width:560px){ .cm-modal-overlay{ align-items:center; padding:20px; } }
+    .cm-modal-overlay.open{ opacity:1; pointer-events:auto; }
+    .cm-modal{ position:relative; width:100%; max-width:560px; max-height:88vh; overflow-y:auto; background:#fff; border-radius:22px 22px 0 0; box-shadow:0 -8px 40px rgba(0,0,0,.3); transform:translateY(30px); transition:transform .25s cubic-bezier(0.34,1.56,0.64,1); }
+    @media(min-width:560px){ .cm-modal{ border-radius:22px; } }
+    .cm-modal-overlay.open .cm-modal{ transform:translateY(0); }
+    .cm-mhead{ padding:22px 22px 16px; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); }
+    .cm-mkicker{ display:inline-flex; align-items:center; gap:.5em; font:800 11px/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; opacity:.95; }
+    .cm-mtitle{ margin:.5em 0 0; font-weight:800; font-size:clamp(22px,5.5vw,28px); letter-spacing:-.02em; line-height:1.12; }
+    .cm-mbody{ padding:20px 22px 26px; color:#3a3448; font-size:16px; line-height:1.6; }
+    .cm-mbody p{ margin:0 0 .9em; } .cm-mbody p:last-child{ margin-bottom:0; }
+    .cm-quote{ font-size:1.28em; font-weight:600; line-height:1.4; color:var(--ink,#2A2038); }
+    .cm-verse{ white-space:pre-wrap; font-size:1.05em; line-height:1.55; color:var(--ink,#2A2038); }
+    .cm-source{ margin-top:.4em; font-weight:700; color:var(--mcd,#8A5A0F); }
+    .cm-note{ margin-top:1em; padding-top:.9em; border-top:1px solid #EEE7DA; font-size:.92em; color:#7a7488; font-style:italic; }
+    .cm-word-line{ display:flex; gap:.6em; margin:0 0 .55em; font-size:.98em; }
+    .cm-word-line b{ flex:none; width:5.5em; color:var(--mcd,#8A5A0F); }
+    .cm-morelink{ display:inline-block; margin-top:1.1em; font:800 14px -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); padding:.6em 1.15em; border-radius:999px; text-decoration:none; }
+    .cm-read{ display:inline-flex; align-items:center; gap:.5em; margin-top:1.1em; margin-right:.6em; cursor:pointer; font:800 14px -apple-system,system-ui,sans-serif; color:var(--mcd,#8A5A0F); background:#fff; border:1.6px solid currentColor; padding:.55em 1.05em; border-radius:999px; }
+    .cm-mclose{ position:absolute; top:14px; right:14px; z-index:2; width:34px; height:34px; border-radius:50%; border:0; cursor:pointer; background:rgba(255,255,255,.22); color:#fff; font-size:20px; line-height:34px; text-align:center; }
+  </style>
 </head>
 <body class="launcher">
-  <header class="launcher-hero">
-    <div class="hero-wrap">
-      <div class="hero-brand">
-        <img src="icon-192.png" alt="" class="brand-icon">
-        <div>
-          <h1>Classical Mind</h1>
-          <p class="hero-lede">The classical liberal arts — from the ground up to advanced. The formation Jefferson described, the path Vitruvius outlined, the conversation Cicero invited you into.</p>
-        </div>
-      </div>
+  <div class="appbar">
+    <div class="row">
+      <img src="icon-192.png" alt="" class="abico">
+      <span class="brand">Classical Mind</span>
+      <button class="hbtn" onclick="openInstall()" title="Add to Home Screen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l-4 4M12 3l4 4"/><path d="M4 13v6a2 2 0 002 2h12a2 2 0 002-2v-6"/></svg>
+        <span>Get app</span>
+      </button>
     </div>
-  </header>
+  </div>
 
   <main class="launcher-main">
+
+    <div class="cm-hero">
+      <h1>A little wisdom, every day.</h1>
+      <p>The classical mind, one day at a time — a line to carry, a thought to turn over, something to do, a verse to learn by heart, and a passage to read slowly. The whole library is below.</p>
+    </div>
+
+    <details class="welcome" id="welcomeBox">
+      <summary class="welcome-sum">
+        <span class="wl-badge" aria-hidden="true">📖</span>
+        <span class="wl-sumtxt"><b>New here?</b> How to use this — in one minute</span>
+        <span class="wl-chev" aria-hidden="true">▾</span>
+      </summary>
+      <div class="welcome-body">
+        <p>This is a companion for recovering the kind of formation the ancients called <b>paideia</b> — the making of a whole, free, thinking person. You don't need a course or a schedule.</p>
+        <p><b>Start with today.</b> Each morning the feed gives you a handful of small things — read the quote, sit with the thought, do the one practice, learn the verse across the week. That's the whole method: a little, daily, for years.</p>
+        <p><b>Then wander.</b> Under the feed sit the schools of thought and the seven liberal arts. Open whichever pulls you. Take what serves; leave what does not.</p>
+      </div>
+    </details>
+
+    <section class="daily-feed" aria-label="For today">
+      <div class="today-head">
+        <div class="daily-lead">For today</div>
+        <button class="today-shuffle" id="todayShuffle" type="button">Shuffle <span aria-hidden="true">↻</span></button>
+      </div>
+      <div class="today-list" id="todayGrid"></div>
+    </section>
+
+    <section class="tile-section">
+      <h2 class="tile-section-title">Schools of thought</h2>
+      <p class="tile-section-sub">Whole ways of seeing the world and living well — each on its own terms.</p>
+      <div id="schools-grid" class="tile-grid"></div>
+    </section>
 
     <section class="tile-section">
       <h2 class="tile-section-title">Begin</h2>
@@ -57,11 +157,7 @@
           <div class="tile-icon-wrap">
             <svg viewBox="0 0 64 64" class="tile-icon">
               <rect x="14" y="14" width="36" height="36" rx="6" fill="currentColor"/>
-              <circle cx="24" cy="24" r="3" fill="white"/>
-              <circle cx="40" cy="24" r="3" fill="white"/>
-              <circle cx="32" cy="32" r="3" fill="white"/>
-              <circle cx="24" cy="40" r="3" fill="white"/>
-              <circle cx="40" cy="40" r="3" fill="white"/>
+              <circle cx="24" cy="24" r="3" fill="white"/><circle cx="40" cy="24" r="3" fill="white"/><circle cx="32" cy="32" r="3" fill="white"/><circle cx="24" cy="40" r="3" fill="white"/><circle cx="40" cy="40" r="3" fill="white"/>
             </svg>
           </div>
           <div class="tile-body">
@@ -78,46 +174,206 @@
     A working guide to classical learning. Use what serves; leave what does not.
   </footer>
 
+  <!-- Daily modal (built once, filled on demand) -->
+  <div class="cm-modal-overlay" id="cmModal" aria-hidden="true">
+    <div class="cm-modal" role="dialog" aria-modal="true">
+      <button class="cm-mclose" id="cmClose" aria-label="Close">×</button>
+      <div class="cm-mhead"><span class="cm-mkicker" id="cmKicker"></span><h2 class="cm-mtitle" id="cmTitle"></h2></div>
+      <div class="cm-mbody" id="cmBody"></div>
+    </div>
+  </div>
+
   <script src="assets/arts-data.js"></script>
+  <script src="assets/daily-data.js"></script>
+  <script src="assets/reader.js"></script>
   <script src="assets/app.js"></script>
   <script>
+    // ---------- Tile launcher ----------
     const ICONS = {
       sun: `<circle cx="32" cy="32" r="12" fill="currentColor"/><circle cx="28" cy="28" r="4" fill="rgba(255,255,255,0.4)"/><g stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="8" x2="32" y2="16"/><line x1="32" y1="48" x2="32" y2="56"/><line x1="8" y1="32" x2="16" y2="32"/><line x1="48" y1="32" x2="56" y2="32"/><line x1="14" y1="14" x2="20" y2="20"/><line x1="44" y1="44" x2="50" y2="50"/><line x1="14" y1="50" x2="20" y2="44"/><line x1="44" y1="20" x2="50" y2="14"/></g>`,
-      leaf: `<g transform="translate(0,-2) rotate(-12 32 34)"><path d="M32 8 C 18 12 12 28 16 42 C 20 52 28 56 32 56 C 36 56 44 52 48 42 C 52 28 46 12 32 8 Z" fill="currentColor"/><path d="M32 8 C 22 12 17 24 20 38 C 23 49 29 54 32 54 L32 8 Z" fill="rgba(255,255,255,0.18)"/><path d="M32 8 L32 56" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round"/><path d="M32 18 L24 22 M32 24 L21 30 M32 30 L20 38 M32 36 L22 46 M32 18 L40 22 M32 24 L43 30 M32 30 L44 38 M32 36 L42 46" stroke="rgba(255,255,255,0.45)" stroke-width="1.3" stroke-linecap="round" fill="none"/></g>`,
-      scales: `<g><line x1="32" y1="12" x2="32" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="20" x2="50" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="12" r="3" fill="currentColor"/><circle cx="32" cy="52" r="4" fill="currentColor"/><path d="M14 20 L8 32 L20 32 Z" fill="currentColor"/><path d="M50 20 L44 32 L56 32 Z" fill="currentColor"/><line x1="8" y1="32" x2="20" y2="32" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/><line x1="44" y1="32" x2="56" y2="32" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/></g>`,
-      mouth: `<g><path d="M14 28 Q 18 22 32 22 Q 46 22 50 28 L 50 36 Q 46 42 32 42 Q 18 42 14 36 Z" fill="currentColor"/><path d="M14 32 Q 32 38 50 32" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/><path d="M22 22 L 22 18 M32 22 L 32 16 M42 22 L 42 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M18 50 Q 22 46 26 50 Q 30 54 26 56 L 18 56 Z" fill="currentColor" opacity="0.5"/></g>`,
+      leaf: `<g transform="translate(0,-2) rotate(-12 32 34)"><path d="M32 8 C 18 12 12 28 16 42 C 20 52 28 56 32 56 C 36 56 44 52 48 42 C 52 28 46 12 32 8 Z" fill="currentColor"/><path d="M32 8 L32 56" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round"/></g>`,
+      scales: `<g><line x1="32" y1="12" x2="32" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="14" y1="20" x2="50" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="12" r="3" fill="currentColor"/><circle cx="32" cy="52" r="4" fill="currentColor"/><path d="M14 20 L8 32 L20 32 Z" fill="currentColor"/><path d="M50 20 L44 32 L56 32 Z" fill="currentColor"/></g>`,
+      mouth: `<g><path d="M14 28 Q 18 22 32 22 Q 46 22 50 28 L 50 36 Q 46 42 32 42 Q 18 42 14 36 Z" fill="currentColor"/><path d="M14 32 Q 32 38 50 32" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/><path d="M22 22 L 22 18 M32 22 L 32 16 M42 22 L 42 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></g>`,
       numerals: `<g><rect x="10" y="10" width="44" height="44" rx="6" fill="currentColor"/><text x="32" y="32" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="800" font-family="Georgia, serif" fill="white">I II III</text><text x="32" y="46" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="800" font-family="Georgia, serif" fill="white">IV V VI</text></g>`,
-      triangle: `<g><polygon points="32,10 56,54 8,54" fill="currentColor"/><polygon points="32,10 56,54 8,54" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/><line x1="32" y1="10" x2="32" y2="54" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/><circle cx="32" cy="10" r="2" fill="white"/><circle cx="56" cy="54" r="2" fill="white"/><circle cx="8" cy="54" r="2" fill="white"/></g>`,
-      lyre: `<g><path d="M16 14 Q 12 32 20 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M48 14 Q 52 32 44 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="20" x2="22" y2="48" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><line x1="27" y1="20" x2="27" y2="48" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><line x1="32" y1="20" x2="32" y2="48" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><line x1="37" y1="20" x2="37" y2="48" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><line x1="42" y1="20" x2="42" y2="48" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><path d="M18 48 Q 32 56 46 48" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/></g>`,
-      star: `<g><polygon points="32,6 38,24 56,24 42,34 48,52 32,42 16,52 22,34 8,24 26,24" fill="currentColor"/><polygon points="32,6 38,24 56,24 42,34 48,52 32,42 16,52 22,34 8,24 26,24" fill="url(#star-shine)" opacity="0.3"/><circle cx="14" cy="14" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="50" cy="16" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="52" cy="50" r="1.5" fill="currentColor" opacity="0.7"/></g>`,
-      books: `<g><rect x="8" y="44" width="48" height="12" rx="1.5" fill="currentColor"/><rect x="10" y="46" width="44" height="2" fill="rgba(255,255,255,0.4)"/><rect x="12" y="30" width="40" height="12" rx="1.5" fill="currentColor" opacity="0.85"/><rect x="14" y="32" width="36" height="2" fill="rgba(255,255,255,0.4)"/><rect x="20" y="10" width="24" height="20" rx="1.5" fill="currentColor" opacity="0.7"/><rect x="22" y="12" width="20" height="2" fill="rgba(255,255,255,0.55)"/><line x1="20" y1="15" x2="44" y2="15" stroke="rgba(255,255,255,0.3)" stroke-width="0.6"/></g>`,
-      alpha: `<g><rect x="8" y="8" width="48" height="48" rx="8" fill="currentColor"/><text x="32" y="40" text-anchor="middle" font-size="32" font-weight="800" font-family="Georgia, serif" fill="white">Αα</text></g>`
+      triangle: `<g><polygon points="32,10 56,54 8,54" fill="currentColor"/><line x1="32" y1="10" x2="32" y2="54" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/></g>`,
+      lyre: `<g><path d="M16 14 Q 12 32 20 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M48 14 Q 52 32 44 50" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><g stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><line x1="27" y1="20" x2="27" y2="48"/><line x1="32" y1="20" x2="32" y2="48"/><line x1="37" y1="20" x2="37" y2="48"/></g><path d="M18 48 Q 32 56 46 48" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/></g>`,
+      star: `<g><polygon points="32,6 38,24 56,24 42,34 48,52 32,42 16,52 22,34 8,24 26,24" fill="currentColor"/></g>`,
+      books: `<g><rect x="8" y="44" width="48" height="12" rx="1.5" fill="currentColor"/><rect x="12" y="30" width="40" height="12" rx="1.5" fill="currentColor" opacity="0.85"/><rect x="20" y="10" width="24" height="20" rx="1.5" fill="currentColor" opacity="0.7"/></g>`,
+      alpha: `<g><rect x="8" y="8" width="48" height="48" rx="8" fill="currentColor"/><text x="32" y="40" text-anchor="middle" font-size="32" font-weight="800" font-family="Georgia, serif" fill="white">Αα</text></g>`,
+      column: `<g><rect x="18" y="16" width="28" height="6" rx="1.5" fill="currentColor"/><rect x="20" y="46" width="24" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="52" width="36" height="6" rx="1.5" fill="currentColor"/><g fill="currentColor" opacity="0.92"><rect x="22" y="22" width="4.5" height="24"/><rect x="29.5" y="22" width="4.5" height="24"/><rect x="37" y="22" width="4.5" height="24"/></g><path d="M18 16 Q 32 8 46 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></g>`
     };
 
-    function buildTile(a) {
-      return `
-        <a href="art.html?id=${a.id}" class="tile" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">
-          <div class="tile-icon-wrap">
-            <svg viewBox="0 0 64 64" class="tile-icon">${ICONS[a.icon] || ICONS.sun}</svg>
-          </div>
+    function buildTile(a){
+      return `<a href="art.html?id=${a.id}" class="tile" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">
+          <div class="tile-icon-wrap"><svg viewBox="0 0 64 64" class="tile-icon">${ICONS[a.icon] || ICONS.sun}</svg></div>
           <div class="tile-body">
             <div class="tile-name">${a.name}</div>
             <div class="tile-tagline">${a.tagline}</div>
             <div class="tile-era">${a.group}</div>
           </div>
-        </a>
-      `;
+        </a>`;
     }
-
-    function fillGroup(id, group) {
-      const arts = window.ARTS.filter(a => a.group === group);
-      document.getElementById(id).innerHTML = arts.map(buildTile).join('');
+    function fillGroup(id, group){
+      const el = document.getElementById(id); if(!el) return;
+      el.innerHTML = window.ARTS.filter(a => a.group === group).map(buildTile).join('');
     }
+    fillGroup('schools-grid','Schools of Thought');
+    fillGroup('begin-grid','Begin');
+    fillGroup('trivium-grid','Trivium');
+    fillGroup('quadrivium-grid','Quadrivium');
+    fillGroup('beyond-grid','Beyond the Arts');
 
-    fillGroup('begin-grid', 'Begin');
-    fillGroup('trivium-grid', 'Trivium');
-    fillGroup('quadrivium-grid', 'Quadrivium');
-    fillGroup('beyond-grid', 'Beyond the Arts');
+    // ---------- "For today" feed ----------
+    (function(){
+      const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+      const dayNum = Math.floor(Date.now() / 86400000);
+      const pick = (arr, off) => arr && arr.length ? arr[(((dayNum + off) % arr.length) + arr.length) % arr.length] : null;
+      const el = id => document.getElementById(id);
+      const byId = id => (window.ARTS || []).find(a => a.id === id);
+
+      // Gather every practice across all arts + schools for the "do today" card.
+      const PRACTICES = [];
+      (window.ARTS || []).forEach(a => {
+        const p = a.sections && a.sections.practice;
+        if (p && p.items) p.items.forEach(it => PRACTICES.push({ name: it.name, body: it.body, art: a.name, id: a.id }));
+      });
+
+      const ACC = {
+        quote:   { c:'#C6811A', cd:'#8A5A0F' },
+        think:   { c:'#1F8F5E', cd:'#146046' },
+        do:      { c:'#E0781A', cd:'#B4560F' },
+        verse:   { c:'#7C3AED', cd:'#5B21B6' },
+        passage: { c:'#4F6D7A', cd:'#2F4550' },
+        word:    { c:'#0EA5A4', cd:'#0F766E' },
+      };
+
+      // ---- Modal ----
+      const modal = el('cmModal');
+      const openModal = ({ type, emoji, kicker, title, html }) => {
+        const acc = ACC[type];
+        el('cmKicker').innerHTML = `${emoji} ${esc(kicker)}`;
+        el('cmTitle').textContent = title;
+        el('cmBody').innerHTML = html;
+        const head = modal.querySelector('.cm-mhead');
+        head.style.setProperty('--mc', acc.c); head.style.setProperty('--mcd', acc.cd);
+        el('cmBody').style.setProperty('--mc', acc.c); el('cmBody').style.setProperty('--mcd', acc.cd);
+        modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+        const rb = el('cmBody').querySelector('.cm-read');
+        if (rb && window.Reader) {
+          rb.addEventListener('click', () => {
+            if (window.Reader.speaking) { window.Reader.stop(); rb.textContent = '▶ Read aloud'; }
+            else { window.Reader.read(rb.getAttribute('data-read') || el('cmBody').textContent); rb.textContent = '⏹ Stop'; }
+          });
+        }
+      };
+      const closeModal = () => { if (window.Reader) window.Reader.stop(); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); };
+      el('cmClose').addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      // ---- Card builder ----
+      function bar(type, emoji, kicker, title, teaser, onOpen){
+        const acc = ACC[type];
+        const b = document.createElement('button');
+        b.className = 'today-bar';
+        b.style.setProperty('--tc', acc.c); b.style.setProperty('--tcd', acc.cd);
+        b.innerHTML = `<span class="tb-text">
+            <span class="tb-kicker">${emoji} ${esc(kicker)}</span>
+            <span class="tb-title">${esc(title)}</span>
+            <span class="tb-teaser">${esc(teaser)}</span>
+          </span>
+          <span class="tb-glyph" aria-hidden="true">${emoji}</span>`;
+        b.addEventListener('click', onOpen);
+        return b;
+      }
+
+      function render(off){
+        const grid = el('todayGrid');
+        grid.innerHTML = '';
+        const cards = [];
+
+        const q = pick(window.QUOTES, off);
+        if (q) {
+          const school = q.school ? byId(q.school) : null;
+          cards.push(bar('quote','❝','Quote of the day', q.author, q.text, () => openModal({
+            type:'quote', emoji:'❝', kicker:'Quote of the day', title:q.author,
+            html:`<p class="cm-quote">${esc(q.text)}</p><p class="cm-source">— ${esc(q.author)}${q.source ? ', ' + esc(q.source) : ''}</p>`
+              + (school ? `<a class="cm-morelink" href="art.html?id=${school.id}">More from ${esc(school.name)} →</a>` : '')
+          })));
+        }
+
+        const t = pick(window.THOUGHTS, off);
+        if (t) {
+          cards.push(bar('think','💭','A thought to ponder', t.source, t.text, () => openModal({
+            type:'think', emoji:'💭', kicker:'A thought to ponder', title:t.source,
+            html:`<p>${esc(t.text)}</p><p class="cm-source">— ${esc(t.source)}</p>`
+              + `<button class="cm-read" data-read="${esc(t.text)}">▶ Read aloud</button>`
+          })));
+        }
+
+        const d = pick(PRACTICES, off);
+        if (d) {
+          cards.push(bar('do','☀️','One thing to do today', d.name, d.body, () => openModal({
+            type:'do', emoji:'☀️', kicker:'One thing to do today', title:d.name,
+            html:`<p>${esc(d.body)}</p><p class="cm-source">A practice of ${esc(d.art)}</p>`
+              + `<a class="cm-morelink" href="art.html?id=${d.id}&s=practice">More ${esc(d.art)} practices →</a>`
+          })));
+        }
+
+        const v = pick(window.VERSES, off);
+        if (v) {
+          cards.push(bar('verse','📜','Learn by heart', v.title, v.note || v.text.split('\n')[0], () => openModal({
+            type:'verse', emoji:'📜', kicker:'Learn by heart', title:v.title,
+            html:`<p class="cm-verse">${esc(v.text)}</p><p class="cm-source">— ${esc(v.author)}</p>`
+              + (v.note ? `<p class="cm-note">${esc(v.note)}</p>` : '')
+              + `<button class="cm-read" data-read="${esc(v.text)}">▶ Read aloud</button>`
+          })));
+        }
+
+        const p = pick(window.PASSAGES, off);
+        if (p) {
+          cards.push(bar('passage','📖','Passage of the day', p.title, p.source, () => openModal({
+            type:'passage', emoji:'📖', kicker:'Passage of the day', title:p.title,
+            html:`<p class="cm-source" style="margin-top:0">${esc(p.source)}</p>`
+              + p.text.split('\n\n').map(par => `<p>${esc(par)}</p>`).join('')
+              + `<button class="cm-read" data-read="${esc(p.text)}">▶ Read aloud</button>`
+          })));
+        }
+
+        const w = pick(window.WORDS, off);
+        if (w) {
+          cards.push(bar('word','Ω','Word of the day', w.word, w.meaning, () => openModal({
+            type:'word', emoji:'Ω', kicker:'Word of the day', title:w.word,
+            html:`<div class="cm-word-line"><b>Language</b><span>${esc(w.lang)} · ${esc(w.root)}</span></div>`
+              + `<div class="cm-word-line"><b>Means</b><span>${esc(w.meaning)}</span></div>`
+              + `<div class="cm-word-line"><b>In English</b><span>${esc(w.english)}</span></div>`
+          })));
+        }
+
+        cards.forEach(c => grid.appendChild(c));
+      }
+
+      let off = 0;
+      render(off);
+      const shuf = el('todayShuffle');
+      if (shuf) shuf.addEventListener('click', () => { off++; render(off); });
+    })();
+
+    // ---------- PWA + install ----------
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+    function shareIt(){
+      const d = { title:'Classical Mind', text:'A little classical wisdom, every day.', url:location.origin + location.pathname };
+      if (navigator.share) navigator.share(d).catch(() => {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(d.url);
+    }
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstallPrompt = e; });
+    function openInstall(){
+      if (deferredInstallPrompt) { deferredInstallPrompt.prompt(); deferredInstallPrompt.userChoice.finally(() => { deferredInstallPrompt = null; }); return; }
+      alert('To add to your home screen:\n\niPhone/iPad — tap the Share icon at the bottom of Safari, then "Add to Home Screen".\n\nAndroid — tap the ⋮ menu in Chrome, then "Add to Home screen".');
+    }
   </script>
 </body>
 </html>
