@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v6';
+const CACHE = 'classical-mind-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -40,13 +40,40 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// NETWORK-FIRST for the app shell (HTML / JS / CSS / JSON) so a new deploy is
+// picked up the moment the device is online — no more stale versions. Images
+// stay CACHE-FIRST for speed and offline. Everything still falls back to cache
+// when the network is unavailable, so the app keeps working offline.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  const url = new URL(e.request.url);
+  const isShell =
+    e.request.mode === 'navigate' ||
+    url.pathname.endsWith('/') ||
+    /\.(?:html|js|css|json)$/.test(url.pathname);
+
+  if (isShell) {
+    e.respondWith(
+      fetch(e.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request).then((hit) => hit || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Cache-first for images / icons / other static assets.
   e.respondWith(
-    caches.match(e.request).then((hit) => hit || fetch(e.request).then((res) => {
-      const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(e.request, copy));
-      return res;
-    }).catch(() => caches.match('./index.html')))
+    caches.match(e.request).then((hit) =>
+      hit ||
+      fetch(e.request).then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(e.request, copy));
+        return res;
+      })
+    )
   );
 });
