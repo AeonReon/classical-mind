@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v7';
+const CACHE = 'classical-mind-v8';
 const ASSETS = [
   './',
   './index.html',
@@ -33,11 +33,18 @@ self.addEventListener('install', (e) => {
 });
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+    // Force any open window still running the OLD shell to reload into this
+    // fresh network-first worker — breaks a stuck cache-first install without
+    // needing a manual force-quit.
+    const clients = await self.clients.matchAll({ type: 'window' });
+    for (const client of clients) {
+      try { await client.navigate(client.url); } catch (_) {}
+    }
+  })());
 });
 
 // NETWORK-FIRST for the app shell (HTML / JS / CSS / JSON) so a new deploy is
