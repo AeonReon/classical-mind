@@ -35,7 +35,9 @@
     /* Buttons on this page: neutralise the global gradient-ring/padding so the
        round transport controls render as clean, aligned circles. */
     .listen-playall::before, .listen-shuffle::before, .player button::before{ display:none !important; }
-    .player button{ padding:0; border:0; background:none; }
+    /* Reset only padding/border — NOT background (that would beat .pl-play's own
+       fill on specificity and leave a blank white circle). */
+    .player button{ padding:0; border:0; }
 
     /* Sticky player — three tidy rows: meta + loop, seek, centred transport */
     .player{ position:fixed; left:0; right:0; bottom:0; z-index:60; background:rgba(255,255,255,.98); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1.5px solid var(--rule); box-shadow:0 -6px 24px rgba(40,30,15,.12); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); }
@@ -132,7 +134,8 @@
       el('plTitle').textContent = R[i].title;
       el('plSrc').textContent = R[i].source;
       bar.hidden = false;
-      document.querySelector('.listen-main').style.paddingBottom = '128px';
+      // Keep the last track clear of the (taller, 3-row) fixed player.
+      document.querySelector('.listen-main').style.paddingBottom = (bar.offsetHeight + 28) + 'px';
       if (autoplay !== false) audio.play().catch(() => {});
       markActive();
     }
