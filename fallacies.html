@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#294E85">
+  <title>Spot the Fallacy — Classical Mind</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    body{ --c:#3F6FB0; --cd:#294E85; --cs:#E6EEF8; }
+    .fl-main{ max-width:640px; margin:0 auto; padding:4em 1.2em calc(40px + env(safe-area-inset-bottom)); }
+    .fl-hero{ margin:0 0 18px; }
+    .fl-hero .fl-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .fl-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
+    .fl-hero p{ margin:.5em 0 0; font-size:15px; line-height:1.5; color:var(--ink-soft); max-width:54ch; }
+
+    .fl-tabs{ display:flex; gap:8px; margin:18px 0 20px; background:var(--cs); padding:5px; border-radius:14px; }
+    .fl-tab{ flex:1; cursor:pointer; border:0; background:transparent; color:var(--cd); font:800 15px var(--sans); padding:.7em; border-radius:10px; transition:all .15s ease; }
+    .fl-tab.active{ background:#fff; color:var(--ink); box-shadow:var(--shadow-sm); }
+
+    /* Practice */
+    .fl-score{ display:flex; gap:16px; margin:0 0 14px; font:800 .82em var(--sans); color:var(--ink-mute); }
+    .fl-score b{ color:var(--cd); }
+    .fl-qcard{ background:#fff; border:1.5px solid var(--rule); border-radius:18px; box-shadow:var(--shadow-sm); padding:20px 18px; }
+    .fl-qlabel{ font:800 .72rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--cd); margin-bottom:10px; }
+    .fl-q{ font-size:1.18em; line-height:1.4; font-weight:700; color:var(--ink); font-style:italic; margin-bottom:18px; }
+    .fl-opts{ display:flex; flex-direction:column; gap:9px; }
+    .fl-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule); border-radius:12px; padding:13px 15px; font:700 1em var(--sans); color:var(--ink); transition:border-color .12s ease, background .12s ease; }
+    .fl-opt:hover:not(:disabled){ border-color:var(--c); }
+    .fl-opt:disabled{ cursor:default; }
+    .fl-opt.correct{ border-color:#1F8F5E; background:#E7F6EE; color:#13603f; }
+    .fl-opt.wrong{ border-color:#D9534F; background:#FBEAEA; color:#a3312d; }
+    .fl-fb{ margin-top:16px; padding:14px 15px; border-radius:13px; background:var(--cs); line-height:1.5; }
+    .fl-fb-name{ font-weight:800; color:var(--ink); font-size:1.05em; }
+    .fl-fb-def{ color:var(--ink-soft); font-size:.95em; margin-top:5px; }
+    .fl-fb-why{ color:var(--ink-mute); font-size:.9em; margin-top:6px; font-style:italic; }
+    .fl-next{ margin-top:16px; width:100%; cursor:pointer; border:0; color:#fff; font:800 16px var(--sans); background:linear-gradient(135deg,var(--c),var(--cd)); padding:.85em; border-radius:13px; box-shadow:0 4px 14px rgba(41,78,133,.3); }
+    .fl-next:active{ transform:scale(.99); }
+
+    /* Learn */
+    .fl-learn{ display:flex; flex-direction:column; gap:.55em; }
+    .fl-item{ background:#fff; border:1.5px solid var(--rule); border-radius:14px; overflow:hidden; }
+    .fl-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:9px; padding:14px 16px; }
+    .fl-sum::-webkit-details-marker{ display:none; }
+    .fl-num{ font:800 .8em var(--sans); color:var(--ink-mute); opacity:.55; }
+    .fl-name{ font-weight:800; font-size:1.05em; color:var(--ink); }
+    .fl-aka{ font-size:.85em; color:var(--ink-mute); }
+    .fl-chev{ margin-left:auto; opacity:.5; transition:transform .2s; }
+    .fl-item[open] .fl-chev{ transform:rotate(180deg); }
+    .fl-detail{ padding:0 16px 16px; }
+    .fl-detail .d-def{ font-size:1em; color:var(--ink); line-height:1.5; }
+    .fl-detail .d-why{ font-size:.92em; color:var(--ink-mute); font-style:italic; margin-top:7px; line-height:1.5; }
+    .fl-detail .d-eg-label{ font:800 .68rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--cd); margin:13px 0 6px; }
+    .fl-detail .d-eg{ background:var(--cs); border-radius:10px; padding:9px 12px; font-size:.95em; font-style:italic; color:var(--ink-soft); line-height:1.4; margin-bottom:6px; }
+  </style>
+</head>
+<body class="method-page">
+  <main class="fl-main">
+    <header class="fl-hero">
+      <div class="fl-eyebrow">Logic · a trainer</div>
+      <h1>Spot the Fallacy</h1>
+      <p>The traps that make a bad argument sound convincing. Learn to name them and you will hear them everywhere — in adverts, in the news, in your own head. Drill it as often as you like; it only gets sharper.</p>
+    </header>
+
+    <div class="fl-tabs">
+      <button class="fl-tab active" data-mode="practice">Practice</button>
+      <button class="fl-tab" data-mode="learn">Learn the 21</button>
+    </div>
+
+    <section id="practice"></section>
+    <section id="learn" hidden></section>
+  </main>
+
+  <script src="assets/fallacies-data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const F = window.FALLACIES || [];
+    const byId = {}; F.forEach(f => byId[f.id] = f);
+    const el = id => document.getElementById(id);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const rnd = n => Math.floor(Math.random() * n);
+    function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+    // ---- Practice quiz ----
+    // Question pool: every example is a question whose answer is its fallacy.
+    const POOL = [];
+    F.forEach(f => (f.examples || []).forEach(ex => POOL.push({ text: ex, id: f.id })));
+    let score = 0, asked = 0, streak = 0, lastQ = -1;
+    let best = 0; try { best = JSON.parse(localStorage.getItem('cm_fallacy_best') || '0'); } catch (_) {}
+
+    function newQuestion(){
+      let qi; do { qi = rnd(POOL.length); } while (POOL.length > 1 && qi === lastQ);
+      lastQ = qi;
+      const q = POOL[qi];
+      const distractors = shuffle(F.filter(f => f.id !== q.id)).slice(0, 3).map(f => f.id);
+      const options = shuffle([q.id, ...distractors]);
+      el('practice').innerHTML = `
+        <div class="fl-score">
+          <span>Score <b>${score}/${asked}</b></span>
+          <span>Streak <b>${streak}</b></span>
+          <span>Best <b>${best}</b></span>
+        </div>
+        <div class="fl-qcard">
+          <div class="fl-qlabel">Which fallacy is this?</div>
+          <div class="fl-q">“${esc(q.text)}”</div>
+          <div class="fl-opts">
+            ${options.map(id => `<button class="fl-opt" data-id="${id}">${esc(byId[id].name)}</button>`).join('')}
+          </div>
+          <div id="fl-fb"></div>
+        </div>`;
+      const opts = el('practice').querySelector('.fl-opts');
+      opts.addEventListener('click', e => {
+        const b = e.target.closest('.fl-opt'); if (!b || opts.dataset.done) return;
+        opts.dataset.done = '1';
+        const chosen = b.dataset.id, correct = q.id, right = chosen === correct;
+        asked++; if (right) { score++; streak++; if (streak > best) { best = streak; try { localStorage.setItem('cm_fallacy_best', JSON.stringify(best)); } catch (_) {} } } else streak = 0;
+        [...opts.querySelectorAll('.fl-opt')].forEach(x => {
+          x.disabled = true;
+          if (x.dataset.id === correct) x.classList.add('correct');
+          else if (x.dataset.id === chosen) x.classList.add('wrong');
+        });
+        const f = byId[correct];
+        el('fl-fb').innerHTML = `
+          <div class="fl-fb">
+            <div class="fl-fb-name">${right ? '✓ ' : '✗ It’s '}${esc(f.name)}${f.aka ? ' — ' + esc(f.aka) : ''}</div>
+            <div class="fl-fb-def">${esc(f.definition)}</div>
+            <div class="fl-fb-why">${esc(f.why)}</div>
+          </div>
+          <button class="fl-next" id="fl-next">Next question →</button>`;
+        el('fl-next').addEventListener('click', newQuestion);
+      });
+    }
+
+    // ---- Learn list ----
+    el('learn').innerHTML = `<div class="fl-learn">${F.map((f, i) => `
+      <details class="fl-item">
+        <summary class="fl-sum">
+          <span class="fl-num">${i + 1}</span>
+          <span><span class="fl-name">${esc(f.name)}</span> ${f.aka ? `<span class="fl-aka">· ${esc(f.aka)}</span>` : ''}</span>
+          <span class="fl-chev" aria-hidden="true">▾</span>
+        </summary>
+        <div class="fl-detail">
+          <div class="d-def">${esc(f.definition)}</div>
+          <div class="d-why">${esc(f.why)}</div>
+          <div class="d-eg-label">You’ll hear it as</div>
+          ${(f.examples || []).map(e => `<div class="d-eg">“${esc(e)}”</div>`).join('')}
+        </div>
+      </details>`).join('')}</div>`;
+
+    // ---- Tabs ----
+    document.querySelector('.fl-tabs').addEventListener('click', e => {
+      const t = e.target.closest('.fl-tab'); if (!t) return;
+      document.querySelectorAll('.fl-tab').forEach(x => x.classList.toggle('active', x === t));
+      const mode = t.dataset.mode;
+      el('practice').hidden = mode !== 'practice';
+      el('learn').hidden = mode !== 'learn';
+    });
+
+    newQuestion();
+  </script>
+</body>
+</html>
