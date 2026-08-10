@@ -46,6 +46,9 @@
     .tryit-more{ display:block; text-decoration:none; margin-top:16px; padding:16px 18px; border-radius:16px; color:#fff; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); box-shadow:0 4px 14px rgba(60,45,20,.2); }
     .tryit-more-note{ display:block; font-size:.92em; opacity:.95; line-height:1.45; margin-bottom:9px; }
     .tryit-more-cta{ display:block; font-weight:800; font-size:1.06em; }
+    .read-row{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+    .voice-pick{ display:inline-flex; align-items:center; gap:6px; font:700 .74em var(--sans); letter-spacing:.02em; text-transform:uppercase; color:var(--ink-mute); }
+    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:170px; }
   </style>
 </head>
 <body class="method-page">
@@ -54,6 +57,7 @@
   <script src="assets/arts-data.js"></script>
   <script src="assets/schools-data.js"></script>
   <script src="assets/tryit-data.js"></script>
+  <script src="assets/reader.js"></script>
   <script src="assets/app.js"></script>
   <script>
     const SUB_ICONS = {
@@ -220,7 +224,10 @@
         <header class="sub-hero">
           <div class="sub-hero-eyebrow">${a.name} · ${idx + 1} of ${total}</div>
           <h1>${SUB_TITLES[key]}</h1>
-          <button class="read-btn" id="sub-read-btn">▶ Read aloud</button>
+          <div class="read-row">
+            <button class="read-btn" id="sub-read-btn">▶ Read aloud</button>
+            <span class="voice-pick" hidden><label for="voice-select">Voice</label><select id="voice-select"></select></span>
+          </div>
         </header>
         ${body}
         <nav class="sub-nav">
@@ -240,6 +247,7 @@
           else window.Reader.readElement(document.getElementById('root'));
         });
       }
+      if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.getElementById('voice-select'));
       if (key === 'try-it') wireTryIt(s);
     }
 
@@ -307,6 +315,5 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
     }
   </script>
-  <script src="assets/reader.js"></script>
 </body>
 </html>
