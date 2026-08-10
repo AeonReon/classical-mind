@@ -75,5 +75,19 @@ window.TRYIT = {
       { type: 'reveal', q: 'Your turn. Think of one thing that worried you this week. Split it in two: the part that was outside your control, and your response to it — which was inside it. Where did your energy go, and where should it have gone?', reveal: 'The Stoic move: release the first entirely — it was never yours. Pour everything into the second. Marcus Aurelius: “You have power over your mind, not outside events. Realise this, and you will find strength.”' },
       { type: 'memorise', text: 'It is not things that disturb us, but our judgements about things.', source: 'Epictetus — the whole of Stoicism in one line' }
     ]
+  },
+
+  aristotle: {
+    title: 'Try it',
+    intro: 'For Aristotle, every virtue is a mean between two vices — one of too much, one of too little. Courage, for instance, sits between cowardice and rashness. Find the middle.',
+    exercises: [
+      { type: 'choice', q: 'Courage is the golden mean between which two extremes?', options: ['Cowardice and rashness', 'Fear and strength', 'Caution and confidence', 'Weakness and pride'], answer: 0, explain: 'Courage lies between cowardice (too little confidence in the face of danger) and rashness (too much).' },
+      { type: 'choice', q: 'Generosity is the mean between which two extremes?', options: ['Stinginess and wastefulness', 'Poverty and wealth', 'Saving and spending', 'Greed and charity'], answer: 0, explain: 'Generosity sits between the stingy person who gives too little and the wasteful one who gives too much, or wrongly.' },
+      { type: 'choice', q: 'Good temper is the mean between which two extremes?', options: ['Spinelessness and short temper', 'Calm and fury', 'Patience and passion', 'Peace and war'], answer: 0, explain: 'Good temper lies between never feeling anger when you should (spinelessness) and flaring up too easily (irascibility).' },
+      { type: 'choice', q: 'In conversation, wit is the mean between which two extremes?', options: ['Dullness and buffoonery', 'Silence and chatter', 'Seriousness and mockery', 'Shyness and rudeness'], answer: 0, explain: 'Wit sits between the bore who never jokes and the buffoon who will say anything for a laugh.' },
+      { type: 'choice', q: 'Proper self-regard is the mean between which two extremes?', options: ['Meekness and vanity', 'Shame and boasting', 'Doubt and certainty', 'Modesty and pride'], answer: 0, explain: 'The great-souled person sits between undue humility (thinking too little of oneself) and vanity (thinking too much).' },
+      { type: 'reveal', q: 'Your turn. Take one quality you are working on. Name its two extremes — the too-much and the too-little — and where the healthy mean sits. Then ask: which extreme do you personally lean toward?', reveal: 'Model: Confidence — too little is timidity, too much is arrogance; the mean is a quiet self-assurance. Aristotle\'s practical tip: since we each lean one way, deliberately steer toward the opposite extreme, and you will land nearer the middle.' },
+      { type: 'memorise', text: 'Virtue is a mean between two vices, the one of excess and the other of deficiency. To feel the right thing, toward the right person, at the right time, and in the right way — that is the mark of virtue.', source: 'Aristotle, Nicomachean Ethics' }
+    ]
   }
 };
