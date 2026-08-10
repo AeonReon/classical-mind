@@ -58,6 +58,22 @@ window.TRYIT = {
         text: 'A valid argument is one whose conclusion must be true if its premises are true. Validity is about form. Soundness is validity plus premises that are actually true.',
         source: 'The heart of logic — learn it by heart'
       }
+    ],
+    more: { href: 'fallacies.html', label: 'Spot the Fallacy — drill all 21', note: 'You just met a few of the traps that make bad arguments sound smart. Want to learn and practise them all?' }
+  },
+
+  stoicism: {
+    title: 'Try it',
+    intro: 'Stoicism is a practice, not a theory — and its very first move is to sort what is in your power from what is not. So let\'s drill it. For each one, decide: in your power, or not?',
+    exercises: [
+      { type: 'choice', q: 'Whether it rains on the day you had planned to spend outdoors.', options: ['In my power', 'Not in my power'], answer: 1, explain: 'Not in your power. The weather is an external — the Stoic spends no worry on it, and simply decides what to do instead.' },
+      { type: 'choice', q: 'Whether you lose your temper when your plans are ruined.', options: ['In my power', 'Not in my power'], answer: 0, explain: 'In your power. Your judgements and reactions are yours alone — this is exactly where the Stoic puts his effort.' },
+      { type: 'choice', q: 'What other people think and say about you.', options: ['In my power', 'Not in my power'], answer: 1, explain: 'Not in your power. Reputation lives in other people\'s minds, which you do not govern. Do what is right and let the opinions fall where they may.' },
+      { type: 'choice', q: 'Whether you tell the truth today.', options: ['In my power', 'Not in my power'], answer: 0, explain: 'In your power. Your own actions and choices are the one thing fully up to you.' },
+      { type: 'choice', q: 'Whether you win the match.', options: ['In my power', 'Not in my power'], answer: 1, explain: 'Not fully in your power — the outcome depends on opponents, luck, the referee. What IS yours is how you play, and how you take the result.' },
+      { type: 'choice', q: 'How you respond to an insult.', options: ['In my power', 'Not in my power'], answer: 0, explain: 'In your power. Epictetus: it is not the insult that harms you, but your judgement that it is harmful.' },
+      { type: 'reveal', q: 'Your turn. Think of one thing that worried you this week. Split it in two: the part that was outside your control, and your response to it — which was inside it. Where did your energy go, and where should it have gone?', reveal: 'The Stoic move: release the first entirely — it was never yours. Pour everything into the second. Marcus Aurelius: “You have power over your mind, not outside events. Realise this, and you will find strength.”' },
+      { type: 'memorise', text: 'It is not things that disturb us, but our judgements about things.', source: 'Epictetus — the whole of Stoicism in one line' }
     ]
   }
 };

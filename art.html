@@ -43,6 +43,9 @@
     .tryit-mem-text.blurred{ filter:blur(7px); user-select:none; }
     .tryit-mem-src{ margin-top:8px; font-weight:700; color:var(--m-deep,#5b21b6); font-size:.9em; }
     .tryit-mem-btn{ margin-top:12px; }
+    .tryit-more{ display:block; text-decoration:none; margin-top:16px; padding:16px 18px; border-radius:16px; color:#fff; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); box-shadow:0 4px 14px rgba(60,45,20,.2); }
+    .tryit-more-note{ display:block; font-size:.92em; opacity:.95; line-height:1.45; margin-bottom:9px; }
+    .tryit-more-cta{ display:block; font-weight:800; font-size:1.06em; }
   </style>
 </head>
 <body class="method-page">
@@ -62,7 +65,7 @@
       'masters': '<polygon points="32,8 38,26 56,26 42,38 48,56 32,46 16,56 22,38 8,26 26,26" fill="currentColor"/>'
     };
 
-    const SECTION_ORDER = ['try-it', 'what-it-is', 'the-path', 'practice', 'reading', 'masters'];
+    const SECTION_ORDER = ['what-it-is', 'the-path', 'practice', 'reading', 'masters', 'try-it'];
 
     const SUB_TITLES = {
       'try-it': 'Try it',
@@ -268,7 +271,8 @@
         }
         return '';
       }).join('');
-      return `<p class="lede">${s.intro}</p>${cards}`;
+      const more = s.more ? `<a class="tryit-more" href="${s.more.href}">${s.more.note ? `<span class="tryit-more-note">${s.more.note}</span>` : ''}<span class="tryit-more-cta">${s.more.label} →</span></a>` : '';
+      return `<p class="lede">${s.intro}</p>${cards}${more}`;
     }
 
     function wireTryIt(s) {
