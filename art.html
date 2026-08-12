@@ -226,7 +226,7 @@
           <h1>${SUB_TITLES[key]}</h1>
           <div class="read-row">
             <button class="read-btn" id="sub-read-btn">▶ Read aloud</button>
-            <span class="voice-pick" hidden><label for="voice-select">Voice</label><select id="voice-select"></select></span>
+            <span class="voice-pick" hidden></span>
           </div>
         </header>
         ${body}
@@ -247,7 +247,7 @@
           else window.Reader.readElement(document.getElementById('root'));
         });
       }
-      if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.getElementById('voice-select'));
+      if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
       if (key === 'try-it') wireTryIt(s);
     }
 

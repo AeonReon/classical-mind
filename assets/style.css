@@ -1723,3 +1723,11 @@ body.random-page {
 .corner-nav:active { transform: scale(.94); }
 .corner-back { left: 0.8em; }
 .corner-home { right: 0.8em; }
+
+/* ---- Read-aloud voice toggle: Echo (streamed) / Device (offline) ---- */
+.vp-label { font: 700 0.74em var(--sans); letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-mute); }
+.vp-seg { display: inline-flex; border: 1.5px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.vp-seg button { border: 0 !important; background: #fff; color: var(--ink-mute); font: 800 0.92em var(--sans); text-transform: none; letter-spacing: 0; padding: 0.42em 0.95em; cursor: pointer; }
+.vp-seg button::before { display: none !important; }
+.vp-seg button.on { background: var(--ink); color: #fff; }
+.vp-voice { font: 600 0.95em var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); background: #fff; border: 1.5px solid var(--rule); border-radius: 999px; padding: 0.4em 0.8em; max-width: 150px; }

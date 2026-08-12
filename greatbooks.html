@@ -56,7 +56,7 @@
       <h1>The Great Books</h1>
       <p>The long conversation of the West — the works that shaped how we think, argue, govern, and imagine. Tap any title for the general idea of what it is and why it has mattered for centuries. Read them in any order; you are joining a conversation, not sitting an exam.</p>
       <p style="margin-top:.7em"><a href="art.html?id=great-books" style="color:var(--cd);font-weight:800;text-decoration:none">Why read them, and how →</a></p>
-      <div class="gb-voice"><span class="voice-pick" hidden><label for="voice-select">Read-aloud voice</label><select id="voice-select"></select></span></div>
+      <div class="gb-voice"><span class="voice-pick" hidden></span></div>
     </header>
     <div id="eras"></div>
   </main>
@@ -128,7 +128,7 @@
       btn.textContent = '⏹ Stop'; activeBtn = btn;
     });
 
-    if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.getElementById('voice-select'));
+    if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
   </script>
 </body>
 </html>
