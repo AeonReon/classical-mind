@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#5E3A80">
+  <title>Learn by Heart — Classical Mind</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    body{ --c:#8A5CB0; --cd:#5E3A80; --cs:#EFE7F6; }
+    .mem-main{ max-width:600px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
+    .mem-hero{ margin:0 0 6px; }
+    .mem-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .mem-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
+    .mem-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:52ch; }
+
+    /* progress strip */
+    .mem-stats{ display:flex; gap:8px; margin:16px 0 4px; flex-wrap:wrap; }
+    .mem-stat{ flex:1; min-width:92px; background:#fff; border:1.5px solid var(--rule); border-radius:14px; padding:11px 13px; box-shadow:var(--shadow-sm); }
+    .mem-stat b{ display:block; font-size:1.5em; font-weight:800; color:var(--cd); line-height:1; letter-spacing:-.02em; }
+    .mem-stat span{ font:700 .68rem var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mute); }
+    .mem-voice{ margin:12px 0 2px; }
+
+    /* the card */
+    .mem-stage{ margin-top:16px; }
+    .mem-card{ background:#fff; border:1.5px solid var(--c); border-radius:20px; padding:22px 20px; box-shadow:0 6px 22px rgba(94,58,128,.14); }
+    .mem-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .mem-tag{ font:800 .66rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--cd); background:var(--cs); border-radius:999px; padding:.4em .8em; }
+    .mem-count{ font:700 .8rem var(--sans); color:var(--ink-mute); }
+    .mem-progbar{ height:5px; border-radius:999px; background:var(--cs); overflow:hidden; margin-bottom:18px; }
+    .mem-progfill{ height:100%; background:linear-gradient(90deg,var(--c),var(--cd)); border-radius:999px; transition:width .3s; }
+
+    .mem-source{ font:700 .95rem var(--sans); color:var(--ink); }
+    .mem-hint{ font-size:.9rem; color:var(--ink-mute); margin-top:6px; }
+    .mem-newbadge{ display:inline-block; font:800 .64rem var(--sans); letter-spacing:.06em; text-transform:uppercase; color:#8a6d1f; background:#FBF0CC; border-radius:999px; padding:.35em .7em; margin-bottom:10px; }
+    .mem-text{ font-size:1.28em; line-height:1.5; color:var(--ink); font-weight:600; white-space:pre-line; margin:18px 0 4px; letter-spacing:-.01em; }
+
+    .mem-actions{ display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
+    .mem-btn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer; font:800 .95em var(--sans); border-radius:999px; padding:.72em 1.2em; border:0; }
+    .mem-reveal{ width:100%; color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
+    .mem-reveal:active{ transform:scale(.98); }
+    .mem-listen{ color:var(--cd); background:var(--cs); }
+    .mem-grades{ display:flex; gap:8px; margin-top:14px; }
+    .mem-grade{ flex:1; cursor:pointer; font:800 .9em var(--sans); border-radius:14px; padding:.8em .4em; border:1.5px solid var(--rule); background:#fff; color:var(--ink); }
+    .mem-grade:active{ transform:scale(.97); }
+    .mem-grade .g-sub{ display:block; font:700 .64rem var(--sans); letter-spacing:.03em; text-transform:uppercase; margin-top:3px; opacity:.6; }
+    .mem-grade.g-no{ border-color:#E7B7B7; color:#9A3B3B; }
+    .mem-grade.g-almost{ border-color:#E7D2A6; color:#8A6A1F; }
+    .mem-grade.g-got{ border-color:#B7DBBE; color:#2E6B3E; }
+
+    /* done + empty */
+    .mem-done{ background:#fff; border:1.5px solid var(--rule); border-radius:20px; padding:26px 22px; text-align:center; box-shadow:var(--shadow-sm); }
+    .mem-done .big{ font-size:2.4em; }
+    .mem-done h2{ font-weight:800; font-size:1.35em; letter-spacing:-.02em; margin:.4em 0 .3em; color:var(--ink); }
+    .mem-done p{ font-size:1em; line-height:1.55; color:var(--ink-soft); margin:0 auto; max-width:40ch; }
+    .mem-done .mem-actions{ justify-content:center; margin-top:20px; }
+    .mem-more{ color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
+    .mem-ghost{ color:var(--cd); background:var(--cs); }
+
+    /* browse */
+    .mem-browse-link{ display:inline-block; margin-top:20px; font:800 .82rem var(--sans); color:var(--cd); text-decoration:none; cursor:pointer; }
+    .mem-browse{ margin-top:14px; display:flex; flex-direction:column; gap:.5em; }
+    .mem-row{ background:#fff; border:1.5px solid var(--rule); border-radius:13px; padding:12px 15px; }
+    .mem-row .r-text{ font-size:1em; line-height:1.5; color:var(--ink); font-weight:600; white-space:pre-line; }
+    .mem-row .r-src{ font-size:.82em; color:var(--ink-mute); margin-top:5px; }
+    .mem-row .r-box{ float:right; font:800 .6rem var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--cd); }
+  </style>
+</head>
+<body class="method-page">
+  <main class="mem-main">
+    <header class="mem-hero">
+      <div class="mem-eyebrow">Practice · the stocked memory</div>
+      <h1>Learn by Heart</h1>
+      <p>A small treasury of the greatest lines — maxims, verses, and sayings worth carrying with you. You are shown the source; try to call the words to mind, then reveal and mark yourself. Each line returns over the coming days, at growing intervals, until it is truly yours.</p>
+      <div class="mem-voice"><span class="voice-pick" hidden></span></div>
+    </header>
+
+    <div class="mem-stats" id="stats"></div>
+    <div class="mem-stage" id="stage"></div>
+    <a class="mem-browse-link" id="browseToggle">Browse the whole treasury →</a>
+    <div class="mem-browse" id="browse" hidden></div>
+  </main>
+
+  <script src="assets/memory-data.js"></script>
+  <script src="assets/reader.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const PIECES = (window.MEMORY_PIECES || []).slice();
+    const KEY = 'cm_memory_v1';
+    const DAY = 86400000;
+    const INTERVALS = [0, 1, 3, 7, 21, 60]; // days per box 0..5
+    const NEW_PER_SESSION = 6, SESSION_MAX = 14;
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    let prog = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } })();
+    const saveProg = () => { try { localStorage.setItem(KEY, JSON.stringify(prog)); } catch (_) {} };
+    const now = () => Date.now();
+    const byId = id => PIECES.find(p => p.id === id);
+    function shuffle(a){ for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+    const statsEl = document.getElementById('stats');
+    const stageEl = document.getElementById('stage');
+
+    function stats(){
+      let learned = 0, due = 0, seen = 0;
+      PIECES.forEach(p => { const s = prog[p.id]; if (s){ seen++; if (s.box >= 3) learned++; if (s.due <= now()) due++; } });
+      return { total: PIECES.length, learned, due, seen, newLeft: PIECES.length - seen };
+    }
+    function renderStats(){
+      const s = stats();
+      statsEl.innerHTML =
+        `<div class="mem-stat"><b>${s.learned}</b><span>Known well</span></div>` +
+        `<div class="mem-stat"><b>${s.due + s.newLeft > 0 ? (s.due + Math.min(NEW_PER_SESSION, s.newLeft)) : 0}</b><span>To review now</span></div>` +
+        `<div class="mem-stat"><b>${s.seen}<span style="font-size:.5em;color:var(--ink-mute)"> / ${s.total}</span></b><span>Started</span></div>`;
+    }
+
+    function buildQueue(){
+      const reviews = shuffle(PIECES.filter(p => prog[p.id] && prog[p.id].due <= now()));
+      const news = shuffle(PIECES.filter(p => !prog[p.id]));
+      let q = reviews.slice(0, SESSION_MAX);
+      const room = SESSION_MAX - q.length;
+      if (room > 0) q = q.concat(news.slice(0, Math.min(NEW_PER_SESSION, room)));
+      return q.map(p => p.id);
+    }
+
+    let queue = [], pos = 0, planned = 0;
+
+    function updateSRS(piece, g){
+      const s = prog[piece.id] || { box: 0, due: 0 };
+      if (g === 'got'){ s.box = Math.min(5, s.box + 1); s.due = now() + INTERVALS[s.box] * DAY; }
+      else if (g === 'almost'){ s.box = Math.max(1, s.box); s.due = now() + DAY; }
+      else { s.box = 0; s.due = now(); }
+      prog[piece.id] = s; saveProg();
+    }
+
+    function startSession(){
+      queue = buildQueue(); pos = 0; planned = queue.length;
+      if (window.Reader) Reader.stop();
+      renderStats();
+      if (!queue.length) return renderDone(true);
+      renderCard();
+    }
+
+    function renderCard(){
+      const piece = byId(queue[pos]);
+      const isNew = !prog[piece.id];
+      const pct = planned ? Math.round((pos / planned) * 100) : 0;
+      stageEl.innerHTML = `
+        <div class="mem-card">
+          <div class="mem-top">
+            <span class="mem-tag">${esc(piece.tag || 'Line')}</span>
+            <span class="mem-count">${pos + 1} of ${planned}</span>
+          </div>
+          <div class="mem-progbar"><div class="mem-progfill" style="width:${pct}%"></div></div>
+          ${isNew ? '<div class="mem-newbadge">New · read and learn it</div>' : ''}
+          <div class="mem-source">${esc(piece.source)}</div>
+          <div class="mem-hint">${isNew ? 'A new one. Reveal it, read it a few times, and say it back.' : 'Bring the words to mind — then reveal to check.'}</div>
+          <div class="mem-text" id="memText" hidden>${esc(piece.text)}</div>
+          <div class="mem-actions" id="memAct">
+            <button type="button" class="mem-btn mem-reveal" id="revealBtn">Reveal the words</button>
+          </div>
+        </div>`;
+      document.getElementById('revealBtn').addEventListener('click', () => reveal(piece));
+    }
+
+    function reveal(piece){
+      document.getElementById('memText').hidden = false;
+      const act = document.getElementById('memAct');
+      act.innerHTML = `
+        <button type="button" class="mem-btn mem-listen" id="listenBtn">🔊 Listen</button>
+        <div class="mem-grades" style="flex-basis:100%">
+          <button type="button" class="mem-grade g-no" data-g="no">Not yet<span class="g-sub">again soon</span></button>
+          <button type="button" class="mem-grade g-almost" data-g="almost">Almost<span class="g-sub">tomorrow</span></button>
+          <button type="button" class="mem-grade g-got" data-g="got">Got it<span class="g-sub">space it out</span></button>
+        </div>`;
+      document.getElementById('listenBtn').addEventListener('click', e => {
+        const b = e.currentTarget;
+        if (window.Reader && Reader.speaking){ Reader.stop(); b.textContent = '🔊 Listen'; return; }
+        if (window.Reader){ Reader.read(piece.text, () => { b.textContent = '🔊 Listen'; }); b.textContent = '⏹ Stop'; }
+      });
+      act.querySelectorAll('.mem-grade').forEach(g => g.addEventListener('click', () => {
+        const grade = g.dataset.g;
+        updateSRS(piece, grade);
+        if (grade === 'no' && !queue.slice(pos + 1).includes(piece.id)){ queue.push(piece.id); planned = queue.length; }
+        if (window.Reader) Reader.stop();
+        pos++;
+        renderStats();
+        if (pos >= queue.length) renderDone(false);
+        else renderCard();
+      }));
+    }
+
+    function renderDone(nothingDue){
+      const s = stats();
+      const moreDue = s.due > 0 || s.newLeft > 0;
+      stageEl.innerHTML = `
+        <div class="mem-done">
+          <div class="big">${nothingDue ? '🌱' : '🏛️'}</div>
+          <h2>${nothingDue ? 'All caught up' : 'Well done'}</h2>
+          <p>${nothingDue
+            ? 'Nothing is due right now. Your lines are resting — come back later and the ones ready to review will appear.'
+            : `You worked through this round. ${s.learned} line${s.learned === 1 ? '' : 's'} you now know well. The ones you found hard will come back soon; the ones you knew return further off.`}</p>
+          <div class="mem-actions">
+            ${moreDue ? '<button type="button" class="mem-btn mem-more" id="moreBtn">Keep going</button>' : ''}
+            <a class="mem-btn mem-ghost" href="index.html">Home</a>
+          </div>
+        </div>`;
+      const mb = document.getElementById('moreBtn');
+      if (mb) mb.addEventListener('click', startSession);
+    }
+
+    // Browse the whole treasury
+    const browseEl = document.getElementById('browse');
+    const browseToggle = document.getElementById('browseToggle');
+    let browseOpen = false;
+    browseToggle.addEventListener('click', () => {
+      browseOpen = !browseOpen;
+      browseEl.hidden = !browseOpen;
+      browseToggle.textContent = browseOpen ? 'Hide the treasury ↑' : 'Browse the whole treasury →';
+      if (browseOpen && !browseEl.dataset.built){
+        browseEl.innerHTML = PIECES.map(p => {
+          const box = prog[p.id] ? prog[p.id].box : null;
+          const lvl = box == null ? 'new' : (box >= 3 ? 'known' : 'learning');
+          return `<div class="mem-row"><span class="r-box">${lvl}</span><div class="r-text">${esc(p.text)}</div><div class="r-src">— ${esc(p.source)}</div></div>`;
+        }).join('');
+        browseEl.dataset.built = '1';
+      }
+    });
+
+    if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
+    startSession();
+  </script>
+</body>
+</html>
