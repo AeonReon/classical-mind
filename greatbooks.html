@@ -36,7 +36,13 @@
     .gb-book[open] .gb-chev{ transform:rotate(180deg); }
     .gb-body{ padding:0 16px 16px; }
     .gb-text{ font-size:1em; line-height:1.6; color:var(--ink-soft); }
-    .gb-actions{ display:flex; flex-wrap:wrap; gap:9px; margin-top:14px; }
+    .gb-hook{ font-size:1.06em; line-height:1.55; color:var(--ink); font-weight:600; margin:0 0 14px; }
+    .gb-sec{ margin:0 0 13px; }
+    .gb-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
+    .gb-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
+    .gb-bullets{ margin:4px 0 0; padding-left:1.15em; }
+    .gb-bullets li{ font-size:.96em; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
+    .gb-actions{ display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }
     .gb-btn{ display:inline-flex; align-items:center; gap:7px; text-decoration:none; cursor:pointer; font:800 .86em var(--sans); border-radius:999px; padding:.6em 1.1em; border:0; }
     .gb-listen{ color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
     .gb-free{ color:var(--cd); background:var(--cs); }
@@ -64,6 +70,16 @@
     const root = document.getElementById('eras');
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const freeLink = b => 'https://www.gutenberg.org/ebooks/search/?query=' + encodeURIComponent(b.title.replace(/\(.*\)/, '').trim() + ' ' + b.author);
+    function bookText(b){
+      let t = b.title + ', by ' + b.author + '. ' + (b.hook || '');
+      (b.sections || []).forEach(s => {
+        if (s.h) t += ' ' + s.h + '. ';
+        if (s.body) t += s.body + ' ';
+        if (s.bullets) t += s.bullets.join('. ') + '. ';
+      });
+      if (!b.sections && b.summary) t += ' ' + b.summary;
+      return t;
+    }
 
     root.innerHTML = ERAS.map(era => {
       const list = BOOKS.filter(b => b.era === era);
@@ -84,7 +100,14 @@
                 <span class="gb-chev" aria-hidden="true">▾</span>
               </summary>
               <div class="gb-body">
-                <p class="gb-text">${esc(b.summary)}</p>
+                ${b.hook ? `<p class="gb-hook">${esc(b.hook)}</p>` : ''}
+                ${(b.sections || []).map(s => `
+                  <div class="gb-sec">
+                    ${s.h ? `<div class="gb-sec-h">${esc(s.h)}</div>` : ''}
+                    ${s.body ? `<p class="gb-sec-p">${esc(s.body)}</p>` : ''}
+                    ${s.bullets ? `<ul class="gb-bullets">${s.bullets.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+                  </div>`).join('')}
+                ${(b.summary && !(b.sections && b.sections.length)) ? `<p class="gb-sec-p">${esc(b.summary)}</p>` : ''}
                 <div class="gb-actions">
                   <button type="button" class="gb-btn gb-listen" data-id="${esc(b.id)}">▶ Listen</button>
                   <a class="gb-btn gb-free" href="${freeLink(b)}" target="_blank" rel="noopener">Read free →</a>
@@ -101,7 +124,7 @@
       const book = BOOKS.find(b => b.id === btn.dataset.id); if (!book || !window.Reader) return;
       if (activeBtn === btn && Reader.speaking) { Reader.stop(); btn.textContent = '▶ Listen'; activeBtn = null; return; }
       if (activeBtn) activeBtn.textContent = '▶ Listen';
-      Reader.read(book.title + ', by ' + book.author + '. ' + book.summary, () => { btn.textContent = '▶ Listen'; if (activeBtn === btn) activeBtn = null; });
+      Reader.read(bookText(book), () => { btn.textContent = '▶ Listen'; if (activeBtn === btn) activeBtn = null; });
       btn.textContent = '⏹ Stop'; activeBtn = btn;
     });
 
