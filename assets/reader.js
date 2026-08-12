@@ -79,15 +79,16 @@ window.Reader = (function () {
     });
   }
 
-  function read(text) {
+  function read(text, onEnd) {
     if (!has) { alert('This browser does not support text-to-speech.'); return; }
     stop();
     state.utterance = new SpeechSynthesisUtterance(text);
     if (state.voice) state.utterance.voice = state.voice;
     state.utterance.rate = state.rate;
     state.utterance.pitch = state.pitch;
-    state.utterance.onend = () => { state.speaking = false; updateButtons(); };
-    state.utterance.onerror = () => { state.speaking = false; updateButtons(); };
+    const done = () => { state.speaking = false; updateButtons(); if (typeof onEnd === 'function') onEnd(); };
+    state.utterance.onend = done;
+    state.utterance.onerror = done;
     speechSynthesis.speak(state.utterance);
     state.speaking = true;
     updateButtons();
