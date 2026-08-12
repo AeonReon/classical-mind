@@ -406,5 +406,165 @@ window.GREATBOOKS = [
     { h: 'Big ideas', bullets: ['The proclamation that "God is dead" and the crisis of values', 'The Übermensch as one who creates new values', 'Eternal recurrence as a test of life-affirmation', 'The will to power as a drive within life', 'A critique of conventional morality and herd conformity'] },
     { h: 'Why it endures', body: 'Zarathustra is among the most widely read and debated works of modern philosophy, and it profoundly influenced later thought, literature, and art. Its provocative images and questions about meaning, value, and self-overcoming continue to challenge readers.' }
   ]
+},
+{
+  id: 'symposium', title: 'The Symposium', author: 'Plato', era: 'Ancient Greece', year: 'c. 385 BC',
+  hook: 'A dinner party of Athens\' wittiest men turns into the West\'s most famous conversation about the nature of love.',
+  sections: [
+    { h: 'What it is', body: 'A philosophical dialogue by Plato, framed as a series of after-dinner speeches at a drinking party (a symposium) held to celebrate the tragedian Agathon\'s prize. Each guest in turn delivers a speech in praise of Eros, the god of love, and the competing accounts build toward Socrates\' own. It is at once literature, comedy, and philosophy.' },
+    { h: 'The argument', body: 'The guests agree to speak in praise of love rather than drink heavily. Phaedrus, Pausanias, the doctor Eryximachus, and the comic poet Aristophanes each offer a view, Aristophanes telling his famous myth of the split double-beings who seek their other half. Agathon praises love\'s beauty, then Socrates reframes everything: love is desire for what one lacks, and its true object is Beauty itself. He recounts the teaching of the priestess Diotima, who describes an ascent from loving one body to loving all beauty and finally the Form of Beauty. The drunken Alcibiades then bursts in and praises Socrates himself.' },
+    { h: 'Big ideas', bullets: ['Love as lack — we desire what we do not possess, so love reaches beyond itself toward the good and beautiful', 'The "ladder of love": ascending from physical attraction to love of souls, laws, knowledge, and finally Beauty itself', 'Aristophanes\' myth of divided humans searching for their missing half as an image of longing', 'Philosophy as a kind of erotic striving — the lover of wisdom is driven by desire for what is highest'] },
+    { h: 'Why it endures', body: 'The Symposium fused rigorous thought with vivid drama, giving Western culture its enduring vocabulary for love, from soulmates to "Platonic" affection. Its ladder of desire has shaped mystics, poets, and philosophers for over two thousand years.' }
+  ]
+},
+{
+  id: 'poetics', title: 'Poetics', author: 'Aristotle', era: 'Ancient Greece', year: 'c. 335 BC',
+  hook: 'The founding work of literary criticism, which taught the West how stories are built and why they move us.',
+  sections: [
+    { h: 'What it is', body: 'A compact treatise by Aristotle analysing the art of poetry, especially tragedy. Surviving in an incomplete form (its discussion of comedy is lost), it is less a set of rules than a working theory of how dramatic and epic works are constructed and why they affect audiences. It is the earliest surviving systematic study of literature in the Western tradition.' },
+    { h: 'The argument', body: 'Aristotle defines poetry as a form of imitation (mimesis) of human action, distinguishing tragedy, epic, and comedy by their means and objects. He argues that plot is the soul of tragedy, more important than character, and that the best plots are unified, probable, and structured with a beginning, middle, and end. He examines the parts of tragedy, the power of reversal (peripeteia) and recognition (anagnorisis), and the ideal tragic hero who falls through some error (hamartia). Tragedy, he claims, arouses pity and fear to achieve catharsis, a purging or clarification of those emotions.' },
+    { h: 'Big ideas', bullets: ['Mimesis — art as imitation of life, giving pleasure through recognition and skilled representation', 'Plot over character — a well-constructed sequence of events is the heart of drama', 'Catharsis — tragedy purges or refines pity and fear in the audience', 'Reversal and recognition as the turning points that give a story its emotional force'] },
+    { h: 'Why it endures', body: 'The Poetics set the terms for how the West talks about storytelling, from Renaissance drama to modern screenwriting manuals. Its ideas about unified plot, tragic flaw, and catharsis remain the working grammar of critics and writers today.' }
+  ]
+},
+{
+  id: 'epictetus-discourses', title: 'Discourses and Enchiridion', author: 'Epictetus', era: 'Ancient Rome', year: 'c. 108 AD',
+  hook: 'A former slave turned philosopher teaches that freedom lies not in circumstance but in mastering what is within your control.',
+  sections: [
+    { h: 'What it is', body: 'A record of the Stoic teaching of Epictetus, who was born a slave and became a revered teacher. The Discourses are transcripts of his lessons taken down by his student Arrian, while the Enchiridion (or Handbook) is a short distillation of his core practical advice. Neither was written by Epictetus himself; both are Arrian\'s record of his master\'s spoken philosophy.' },
+    { h: 'The argument', body: 'At the heart of Epictetus\' teaching is a single division: some things are within our power (our judgements, desires, and actions) and some are not (our body, reputation, wealth, and fate). Peace comes from focusing entirely on the former and accepting the latter with equanimity. He urges his students to examine their impressions before acting on them, to strip away false beliefs about what is good and bad, and to treat hardship as training for virtue. Philosophy is not talk but a way of living, tested daily in how one meets illness, loss, and insult.' },
+    { h: 'Big ideas', bullets: ['The dichotomy of control — distinguish what is up to us from what is not, and invest only in the former', 'It is not events that disturb us but our judgements about them', 'Virtue and a rightly ordered will are the only true goods; externals are indifferent', 'Philosophy as daily practice — a discipline lived out in conduct, not merely discussed'] },
+    { h: 'Why it endures', body: 'Epictetus\' clear, bracing voice has consoled readers from the emperor Marcus Aurelius to modern soldiers and prisoners. His teaching underpins much of modern cognitive therapy and the ongoing Stoic revival, offering a practical path to resilience in any age.' }
+  ]
+},
+{
+  id: 'tacitus-annals', title: 'The Annals', author: 'Tacitus', era: 'Ancient Rome', year: 'c. 116 AD',
+  hook: 'Rome\'s sharpest historian dissects the corruption of absolute power under the emperors who followed Augustus.',
+  sections: [
+    { h: 'What it is', body: 'A work of history by Cornelius Tacitus, covering the Roman Empire from the death of Augustus in AD 14 through the reign of Nero, arranged year by year (hence "annals"). Parts of the text are lost, but what survives is regarded as one of the greatest achievements of ancient historical writing. It is history written with the compression and moral force of great literature.' },
+    { h: 'The argument', body: 'Tacitus traces how the Roman state, having kept the outward forms of the old Republic, slid into the reality of one-man rule. He examines the reigns of Tiberius, Claudius, and Nero, exposing the fear, flattery, and informers that flourished under tyranny. With a spare, penetrating style he probes the psychology of rulers and the servility of the Senate, showing how liberty decays even as institutions remain standing. Rather than praise or excuse, he claims to write "without anger and partisanship," letting the record of cruelty and hypocrisy speak.' },
+    { h: 'Big ideas', bullets: ['The corrosion of political liberty under autocracy, even when republican forms survive', 'The psychology of tyranny — suspicion, dissimulation, and the breeding of informers', 'History as moral inquiry, meant to instruct by preserving examples of virtue and vice', 'The servility of elites who trade freedom for safety and favour'] },
+    { h: 'Why it endures', body: 'Tacitus\' unflinching study of power and its abuses has influenced political thinkers from the Renaissance to the framers of modern constitutions. His compressed, ironic prose and his warnings about liberty\'s fragility feel startlingly modern.' }
+  ]
+},
+{
+  id: 'beowulf', title: 'Beowulf', author: 'Anonymous', era: 'The Middle Ages', year: 'c. 1000',
+  hook: 'An Old English epic of a hero who battles monsters and, in old age, a dragon, facing a fate he cannot escape.',
+  sections: [
+    { h: 'What it is', body: 'The greatest surviving epic poem in Old English, composed by an unknown poet and preserved in a single manuscript. Set in a legendary Scandinavian past, it blends heroic legend with the reflective outlook of a Christian poet looking back on a pagan world. It is a poem of some three thousand alliterative lines, meant to be recited in the mead-hall.' },
+    { h: 'The story', body: 'The Geatish warrior Beowulf sails to Denmark to help King Hrothgar, whose hall Heorot is terrorised by the monster Grendel. Beowulf kills Grendel in single combat, then descends into a haunted lake to slay Grendel\'s vengeful mother. Honoured and rewarded, he returns home and eventually becomes king of the Geats, ruling well for fifty years. In old age he faces a fire-breathing dragon roused by a stolen treasure; he slays it with the help of the loyal Wiglaf but is mortally wounded, and the poem closes with his funeral and forebodings for his people.' },
+    { h: 'Big ideas', bullets: ['The heroic code — courage, loyalty, reputation, and the duty of a warrior to face fate unflinchingly', 'The passage of glory — even the greatest hero ages and dies, and kingdoms rise and fall', 'The tension between an old pagan warrior world and the poet\'s Christian outlook', 'Monsters as embodiments of the outcast, the chaotic, and the mortal terrors that surround human order'] },
+    { h: 'Why it endures', body: 'Beowulf is the cornerstone of English literature\'s beginnings, a bridge between oral legend and written poetry. Its haunting meditation on courage, mortality, and the fading of glory has inspired writers from the Victorians to J.R.R. Tolkien.' }
+  ]
+},
+{
+  id: 'imitation-of-christ', title: 'The Imitation of Christ', author: 'Thomas à Kempis', era: 'The Middle Ages', year: '1418',
+  hook: 'A quiet monastic classic urging inner devotion over outward show, and the following of Christ over the pride of learning.',
+  sections: [
+    { h: 'What it is', body: 'A devotional handbook of Christian spirituality, traditionally attributed to the German-Dutch monk Thomas à Kempis and associated with the reform movement known as the Devotio Moderna. Written in simple Latin as a series of short chapters and counsels, it is designed for meditation rather than continuous reading. After the Bible, it became one of the most widely read and translated Christian books in history.' },
+    { h: 'The argument', body: 'The book calls the reader away from worldly ambition and vain intellectual pride toward humility, self-denial, and inward communion with God. It teaches that true wisdom is to know and despise oneself, and that peace is found not in knowledge or possessions but in imitating the humility and patience of Christ. Later sections turn to the interior life, the consolations of grace, and devout reflection on the sacrament of the Eucharist. Throughout, it favours felt devotion over theological argument: "I would rather feel contrition than know how to define it."' },
+    { h: 'Big ideas', bullets: ['Imitation of Christ\'s humility and patience as the heart of the spiritual life', 'The vanity of worldly ambition and mere book-learning without love of God', 'Inner devotion and self-knowledge over external religious display', 'Peace and freedom found through detachment, surrender, and grace'] },
+    { h: 'Why it endures', body: 'For six centuries The Imitation of Christ has been a companion to seekers across many Christian traditions, prized for its gentle, searching honesty. Its call to a simple interior life continues to speak to readers weary of noise and ambition.' }
+  ]
+},
+{
+  id: 'utopia', title: 'Utopia', author: 'Thomas More', era: 'Renaissance & Early Modern', year: '1516',
+  hook: 'A witty, unsettling portrait of an imaginary island where reason has abolished poverty, pride, and private property.',
+  sections: [
+    { h: 'What it is', body: 'A short work of political philosophy and fiction by the English humanist and statesman Thomas More, written in Latin. It takes the form of a dialogue in which a traveller, Raphael Hythloday, describes a distant island commonwealth. More coined the very word "utopia" from Greek roots meaning "no place," and the book plays a sly double game between serious proposal and satire.' },
+    { h: 'The argument', body: 'The first book is a sharp critique of the ills of More\'s own England, especially the injustice of enclosure, harsh punishment of thieves, and the pride and greed of the powerful. The second book describes the island of Utopia, where property is held in common, everyone works and shares in the harvest, gold is despised, and religious tolerance largely prevails. Its citizens live by reason and moderation, with six-hour workdays and communal meals. Yet the account is laced with irony, and More leaves it deliberately unclear how far he endorses this rational paradise.' },
+    { h: 'Big ideas', bullets: ['Common ownership versus private property as the root of social justice or injustice', 'Satire of contemporary Europe — its greed, cruel laws, and warmongering princes', 'The power of reason and institutions to reshape human society', 'Deliberate ambiguity — is Utopia an ideal to pursue, an impossibility, or a mirror held up to Europe?'] },
+    { h: 'Why it endures', body: 'Utopia gave its name to a whole genre and to the enduring human impulse to imagine a better society. Its blend of biting satire and idealism keeps readers debating whether it is a blueprint, a warning, or a joke with a serious heart.' }
+  ]
+},
+{
+  id: 'in-praise-of-folly', title: 'In Praise of Folly', author: 'Erasmus', era: 'Renaissance & Early Modern', year: '1509',
+  hook: 'The goddess Folly steps forward to praise herself, and in doing so exposes the vanity and hypocrisy of the whole world.',
+  sections: [
+    { h: 'What it is', body: 'A satirical essay by the Dutch humanist Erasmus, written in Latin and dedicated to his friend Thomas More (whose name puns on the Greek for folly). It takes the form of a mock encomium, a speech of self-praise delivered by Folly personified. Playful and learned, it became one of the most celebrated and influential works of the Northern Renaissance.' },
+    { h: 'The argument', body: 'Folly, a goddess, mounts a rostrum and delivers a witty oration in her own honour, claiming that she is the secret source of all human happiness, love, friendship, and society. As her speech proceeds, its target sharpens: she mocks pedantic scholars, superstitious believers, greedy merchants, pompous princes, and above all corrupt clergy, monks, and theologians who have strayed from the simplicity of the Gospel. In its final turn, the tone deepens, and Folly praises the "folly of the cross," the divine foolishness of Christian faith that the wise world cannot understand.' },
+    { h: 'Big ideas', bullets: ['Satire of human self-deception, vanity, and the pretensions of the learned and the powerful', 'Sharp criticism of a worldly, corrupt Church, calling for a return to simple Gospel piety', 'The paradox that a measure of folly makes life bearable and human bonds possible', 'The "folly of the cross" — Christian humility as a wisdom that transcends worldly reason'] },
+    { h: 'Why it endures', body: 'In Praise of Folly helped prepare the ground for the Reformation while remaining beloved for its wit and humanity. Its laughing exposure of hypocrisy, and its plea for a simpler, kinder faith, keep it fresh five centuries on.' }
+  ]
+},
+{
+  id: 'macbeth', title: 'Macbeth', author: 'William Shakespeare', era: 'Renaissance & Early Modern', year: '1606',
+  hook: 'A brave soldier murders his king to seize a crown, then drowns in the blood it costs to keep it.',
+  sections: [
+    { h: 'What it is', body: 'A tragedy in five acts, and the shortest and darkest of Shakespeare\'s major plays. It traces the rise and ruin of a Scottish nobleman who lets ambition override conscience. Written for James I, it fuses witchcraft, regicide, and psychological terror.' },
+    { h: 'The story', body: 'Returning from battle, Macbeth meets three witches who prophesy that he will become king. Spurred on by his wife, he murders the sleeping King Duncan and takes the throne. To secure it he orders more killings, sliding into paranoia and tyranny. Lady Macbeth, consumed by guilt, sleepwalks and dies. Macbeth, told he cannot be harmed by any man born of woman, is finally slain by Macduff, who was untimely ripped from his mother\'s womb.' },
+    { h: 'Big ideas', bullets: ['Unchecked ambition corrodes conscience and destroys the soul', 'Guilt and paranoia carry their own inescapable punishment', 'Prophecy tempts us to force fate rather than await it', 'The gap between the ambition we imagine and the deeds we must do'] },
+    { h: 'Why it endures', body: 'It maps the anatomy of ambition and guilt with terrifying precision, showing how one choice cascades into ruin. Its images — the bloody dagger, the washing of hands — remain shorthand for the mind at war with itself.' }
+  ]
+},
+{
+  id: 'candide', title: 'Candide', author: 'Voltaire', era: 'The Enlightenment & Beyond', year: '1759',
+  hook: 'A wide-eyed optimist is beaten, robbed, and shipwrecked across the world until he learns to stop philosophising and start gardening.',
+  sections: [
+    { h: 'What it is', body: 'A short satirical novella, the most famous work of the French Enlightenment. It mocks the philosophical optimism that this is "the best of all possible worlds." Voltaire uses a breakneck picaresque adventure to expose the cruelty and folly of the real one.' },
+    { h: 'The story', body: 'Candide, raised in a sheltered castle, is taught by his tutor Pangloss that everything happens for the best. Expelled for kissing the baron\'s daughter Cunegonde, he is thrown into war, the Lisbon earthquake, the Inquisition, and slavery. He crosses continents in search of Cunegonde, watching every optimistic belief collide with catastrophe. He briefly finds the golden utopia of Eldorado, then loses it. Reunited at last with his companions, aged and disillusioned, he concludes that we must simply "cultivate our garden."' },
+    { h: 'Big ideas', bullets: ['Blind optimism is an insult to real human suffering', 'Religious and political institutions breed cruelty and hypocrisy', 'Abstract philosophy is useless against concrete misery', 'Meaningful work, not grand theory, is the answer to a broken world'] },
+    { h: 'Why it endures', body: 'Its savage wit still punctures every ideology that explains away suffering. The closing call to "cultivate our garden" remains one of literature\'s most quoted pieces of hard-won wisdom.' }
+  ]
+},
+{
+  id: 'gullivers-travels', title: 'Gulliver\'s Travels', author: 'Jonathan Swift', era: 'The Enlightenment & Beyond', year: '1726',
+  hook: 'A shipwrecked traveller visits four impossible nations and returns loathing the human race.',
+  sections: [
+    { h: 'What it is', body: 'A satirical novel disguised as a travel memoir, and one of the fiercest social satires in English. Across four voyages it ridicules politics, science, pride, and human nature itself. Long softened into a children\'s tale, it is at heart a savage indictment of humanity.' },
+    { h: 'The story', body: 'The surgeon Lemuel Gulliver washes up in Lilliput, a land of tiny people whose petty court intrigues mirror European politics. Next he visits Brobdingnag, a nation of giants whose king is disgusted by Gulliver\'s account of Europe. In Laputa he encounters absurd scientists and hollow projectors chasing useless research. Finally, among the Houyhnhnms — rational, noble horses — he meets the Yahoos, filthy human-like brutes. Gulliver comes to despise his own species and returns home unable to bear the company of people.' },
+    { h: 'Big ideas', bullets: ['Human pride shrinks or swells depending on perspective', 'Politics and empire rest on trivial, arbitrary quarrels', 'Reason divorced from morality produces monstrous folly', 'The line between civilised man and brute beast is thinner than we admit'] },
+    { h: 'Why it endures', body: 'It remains the model for satire that hides devastating critique inside a fantastical adventure. Its coined worlds — Lilliputian, Yahoo — have entered the language as permanent measures of human smallness.' }
+  ]
+},
+{
+  id: 'hume-enquiry', title: 'An Enquiry Concerning Human Understanding', author: 'David Hume', era: 'The Enlightenment & Beyond', year: '1748',
+  hook: 'A cool, radical investigation into how little we can actually know — and why even cause and effect is a habit, not a certainty.',
+  sections: [
+    { h: 'What it is', body: 'A landmark work of empiricist philosophy, Hume\'s accessible reworking of his earlier Treatise. It asks what the human mind can genuinely know and traces all ideas back to sensory experience. It became a cornerstone of modern epistemology and famously roused Kant from his "dogmatic slumber."' },
+    { h: 'The argument', body: 'Hume argues that every idea is a faint copy of a prior impression from the senses, so concepts with no experiential root are empty. He then attacks causation: we never perceive a necessary connection between events, only their constant conjunction, so belief in cause and effect is a habit of the mind rather than a rational proof. This is the "problem of induction" — no experience of the past can logically guarantee the future. He applies the same sceptical scrutiny to miracles, arguing that testimony can never outweigh the laws of nature.' },
+    { h: 'Big ideas', bullets: ['All knowledge derives from sensory impressions, not innate reason', 'Cause and effect is a mental habit, not an observed necessity', 'The problem of induction: the future is not guaranteed by the past', 'Extraordinary claims like miracles demand proportionate evidence'] },
+    { h: 'Why it endures', body: 'Hume\'s scepticism reset the terms of philosophy and forced every thinker after him to answer how knowledge is possible. His clear-eyed doubt still shapes science, statistics, and the theory of evidence today.' }
+  ]
+},
+{
+  id: 'frankenstein', title: 'Frankenstein', author: 'Mary Shelley', era: 'The Nineteenth Century', year: '1818',
+  hook: 'A young scientist builds life from dead flesh, then abandons his creation — and both are destroyed by that rejection.',
+  sections: [
+    { h: 'What it is', body: 'A Gothic novel widely regarded as the first true work of science fiction, written by Mary Shelley at eighteen. It frames a story of forbidden knowledge inside a chain of nested narrators. Subtitled "The Modern Prometheus," it asks what a creator owes to what he makes.' },
+    { h: 'The story', body: 'The ambitious student Victor Frankenstein discovers how to animate lifeless matter and assembles a being from body parts. Horrified by the creature\'s appearance, he flees, leaving it alone in the world. The abandoned creature teaches itself to speak and read, longing for companionship, but human cruelty turns its loneliness to rage. It begins killing those Victor loves, demanding he build a mate. Victor refuses, and creator and creation pursue each other to their mutual ruin across the Arctic ice.' },
+    { h: 'Big ideas', bullets: ['Creation carries responsibility; the maker cannot simply walk away', 'Isolation and rejection, not innate evil, produce monsters', 'The pursuit of knowledge without wisdom is destructive', 'Society judges by appearance and punishes difference'] },
+    { h: 'Why it endures', body: 'It gave the modern world its defining myth of science overreaching its moral limits. Every debate about technology we create but cannot control still borrows its shape and its warning.' }
+  ]
+},
+{
+  id: 'moby-dick', title: 'Moby-Dick', author: 'Herman Melville', era: 'The Nineteenth Century', year: '1851',
+  hook: 'A one-legged captain drags his crew across the oceans to destroy the white whale that maimed him — and himself with it.',
+  sections: [
+    { h: 'What it is', body: 'A sprawling American novel that fuses a whaling adventure with philosophy, encyclopedia, and scripture. Narrated by the sailor Ishmael, it is as much a meditation on obsession and the unknowable as it is a sea story. Ignored in its time, it is now considered a masterpiece of world literature.' },
+    { h: 'The story', body: 'Ishmael signs onto the whaling ship Pequod and befriends the tattooed harpooner Queequeg. The ship is commanded by Captain Ahab, who reveals that his true purpose is not profit but revenge on Moby Dick, the white whale that took his leg. Ahab bends the whole crew to his monomaniacal hunt, ignoring every warning. After a three-day chase, the whale destroys the Pequod and drowns all aboard. Only Ishmael survives, floating on a coffin to tell the tale.' },
+    { h: 'Big ideas', bullets: ['Obsession and vengeance consume the one who pursues them', 'Nature is vast and indifferent, resisting all human meaning', 'The white whale is a blank screen for every reader\'s dread', 'The pursuit of the absolute can override reason and community'] },
+    { h: 'Why it endures', body: 'It reaches for the largest questions — fate, God, evil, the limits of knowledge — inside the grit of a working ship. Ahab has become the enduring symbol of self-destructive obsession.' }
+  ]
+},
+{
+  id: 'great-expectations', title: 'Great Expectations', author: 'Charles Dickens', era: 'The Nineteenth Century', year: '1861',
+  hook: 'An orphan boy comes into a mysterious fortune, chases the life of a gentleman, and learns too late what truly made him rich.',
+  sections: [
+    { h: 'What it is', body: 'A coming-of-age novel and one of Dickens\'s most personal and tightly plotted works. Told in the first person by its hero Pip, it traces a poor boy\'s rise into wealth and his moral education. It weaves crime, class, and thwarted love into a story of self-discovery.' },
+    { h: 'The story', body: 'The orphan Pip, raised by his harsh sister and the kindly blacksmith Joe, helps an escaped convict in a marsh as a child. He is later summoned to the decaying house of Miss Havisham, jilted on her wedding day, and falls hopelessly for her cold ward Estella. An anonymous benefactor makes Pip a gentleman, and he abandons his humble roots in shame. He discovers his fortune came not from Miss Havisham but from the convict he once helped. Stripped of his illusions, Pip learns the true worth of loyalty and love.' },
+    { h: 'Big ideas', bullets: ['Wealth and status do not make a person good or happy', 'True worth lies in loyalty, kindness, and honest labour', 'We are shaped by hidden debts and unexpected benefactors', 'Growing up means shedding illusions about ourselves and others'] },
+    { h: 'Why it endures', body: 'It is a near-perfect story of ambition, snobbery, and redemption that anyone who has ever wanted a bigger life recognises. Its characters — Miss Havisham, Magwitch, Estella — are among fiction\'s most unforgettable.' }
+  ]
+},
+{
+  id: 'democracy-in-america', title: 'Democracy in America', author: 'Alexis de Tocqueville', era: 'The Nineteenth Century', year: '1835',
+  hook: 'A young French aristocrat tours the new United States and writes the sharpest analysis of democracy ever penned.',
+  sections: [
+    { h: 'What it is', body: 'A classic of political science and sociology, drawn from Tocqueville\'s 1831 journey through Jacksonian America. It examines how a society built on equality of conditions actually functions. Published in two volumes, it remains a founding text for understanding democratic life.' },
+    { h: 'The argument', body: 'Tocqueville argues that the defining feature of America is not just its government but the equality of social conditions that shapes everything. He admires how citizens govern themselves through townships, juries, and countless voluntary associations that guard against tyranny. Yet he warns of democracy\'s dangers: the "tyranny of the majority" that can crush dissent, and a creeping individualism that isolates people and invites a soft, paternalistic state. He also confronts slavery and the treatment of Native Americans as the republic\'s deepest contradictions.' },
+    { h: 'Big ideas', bullets: ['Equality of conditions is the master force shaping democratic society', 'Voluntary associations and local self-government protect liberty', 'The tyranny of the majority is democracy\'s subtle inner threat', 'Individualism can breed isolation and a gentle, all-managing state'] },
+    { h: 'Why it endures', body: 'Its predictions about mass society, conformity, and the fragility of freedom read as prophecy nearly two centuries on. Both left and right still quote it to explain what democracy does to the human soul.' }
+  ]
 }
 ];
