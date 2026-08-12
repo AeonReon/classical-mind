@@ -398,16 +398,6 @@ window.GREATBOOKS = [
   ]
 },
 {
-  id: 'thus-spoke-zarathustra', title: 'Thus Spoke Zarathustra', author: 'Friedrich Nietzsche', era: 'The Nineteenth Century', year: '1883',
-  hook: 'A prophet descends from his mountain to proclaim that "God is dead" — and that humanity must create new values for itself.',
-  sections: [
-    { h: 'What it is', body: 'A philosophical work written as a poetic, allegorical narrative, cast in a mock-biblical style. Rather than argue in treatise form, Nietzsche speaks through the sermons and parables of a wandering sage named Zarathustra. Published in parts during the 1880s, it is his most famous and unusual book.' },
-    { h: 'The argument', body: 'The prophet Zarathustra comes down from years of solitude in the mountains to share his wisdom with humankind. He announces that "God is dead" — that traditional religious and moral certainties have lost their authority — and that people must now create their own values. He teaches the ideal of the Übermensch, or overman, a figure who overcomes conventional morality and affirms life. He introduces the vision of eternal recurrence, the test of willing one\'s life to repeat forever. Speaking largely in parables, he wrestles with disciples, solitude, and his own hardest thoughts.' },
-    { h: 'Big ideas', bullets: ['The proclamation that "God is dead" and the crisis of values', 'The Übermensch as one who creates new values', 'Eternal recurrence as a test of life-affirmation', 'The will to power as a drive within life', 'A critique of conventional morality and herd conformity'] },
-    { h: 'Why it endures', body: 'Zarathustra is among the most widely read and debated works of modern philosophy, and it profoundly influenced later thought, literature, and art. Its provocative images and questions about meaning, value, and self-overcoming continue to challenge readers.' }
-  ]
-},
-{
   id: 'symposium', title: 'The Symposium', author: 'Plato', era: 'Ancient Greece', year: 'c. 385 BC',
   hook: 'A dinner party of Athens\' wittiest men turns into the West\'s most famous conversation about the nature of love.',
   sections: [

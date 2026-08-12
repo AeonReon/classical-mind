@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#77531F">
+  <title>The Great Minds — Classical Mind</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    body{ --c:#A9793E; --cd:#77531F; --cs:#F3EAD6; }
+    .mm-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
+    .mm-hero{ margin:0 0 8px; }
+    .mm-hero .mm-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .mm-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
+    .mm-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:56ch; }
+
+    .mm-era{ margin:26px 0 12px; }
+    .mm-era-title{ font-weight:800; font-size:1.28em; letter-spacing:-.02em; color:var(--ink); }
+    .mm-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
+    .mm-list{ display:flex; flex-direction:column; gap:.55em; }
+
+    .mm-card{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .mm-card[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(122,83,31,.16); }
+    .mm-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
+    .mm-sum::-webkit-details-marker{ display:none; }
+    .mm-namewrap{ flex:1; min-width:0; }
+    .mm-name{ font-weight:800; font-size:1.08em; color:var(--ink); line-height:1.25; }
+    .mm-byline{ font-size:.86em; color:var(--ink-mute); margin-top:2px; }
+    .mm-chev{ flex:none; align-self:center; opacity:.5; transition:transform .2s; }
+    .mm-card[open] .mm-chev{ transform:rotate(180deg); }
+    .mm-body{ padding:0 16px 16px; }
+    .mm-hook{ font-size:1.06em; line-height:1.55; color:var(--ink); font-weight:600; margin:0 0 14px; }
+    .mm-sec{ margin:0 0 13px; }
+    .mm-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
+    .mm-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
+    .mm-bullets{ margin:4px 0 0; padding-left:1.15em; }
+    .mm-bullets li{ font-size:.96em; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
+    .mm-actions{ margin-top:16px; }
+    .mm-listen{ display:inline-flex; align-items:center; gap:7px; cursor:pointer; font:800 .86em var(--sans); border-radius:999px; padding:.6em 1.15em; border:0; color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
+    .mm-listen:active{ transform:scale(.97); }
+  </style>
+</head>
+<body class="method-page">
+  <main class="mm-main">
+    <header class="mm-hero">
+      <div class="mm-eyebrow">The classical mind, embodied</div>
+      <h1>The Great Minds</h1>
+      <p>The men whose lives and thought gave the classical mind its shape — poets, philosophers, and teachers devoted to the good, the true, and the beautiful. Tap a name for who they were, what they taught, and why they belong at the heart of a classical education. Press Listen for a spoken profile (recorded, so it plays with a good voice on any device).</p>
+    </header>
+    <div id="eras"></div>
+  </main>
+
+  <audio id="mmAudio" preload="none"></audio>
+
+  <script src="assets/masters-data.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    const MASTERS = window.MASTERS || [];
+    const ERAS = window.MASTER_ERAS || [...new Set(MASTERS.map(m => m.era))];
+    const root = document.getElementById('eras');
+    const audio = document.getElementById('mmAudio');
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    root.innerHTML = ERAS.map(era => {
+      const list = MASTERS.filter(m => m.era === era);
+      if (!list.length) return '';
+      return `
+        <section class="mm-era">
+          <div class="mm-era-title">${esc(era)}</div>
+          <div class="mm-era-sub">${list.length} ${list.length > 1 ? 'minds' : 'mind'}</div>
+        </section>
+        <div class="mm-list">
+          ${list.map(m => `
+            <details class="mm-card" id="mm-${esc(m.id)}">
+              <summary class="mm-sum">
+                <span class="mm-namewrap">
+                  <span class="mm-name">${esc(m.name)}</span>
+                  <span class="mm-byline">${esc(m.epithet || '')}${m.dates ? ' · ' + esc(m.dates) : ''}</span>
+                </span>
+                <span class="mm-chev" aria-hidden="true">▾</span>
+              </summary>
+              <div class="mm-body">
+                ${m.hook ? `<p class="mm-hook">${esc(m.hook)}</p>` : ''}
+                ${(m.sections || []).map(s => `
+                  <div class="mm-sec">
+                    ${s.h ? `<div class="mm-sec-h">${esc(s.h)}</div>` : ''}
+                    ${s.body ? `<p class="mm-sec-p">${esc(s.body)}</p>` : ''}
+                    ${s.bullets ? `<ul class="mm-bullets">${s.bullets.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+                  </div>`).join('')}
+                <div class="mm-actions">
+                  <button type="button" class="mm-listen" data-id="${esc(m.id)}">▶ Listen</button>
+                </div>
+              </div>
+            </details>`).join('')}
+        </div>`;
+    }).join('');
+
+    // Listen = recorded audio (works on any device, always a good voice).
+    let activeBtn = null;
+    function reset(b){ if (b) b.textContent = '▶ Listen'; }
+    root.addEventListener('click', e => {
+      const btn = e.target.closest('.mm-listen'); if (!btn) return;
+      if (activeBtn === btn) {
+        if (audio.paused) { audio.play(); btn.textContent = '⏸ Pause'; }
+        else { audio.pause(); btn.textContent = '▶ Listen'; }
+        return;
+      }
+      reset(activeBtn);
+      audio.src = 'assets/masters/' + btn.dataset.id + '.mp3';
+      audio.play().then(() => { btn.textContent = '⏸ Pause'; activeBtn = btn; })
+        .catch(() => { btn.textContent = 'Audio coming soon'; });
+      activeBtn = btn;
+    });
+    audio.addEventListener('ended', () => { reset(activeBtn); activeBtn = null; });
+    audio.addEventListener('error', () => { if (activeBtn) activeBtn.textContent = 'Audio coming soon'; });
+  </script>
+</body>
+</html>

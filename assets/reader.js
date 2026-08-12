@@ -1,118 +1,194 @@
-// Reader — text-to-speech using the device's own voices.
+// Reader — read-aloud that streams the good "echo" voice (Kokoro) live from the
+// Mac mini and plays it through an <audio> element, so pressing play gives the
+// SAME high-quality voice on every device (iPhone, Boox, desktop) — no
+// pre-generating files. Falls back to the device's own speech only when the
+// echo server can't be reached (offline / mini down).
 //
-// The default web-speech voice on iOS is a low-quality "robot" one. The good
-// news: the "Enhanced" / "Premium" voices a user downloads in
-// Settings → Accessibility → Spoken Content → Voices ARE available to the web,
-// so we (1) default to an Enhanced voice when one exists, and (2) offer a picker
-// so the user can choose any voice their phone exposes. (Apple's Siri voices are
-// deliberately NOT available to web pages — nothing an app can do about that.)
+// Why not the browser's speechSynthesis as the default: on iOS it exposes only
+// low-quality/novelty voices (not the good downloaded ones), and some browsers
+// (e.g. the Boox e-reader browser) don't expose it well at all. Streaming echo
+// sidesteps all of that. This mirrors the approach proven in the ereader app.
+//
+// Public API (unchanged for callers): Reader.read(text, onEnd), readElement(el),
+// stop(), get speaking, mountPicker(select).
 
 window.Reader = (function () {
-  const state = { voice: null, speaking: false, utterance: null, rate: 1.0, pitch: 1.0 };
-  const has = 'speechSynthesis' in window;
-  const isEnhanced = v => /enhanced|premium/i.test(v.name);
+  const ECHO_ENDPOINT = 'https://tts.aiprofits.cc/api/tts';
+  const ECHO_KEY = (typeof window !== 'undefined' && window.VOICE_AGENT_KEY) || '1234';
+  const ECHO_VOICE = 'am_echo';
+  const CHUNK_MAX = 280;
+  const hasWeb = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-  function savedName() { try { return localStorage.getItem('cm_voice'); } catch (_) { return null; } }
+  const state = {
+    speaking: false, session: 0, rate: 1.0, engine: 'echo',
+    audioEl: null, blobUrls: new Set(), abort: null, chunks: [], onEnd: null
+  };
 
-  function pickVoice() {
-    if (!has) return null;
-    const voices = speechSynthesis.getVoices();
-    if (!voices.length) return null;
-
-    const saved = savedName();
-    if (saved) { const v = voices.find(v => v.name === saved); if (v) return v; }
-
-    // Prefer the high-quality Enhanced/Premium voices, British first, then US, then any English.
-    const preferences = [
-      v => v.lang === 'en-GB' && isEnhanced(v),
-      v => /^en/i.test(v.lang) && isEnhanced(v),
-      v => v.name === 'Daniel',
-      v => v.name === 'Google UK English Male',
-      v => v.lang === 'en-GB',
-      v => v.lang && v.lang.startsWith('en'),
-      () => true
-    ];
-    for (const test of preferences) { const f = voices.find(test); if (f) return f; }
-    return voices[0];
-  }
-
-  function loadVoice() { state.voice = pickVoice(); }
-  if (has) { loadVoice(); speechSynthesis.addEventListener('voiceschanged', loadVoice); }
-
-  function listVoices() {
-    if (!has) return [];
-    return speechSynthesis.getVoices()
-      .filter(v => v.lang && v.lang.startsWith('en'))
-      .map(v => ({ name: v.name, lang: v.lang, enhanced: isEnhanced(v) }));
-  }
-
-  function setVoice(name) {
-    try { localStorage.setItem('cm_voice', name); } catch (_) {}
-    if (has) { const v = speechSynthesis.getVoices().find(v => v.name === name); if (v) state.voice = v; }
-  }
-
-  // Populate a <select> with the available voices and remember the choice.
-  // Hides the picker's wrapper (.voice-pick) when the device offers only one voice.
-  function mountPicker(sel) {
-    if (!sel || !has) return;
-    const wrap = sel.closest('.voice-pick');
-    function fill() {
-      const vs = listVoices();
-      if (vs.length <= 1) { if (wrap) wrap.hidden = true; return; }
-      if (wrap) wrap.hidden = false;
-      const cur = state.voice ? state.voice.name : '';
-      sel.innerHTML = vs.map(v => {
-        const label = v.name + (v.enhanced ? ' ✨' : '');
-        const val = v.name.replace(/"/g, '');
-        return `<option value="${val}"${v.name === cur ? ' selected' : ''}>${label}</option>`;
-      }).join('');
-    }
-    fill();
-    speechSynthesis.addEventListener('voiceschanged', fill);
-    sel.addEventListener('change', () => setVoice(sel.value));
+  // ── Web Speech fallback voice (only used if echo is unreachable) ──
+  function webVoices() { return hasWeb ? speechSynthesis.getVoices() : []; }
+  if (hasWeb) { try { webVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (_) {} }
+  function pickWebVoice() {
+    const list = webVoices(); if (!list.length) return null;
+    let saved = null; try { saved = localStorage.getItem('cm_voice'); } catch (_) {}
+    if (saved) { const m = list.find(v => v.name === saved); if (m) return m; }
+    return list.find(v => /^en/i.test(v.lang) && /enhanced|premium/i.test(v.name))
+        || list.find(v => /^en/i.test(v.lang) && v.default)
+        || list.find(v => /^en/i.test(v.lang)) || list[0];
   }
 
   function updateButtons() {
-    document.querySelectorAll('.read-btn').forEach(btn => {
-      btn.classList.toggle('reading', state.speaking);
-      btn.textContent = state.speaking ? '⏹ Stop' : '▶ Read aloud';
+    document.querySelectorAll('.read-btn').forEach(b => {
+      b.classList.toggle('reading', state.speaking);
+      b.textContent = state.speaking ? '⏹ Stop' : '▶ Read aloud';
     });
   }
 
-  function read(text, onEnd) {
-    if (!has) { alert('This browser does not support text-to-speech.'); return; }
-    stop();
-    state.utterance = new SpeechSynthesisUtterance(text);
-    if (state.voice) state.utterance.voice = state.voice;
-    state.utterance.rate = state.rate;
-    state.utterance.pitch = state.pitch;
-    const done = () => { state.speaking = false; updateButtons(); if (typeof onEnd === 'function') onEnd(); };
-    state.utterance.onend = done;
-    state.utterance.onerror = done;
-    speechSynthesis.speak(state.utterance);
-    state.speaking = true;
-    updateButtons();
+  function el() {
+    if (!state.audioEl) {
+      const a = new Audio();
+      a.preload = 'auto';
+      a.setAttribute('playsinline', 'true');
+      state.audioEl = a;
+    }
+    return state.audioEl;
   }
 
-  function readElement(el) {
-    if (!el) return;
-    const clone = el.cloneNode(true);
-    clone.querySelectorAll('.read-btn, button, .home-link, .version-pill, .links, .voice-pick, script, select').forEach(n => n.remove());
-    const text = clone.textContent.replace(/\s+/g, ' ').trim();
-    if (!text) return;
-    read(text);
+  // Sentence-aware chunking so we can prefetch and start speaking quickly.
+  function chunk(text) {
+    const out = [];
+    const parts = String(text || '').replace(/\s+/g, ' ').trim().split(/(?<=[\.\?\!])\s+/);
+    let buf = '';
+    for (const p of parts) {
+      if (!p) continue;
+      if ((buf + ' ' + p).trim().length > CHUNK_MAX && buf) { out.push(buf.trim()); buf = p; }
+      else buf = buf ? buf + ' ' + p : p;
+    }
+    if (buf) out.push(buf.trim());
+    return out;
+  }
+
+  async function fetchChunk(text, signal) {
+    const r = await fetch(ECHO_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': ECHO_KEY },
+      body: JSON.stringify({ text, voice: ECHO_VOICE, speed: state.rate }),
+      signal
+    });
+    if (!r.ok) throw new Error('echo ' + r.status);
+    const buf = await r.arrayBuffer();
+    const url = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+    state.blobUrls.add(url);
+    return url;
+  }
+
+  // Speaking a silent utterance inside the user gesture lets iOS fall back to
+  // device speech later (from an async failure) without being blocked.
+  function primeWeb() {
+    if (!hasWeb) return;
+    try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (_) {}
+  }
+
+  async function playEcho(session, idx, prefetch) {
+    if (session !== state.session || !state.speaking) return;
+    if (idx >= state.chunks.length) return finish(session);
+
+    let url;
+    try {
+      url = (prefetch && prefetch._idx === idx) ? await prefetch : await fetchChunk(state.chunks[idx], state.abort.signal);
+      if (session !== state.session || !state.speaking) return;
+    } catch (e) {
+      if (e.name === 'AbortError' || session !== state.session) return;
+      return webFallback(session, idx);   // echo unreachable → device voice
+    }
+
+    const a = el();
+    // Prefetch the next chunk while this one plays.
+    let next = null;
+    if (idx + 1 < state.chunks.length) {
+      next = fetchChunk(state.chunks[idx + 1], state.abort.signal).catch(() => null);
+      next._idx = idx + 1;
+    }
+    a.onended = () => {
+      if (session !== state.session) return;
+      try { URL.revokeObjectURL(url); state.blobUrls.delete(url); } catch (_) {}
+      playEcho(session, idx + 1, next);
+    };
+    a.onerror = () => { if (session === state.session) webFallback(session, idx); };
+    a.src = url;
+    a.playbackRate = state.rate;
+    try {
+      await a.play();
+    } catch (e) {
+      // Autoplay/gesture rejection — try the device voice so something plays.
+      if (session === state.session) webFallback(session, idx);
+    }
+  }
+
+  function webFallback(session, idx) {
+    if (session !== state.session || !state.speaking) return;
+    if (!hasWeb) return finish(session);
+    state.engine = 'web';
+    const text = state.chunks.slice(idx).join(' ').trim();
+    if (!text) return finish(session);
+    try { speechSynthesis.cancel(); } catch (_) {}
+    const u = new SpeechSynthesisUtterance(text);
+    const v = pickWebVoice(); if (v) u.voice = v;
+    u.rate = state.rate; u.pitch = 1.0;
+    u.onend = () => { if (session === state.session) finish(session); };
+    u.onerror = () => { if (session === state.session) finish(session); };
+    speechSynthesis.speak(u);
+  }
+
+  function finish(session) {
+    if (session !== state.session) return;
+    state.speaking = false;
+    updateButtons();
+    const cb = state.onEnd; state.onEnd = null;
+    if (cb) cb();
   }
 
   function stop() {
-    if (!has) return;
-    speechSynthesis.cancel();
+    state.session += 1;
     state.speaking = false;
+    if (hasWeb) { try { speechSynthesis.cancel(); } catch (_) {} }
+    if (state.abort) { try { state.abort.abort(); } catch (_) {} state.abort = null; }
+    if (state.audioEl) {
+      try { state.audioEl.onended = null; state.audioEl.onerror = null; state.audioEl.pause(); state.audioEl.removeAttribute('src'); state.audioEl.load(); } catch (_) {}
+    }
+    for (const u of state.blobUrls) { try { URL.revokeObjectURL(u); } catch (_) {} }
+    state.blobUrls.clear();
+    state.chunks = [];
     updateButtons();
+  }
+
+  function read(text, onEnd) {
+    stop();                       // bumps session, clears prior playback
+    const session = state.session;
+    state.chunks = chunk(text);
+    if (!state.chunks.length) { if (onEnd) onEnd(); return; }
+    state.speaking = true;
+    state.engine = 'echo';
+    state.onEnd = onEnd || null;
+    state.abort = new AbortController();
+    el(); primeWeb();             // touch both paths inside the gesture
+    updateButtons();
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) return webFallback(session, 0);
+    playEcho(session, 0, null);
+  }
+
+  function readElement(node) {
+    if (!node) return;
+    const clone = node.cloneNode(true);
+    clone.querySelectorAll('.read-btn, button, .home-link, .version-pill, .links, .voice-pick, script, select').forEach(n => n.remove());
+    const text = clone.textContent.replace(/\s+/g, ' ').trim();
+    if (text) read(text);
   }
 
   return {
     get speaking() { return state.speaking; },
-    get voice() { return state.voice; },
-    read, readElement, stop, voices: listVoices, setVoice, mountPicker
+    read, readElement, stop,
+    // The voice is now always "echo"; the old device-voice picker is not needed.
+    voices: () => [], setVoice() {},
+    mountPicker(sel) { const w = sel && sel.closest('.voice-pick'); if (w) w.hidden = true; }
   };
 })();
