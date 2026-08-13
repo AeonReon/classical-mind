@@ -37,19 +37,23 @@
     .mem-hint{ font-size:.9rem; color:var(--ink-mute); margin-top:6px; }
     .mem-newbadge{ display:inline-block; font:800 .64rem var(--sans); letter-spacing:.06em; text-transform:uppercase; color:#8a6d1f; background:#FBF0CC; border-radius:999px; padding:.35em .7em; margin-bottom:10px; }
     .mem-text{ font-size:1.28em; line-height:1.5; color:var(--ink); font-weight:600; white-space:pre-line; margin:18px 0 4px; letter-spacing:-.01em; }
+    .mem-context{ font-size:.97em; line-height:1.55; color:var(--ink-soft); margin:14px 0 2px; padding-top:13px; border-top:1px solid var(--rule); }
 
-    .mem-actions{ display:flex; flex-wrap:wrap; gap:9px; margin-top:20px; }
-    .mem-btn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer; font:800 .95em var(--sans); border-radius:999px; padding:.72em 1.2em; border:0; }
+    .mem-actions{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+    .mem-main button::before{ display:none !important; }
+    .mem-btn{ display:inline-flex; align-items:center; justify-content:center; gap:7px; cursor:pointer; font:800 .95em var(--sans); border-radius:999px; padding:.78em 1.2em; border:0; }
     .mem-reveal{ width:100%; color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
     .mem-reveal:active{ transform:scale(.98); }
-    .mem-listen{ color:var(--cd); background:var(--cs); }
-    .mem-grades{ display:flex; gap:8px; margin-top:14px; }
-    .mem-grade{ flex:1; cursor:pointer; font:800 .9em var(--sans); border-radius:14px; padding:.8em .4em; border:1.5px solid var(--rule); background:#fff; color:var(--ink); }
+    .mem-listen{ align-self:flex-start; color:var(--cd); background:var(--cs); }
+    .mem-listen:active{ transform:scale(.97); }
+    .mem-grades{ display:flex; gap:8px; width:100%; }
+    .mem-grade{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; cursor:pointer; border-radius:14px; padding:.72em .3em; border:1.5px solid var(--rule); background:#fff; color:var(--ink); }
     .mem-grade:active{ transform:scale(.97); }
-    .mem-grade .g-sub{ display:block; font:700 .64rem var(--sans); letter-spacing:.03em; text-transform:uppercase; margin-top:3px; opacity:.6; }
-    .mem-grade.g-no{ border-color:#E7B7B7; color:#9A3B3B; }
-    .mem-grade.g-almost{ border-color:#E7D2A6; color:#8A6A1F; }
-    .mem-grade.g-got{ border-color:#B7DBBE; color:#2E6B3E; }
+    .mem-grade .g-main{ font:800 .98em var(--sans); }
+    .mem-grade .g-sub{ font:700 .58rem var(--sans); letter-spacing:.04em; text-transform:uppercase; opacity:.55; }
+    .mem-grade.g-no{ border-color:#E7B7B7; } .mem-grade.g-no .g-main{ color:#9A3B3B; }
+    .mem-grade.g-almost{ border-color:#E7D2A6; } .mem-grade.g-almost .g-main{ color:#8A6A1F; }
+    .mem-grade.g-got{ border-color:#B7DBBE; } .mem-grade.g-got .g-main{ color:#2E6B3E; }
 
     /* done + empty */
     .mem-done{ background:#fff; border:1.5px solid var(--rule); border-radius:20px; padding:26px 22px; text-align:center; box-shadow:var(--shadow-sm); }
@@ -159,6 +163,7 @@
           <div class="mem-source">${esc(piece.source)}</div>
           <div class="mem-hint">${isNew ? 'A new one. Reveal it, read it a few times, and say it back.' : 'Bring the words to mind — then reveal to check.'}</div>
           <div class="mem-text" id="memText" hidden>${esc(piece.text)}</div>
+          ${piece.context ? `<div class="mem-context" id="memContext" hidden>${esc(piece.context)}</div>` : ''}
           <div class="mem-actions" id="memAct">
             <button type="button" class="mem-btn mem-reveal" id="revealBtn">Reveal the words</button>
           </div>
@@ -168,13 +173,14 @@
 
     function reveal(piece){
       document.getElementById('memText').hidden = false;
+      const ctx = document.getElementById('memContext'); if (ctx) ctx.hidden = false;
       const act = document.getElementById('memAct');
       act.innerHTML = `
         <button type="button" class="mem-btn mem-listen" id="listenBtn">🔊 Listen</button>
-        <div class="mem-grades" style="flex-basis:100%">
-          <button type="button" class="mem-grade g-no" data-g="no">Not yet<span class="g-sub">again soon</span></button>
-          <button type="button" class="mem-grade g-almost" data-g="almost">Almost<span class="g-sub">tomorrow</span></button>
-          <button type="button" class="mem-grade g-got" data-g="got">Got it<span class="g-sub">space it out</span></button>
+        <div class="mem-grades">
+          <button type="button" class="mem-grade g-no" data-g="no"><span class="g-main">Not yet</span><span class="g-sub">again soon</span></button>
+          <button type="button" class="mem-grade g-almost" data-g="almost"><span class="g-main">Almost</span><span class="g-sub">tomorrow</span></button>
+          <button type="button" class="mem-grade g-got" data-g="got"><span class="g-main">Got it</span><span class="g-sub">space it out</span></button>
         </div>`;
       document.getElementById('listenBtn').addEventListener('click', e => {
         const b = e.currentTarget;
