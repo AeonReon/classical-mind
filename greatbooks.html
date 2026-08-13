@@ -37,6 +37,10 @@
     .gb-body{ padding:0 16px 16px; }
     .gb-text{ font-size:1em; line-height:1.6; color:var(--ink-soft); }
     .gb-hook{ font-size:1.06em; line-height:1.55; color:var(--ink); font-weight:600; margin:0 0 14px; }
+    .gb-taste{ margin:0 0 16px; padding:14px 16px; background:var(--cs); border-radius:12px; border-left:4px solid var(--c); }
+    .gb-taste-label{ font:800 .62rem var(--sans); letter-spacing:.09em; text-transform:uppercase; color:var(--cd); margin-bottom:7px; }
+    .gb-taste-text{ font-family:Georgia,'Times New Roman',serif; font-size:1.08em; line-height:1.5; color:var(--ink); font-style:italic; white-space:pre-line; }
+    .gb-taste-cite{ font:700 .76em var(--sans); color:var(--ink-mute); margin-top:9px; }
     .gb-sec{ margin:0 0 13px; }
     .gb-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
     .gb-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
@@ -72,6 +76,7 @@
     const freeLink = b => 'https://www.gutenberg.org/ebooks/search/?query=' + encodeURIComponent(b.title.replace(/\(.*\)/, '').trim() + ' ' + b.author);
     function bookText(b){
       let t = b.title + ', by ' + b.author + '. ' + (b.hook || '');
+      if (b.excerpt) t += ' A taste. ' + b.excerpt + ' ';
       (b.sections || []).forEach(s => {
         if (s.h) t += ' ' + s.h + '. ';
         if (s.body) t += s.body + ' ';
@@ -101,6 +106,7 @@
               </summary>
               <div class="gb-body">
                 ${b.hook ? `<p class="gb-hook">${esc(b.hook)}</p>` : ''}
+                ${b.excerpt ? `<div class="gb-taste"><div class="gb-taste-label">A taste</div><div class="gb-taste-text">${esc(b.excerpt)}</div>${b.excerptCite ? `<div class="gb-taste-cite">— ${esc(b.excerptCite)}</div>` : ''}</div>` : ''}
                 ${(b.sections || []).map(s => `
                   <div class="gb-sec">
                     ${s.h ? `<div class="gb-sec-h">${esc(s.h)}</div>` : ''}
