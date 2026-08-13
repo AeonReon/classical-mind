@@ -36,6 +36,9 @@
     .mm-sec{ margin:0 0 13px; }
     .mm-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
     .mm-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
+    .mm-quotes{ margin:2px 0 6px; }
+    .mm-quote{ margin:0 0 10px; padding:12px 15px; background:var(--cs); border-radius:12px; border-left:4px solid var(--c); font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:1.05em; line-height:1.5; color:var(--ink); }
+    .mm-quote cite{ display:block; margin-top:8px; font:700 .74em var(--sans); font-style:normal; color:var(--ink-mute); }
     .mm-bullets{ margin:4px 0 0; padding-left:1.15em; }
     .mm-bullets li{ font-size:.96em; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
     .mm-actions{ margin-top:16px; }
@@ -90,6 +93,7 @@
                     ${s.body ? `<p class="mm-sec-p">${esc(s.body)}</p>` : ''}
                     ${s.bullets ? `<ul class="mm-bullets">${s.bullets.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
                   </div>`).join('')}
+                ${(m.quotes && m.quotes.length) ? `<div class="mm-sec"><div class="mm-sec-h">In their own words</div><div class="mm-quotes">${m.quotes.map(q => `<blockquote class="mm-quote">${esc(q.text)}${q.cite ? `<cite>— ${esc(q.cite)}</cite>` : ''}</blockquote>`).join('')}</div></div>` : ''}
                 <div class="mm-actions">
                   <button type="button" class="mm-listen" data-id="${esc(m.id)}">▶ Listen</button>
                 </div>
