@@ -17,11 +17,17 @@ window.Reader = (function () {
   const ECHO_KEY = (typeof window !== 'undefined' && window.VOICE_AGENT_KEY) || '1234';
   const ECHO_VOICE = 'am_echo';
   const CHUNK_MAX = 280;
+  // Fetch this many chunks ahead of the one now playing. Short cards read as
+  // short chunks (3-4s each) — shorter than Kokoro takes to generate the next
+  // one — so fetching just one ahead stalls between almost every sentence.
+  // Racing several in parallel builds a buffer so playback never waits.
+  const LOOKAHEAD = 4;
   const hasWeb = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   const state = {
     speaking: false, session: 0, rate: 1.0, engine: 'echo',
-    audioEl: null, blobUrls: new Set(), abort: null, chunks: [], onEnd: null
+    audioEl: null, blobUrls: new Set(), abort: null, chunks: [], onEnd: null,
+    prefetch: new Map() // idx -> promise<blobUrl|null> for chunks racing ahead
   };
 
   function getEngine() { try { return localStorage.getItem('cm_tts_engine') === 'device' ? 'device' : 'echo'; } catch (_) { return 'echo'; } }
@@ -79,26 +85,47 @@ window.Reader = (function () {
     return url;
   }
 
+  // Keep the fetch pipeline full: ensure chunks [fromIdx .. fromIdx+LOOKAHEAD)
+  // are all racing in parallel. Each state.prefetch entry resolves to a
+  // ready-to-play blob URL (or null if that fetch failed).
+  function ensurePrefetch(session, fromIdx) {
+    if (session !== state.session || !state.speaking) return;
+    const end = Math.min(state.chunks.length, fromIdx + LOOKAHEAD);
+    for (let i = fromIdx; i < end; i++) {
+      if (state.prefetch.has(i)) continue;
+      const p = fetchChunk(state.chunks[i], state.abort.signal).catch(() => null);
+      state.prefetch.set(i, p);
+    }
+  }
+
   function primeWeb() { if (!hasWeb) return; try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (_) {} }
 
-  async function playEcho(session, idx, prefetch) {
+  async function playEcho(session, idx) {
     if (session !== state.session || !state.speaking) return;
     if (idx >= state.chunks.length) return finish(session);
     let url;
     try {
-      url = (prefetch && prefetch._idx === idx) ? await prefetch : await fetchChunk(state.chunks[idx], state.abort.signal);
+      // Race this chunk + the look-ahead window, then take this chunk's blob.
+      ensurePrefetch(session, idx);
+      url = await state.prefetch.get(idx);
       if (session !== state.session || !state.speaking) return;
+      if (!url) throw new Error('chunk fetch failed');
     } catch (e) {
       if (e.name === 'AbortError' || session !== state.session) return;
       return webFallback(session, idx);
     }
     const a = el();
-    let next = null;
-    if (idx + 1 < state.chunks.length) { next = fetchChunk(state.chunks[idx + 1], state.abort.signal).catch(() => null); next._idx = idx + 1; }
-    a.onended = () => { if (session !== state.session) return; try { URL.revokeObjectURL(url); state.blobUrls.delete(url); } catch (_) {} playEcho(session, idx + 1, next); };
+    a.onended = () => {
+      if (session !== state.session) return;
+      try { URL.revokeObjectURL(url); state.blobUrls.delete(url); } catch (_) {}
+      state.prefetch.delete(idx);
+      playEcho(session, idx + 1);
+    };
     a.onerror = () => { if (session === state.session) webFallback(session, idx); };
     a.src = url; a.playbackRate = state.rate;
     try { await a.play(); } catch (e) { if (session === state.session) webFallback(session, idx); }
+    // Keep the pipeline full while this chunk plays.
+    ensurePrefetch(session, idx + 1);
   }
 
   function webFallback(session, idx) {
@@ -129,6 +156,7 @@ window.Reader = (function () {
     if (state.audioEl) { try { state.audioEl.onended = null; state.audioEl.onerror = null; state.audioEl.pause(); state.audioEl.removeAttribute('src'); state.audioEl.load(); } catch (_) {} }
     for (const u of state.blobUrls) { try { URL.revokeObjectURL(u); } catch (_) {} }
     state.blobUrls.clear();
+    state.prefetch.clear();
     state.chunks = []; updateButtons();
   }
 
@@ -145,7 +173,7 @@ window.Reader = (function () {
       return webFallback(session, 0);
     }
     state.engine = 'echo';
-    playEcho(session, 0, null);
+    playEcho(session, 0);
   }
 
   function readElement(node) {
