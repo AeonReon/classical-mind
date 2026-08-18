@@ -17,6 +17,22 @@ window.ARTS.push(
     icon: 'star',
     image: 'assets/schools/platonism.jpg',
     blurb: 'Platonism begins in a single overturning discovery: the world we see with our eyes is not the real world but its shadow. Beyond the shifting, dying things of sense lies a realm of changeless, perfect Forms — Justice itself, Beauty itself, the Good itself — of which every fine thing here is a faint copy. Founded by Plato in the Academy of Athens around 387 BC and carried forward through Plotinus, Augustine, and a thousand years of thought, it teaches that the soul is akin to that higher realm, that it can turn from the senses and ascend to the truth by reason and love, and that this ascent is the whole point of a human life. To do philosophy, for the Platonist, is to remember what the soul has always known and to be led home to the light.',
+    glance: [
+      { k: 'Founded', v: 'c. 387 BC, Athens — by Plato, in the Academy' },
+      { k: 'Carried on by', v: 'Plotinus, Augustine, and a thousand years of thought' },
+      { k: 'The one idea', v: 'Behind every passing thing stands a changeless, perfect Form — and the soul can climb to it.', wide: true },
+      { k: 'Read first', v: 'Plato, the Symposium — a dinner party of speeches that rises to Beauty itself' }
+    ],
+    remember: [
+      'Picture the <b>Cave</b>: prisoners chained to watch shadows on a wall, sure the shadows are the world — until one is freed, turns, and climbs to the daylight. That climb, from shadow to Form to the Good, is the whole of Platonism in one image.',
+      'Plato held the Forms to be more real than the things we touch — the tree a copy, the Form of the tree the abiding original.'
+    ],
+    faq: [
+      { q: 'Are the Forms just ideas in our heads?', a: 'No — that is the modern sense of the word "idea," but Plato held the Forms to be realities more solid than stone, existing whether or not anyone thinks of them. Our ideas are at best faint images of them. This is a claim the school makes, and one you can weigh; you need not accept it to profit from the discipline of asking "what is the thing itself?"' },
+      { q: 'Do I have to believe the soul lived before birth?', a: 'Plato argued for it — the theory that learning is recollection rests on it — but the daily Platonic practices stand without it. You can hunt definitions, turn from the senses to the intelligible, and follow the ascent of love while treating the soul\'s pre-existence as Plato\'s claim rather than settled fact.' },
+      { q: 'Isn\'t this world-denying — a flight from real life?', a: 'The Platonist does turn from the senses toward the changeless, but not out of contempt for the world. The aim is to see this world rightly, as a copy that points beyond itself, and to order one\'s own soul by what is highest. The philosopher in the Republic is sent back down into the Cave to help the others.' },
+      { q: 'Where should a complete beginner start?', a: 'Read Plato himself, not books about him. Begin with the short Socratic dialogues — the Apology and the Meno — then the Symposium for the ascent of love, and only later the Republic. Read slowly; a dialogue is a drama to be lived through, not a summary to be skimmed.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Platonism is',
@@ -105,6 +121,22 @@ window.ARTS.push(
     icon: 'scales',
     image: 'assets/schools/aristotle.jpg',
     blurb: 'Aristotle of Stagira (384–322 BC) studied twenty years under Plato, tutored Alexander the Great, and founded his own school in the Lyceum, whose members walked as they debated and so were called the Peripatetics. His philosophy begins not in a heaven of Forms but here, in the world we can see, touch, and reason about: every substance has a nature and an end, and the good of each thing is the full flowering of what it is. For a human being — the rational and political animal — that flowering is eudaimonia, a whole life lived well by the steady exercise of reason and virtue. This is not a doctrine to admire from afar but a formation to undergo, for we become just by doing just acts and brave by doing brave ones.',
+    glance: [
+      { k: 'Founded', v: 'c. 335 BC, Athens — by Aristotle, in the Lyceum' },
+      { k: 'The school', v: 'the Peripatetics, who walked as they debated' },
+      { k: 'The one idea', v: 'Everything has a nature and an end; a thing is good when it fully becomes what it is.', wide: true },
+      { k: 'Read first', v: 'Aristotle, the Nicomachean Ethics — begin here, as he intends' }
+    ],
+    remember: [
+      'Virtue is a <b>mean between two extremes</b> — courage stands between cowardice and rashness, generosity between meanness and waste. Not a bland midpoint, but the precise right amount, at the right time, toward the right person.',
+      'And one line to carry: <b>we become just by doing just acts, and brave by doing brave ones.</b> Character is built by repetition, not decided in a single grand choice.'
+    ],
+    faq: [
+      { q: 'Is the "golden mean" just telling me to be moderate in everything?', a: 'Not quite — the mean is the right amount relative to the situation, not a dull halfway point, and some acts (murder, betrayal) have no virtuous mean at all. Aristotle says the mean is what the person of practical wisdom would choose here and now. It asks for judgement, not a formula.' },
+      { q: 'How is this different from Plato, his teacher?', a: 'Aristotle studied twenty years under Plato but turned the gaze downward, to the world we can see and touch. Where Plato placed the real in a separate realm of Forms, Aristotle held that the nature of a thing is found in the thing itself — the form of the oak is in the oak, not in a heaven beyond it.' },
+      { q: 'Do I need to master his logic and metaphysics to use his ethics?', a: 'No. Aristotle himself puts ethics and politics first, and says the young and inexperienced are poor students of ethics — not for lack of cleverness but for lack of lived experience. You can take up the doctrine of virtue and the good life long before, or without ever, opening the Physics.' },
+      { q: 'Where should a complete beginner start?', a: 'Read the Nicomachean Ethics, exactly as Aristotle intends. Books I (happiness), II (virtue as a mean), and III (choice and courage) are the heart of it, and closer to a manual for living than to abstract theory. Keep a short modern guide, such as Barnes, beside you if the prose runs steep.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Aristotelianism is',
@@ -191,6 +223,22 @@ window.ARTS.push(
     icon: 'leaf',
     image: 'assets/schools/epicureanism.jpg',
     blurb: 'Founded by Epicurus around 307 BC in a garden on the edge of Athens — from which the school took its name, the Garden — Epicureanism holds that pleasure is the beginning and the end of the happy life, the good we recognise from the moment we are born. But hear the doctrine before you judge it: the pleasure meant is not luxury or excess, which bring their own pains, but the calm of a mind free from fear (ataraxia) and a body free from want (aponia). To reach that calm we need very little — plain food, a few true friends, and a right understanding of nature that lifts from us the two great terrors, the fear of the gods and the fear of death. Live in accordance with these, and you may be as happy as a god among men.',
+    glance: [
+      { k: 'Founded', v: 'c. 307 BC, Athens — by Epicurus, in the Garden' },
+      { k: 'Carried on by', v: 'the Roman poet Lucretius, and the Garden community for centuries' },
+      { k: 'The one idea', v: 'The highest pleasure is calm — a mind free of fear, a body free of want — and it costs very little.', wide: true },
+      { k: 'Read first', v: 'Epicurus, the Letter to Menoeceus — a few pages, the whole ethics' }
+    ],
+    remember: [
+      'Carry the <b>fourfold cure</b> (tetrapharmakos), four short lines that dissolve the deepest human fears: <b>God is nothing to fear; death is nothing to us; what is good is easy to get; what is dreadful is easy to endure.</b>',
+      'And on death, the line to hold: <b>where death is, we are not; where we are, death is not</b> — so it removes the very self that could suffer it.'
+    ],
+    faq: [
+      { q: 'Isn\'t an Epicurean just someone who lives for luxury and fine food?', a: 'That is the everyday sense of the word, and almost the reverse of the philosophy. Epicurus lived on bread and water and prized plain fare, because luxury breeds larger appetites and fresh pains. The pleasure he sought was the steady calm that comes when pain and fear are absent — reachable now, with little, not chased through endless indulgence.' },
+      { q: 'If pleasure is the goal, why did he live so simply?', a: 'Because he sorted desires. Some are natural and necessary — food, shelter, friendship — and easily met; some are natural but not necessary; and some, like wealth and fame, are empty and can never be filled. Answering only the first two, he found nature\'s wealth small and quickly won, while empty craving runs off to infinity.' },
+      { q: 'Do I have to be an atheist, or believe everything is atoms?', a: 'The Epicureans held that all things, the soul included, are made of atoms, and that the gods take no interest in us — this is the school\'s teaching. But the ethics of sorting desires, meeting death without terror, and living plainly among friends can be taken up and tested on their own, as a way of steadying the mind.' },
+      { q: 'Where should a complete beginner start?', a: 'Read the Letter to Menoeceus — a few clear pages that lay out the whole ethics — and memorise the fourfold cure. Then read the Principal Doctrines, forty short maxims meant to be learned by heart. Save the atomist physics, and Lucretius\'s great poem, for once the ethics has taken hold.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Epicureanism is',
@@ -277,6 +325,22 @@ window.ARTS.push(
     icon: 'sun',
     image: 'assets/schools/cynicism.jpg',
     blurb: 'Begun by Antisthenes, a companion of Socrates, and made unforgettable by Diogenes of Sinope — the man who lived in a storage jar, owned almost nothing, and told Alexander the Great to step out of his sunlight — Cynicism is the shortest road to virtue and the boldest. Its wager is simple: nature has made the good life easy, and it is custom (nomos) that has made it hard, burying us under possessions, offices, reputations, and fears we were never meant to carry. The Cynic strips all of it away, trains his body and will to want little, and so becomes free where kings are enslaved. Not a doctrine to be discussed but a life to be lived, in the open, in plain sight.',
+    glance: [
+      { k: 'Founded', v: 'c. 4th c. BC, Athens — by Antisthenes, a companion of Socrates' },
+      { k: 'Made famous by', v: 'Diogenes of Sinope, who lived in a storage jar' },
+      { k: 'The one idea', v: 'Nature made the good life easy; custom made it hard. Want little and you are free where kings are enslaved.', wide: true },
+      { k: 'Read first', v: 'Diogenes Laërtius, Lives, Book VI — the sayings and deeds of the Cynics' }
+    ],
+    remember: [
+      'One scene holds the whole school: <b>Alexander the Great stands over Diogenes and offers him anything he wishes. Diogenes asks only that the king step out of his sunlight.</b> The man who needs nothing has nothing a conqueror can give — or take.',
+      'Spot Cynicism by its four marks: <b>nature over custom, virtue in deeds not words, wanting little (autarkeia), and speaking the plain truth to anyone (parrhesia).</b>'
+    ],
+    faq: [
+      { q: 'Does "cynic" here mean a sneering, distrustful person?', a: 'No — that is the modern sense, and nearly the opposite of the ancient school. The old Cynics were not bitter but free: they distrusted custom, wealth, and status, not human goodness itself. Their contempt fell on empty convention, and they held that virtue is the only good and is within anyone\'s reach.' },
+      { q: 'Why the name "Cynic" — something to do with dogs?', a: 'Yes. The word comes from the Greek for "dog-like," and Diogenes embraced it, calling himself "Diogenes the Dog." A dog lives without shame, needs little, is loyal to friends and fierce to frauds, and does its business in the open — which is exactly how the Cynic meant to live, in plain sight, unashamed.' },
+      { q: 'Do I have to give away everything and live on the street?', a: 'The founders lived that starkly, but the discipline can be practised by degrees. The heart of it is training (askesis) — going without a comfort on purpose, shedding what only custom says you need, wanting one thing less each day — so that fortune has fewer handles to seize you by. You rehearse hardship before it arrives unbidden.' },
+      { q: 'Where should a complete beginner start?', a: 'The Cynics wrote almost nothing that survives, so begin with Diogenes Laërtius, Lives of the Eminent Philosophers, Book VI, which preserves their sayings and deeds. Read each anecdote as a compressed argument — the lamp in daylight, the cup thrown away — and then take up the simplest exercise: go without one small comfort, on purpose.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Cynicism is',
@@ -363,6 +427,22 @@ window.ARTS.push(
     icon: 'books',
     image: 'assets/schools/confucius.jpg',
     blurb: 'Rooted in the teaching of Kongzi — Confucius — in the state of Lu around 500 BC, and carried down two and a half thousand years through Mencius, Xunzi, and the great neo-Confucian masters, this is the classic Chinese way of becoming fully human. Its conviction is simple and demanding: a person is not born complete but is made complete, through learning, through ritual, and through the daily practice of humaneness in the ordinary bonds of family and society. The aim is the junzi, the cultivated person, whose inner character and outer conduct have become one — and around whom, the tradition holds, families flourish, states are ordered, and the whole world finds its harmony.',
+    glance: [
+      { k: 'Founded', v: 'c. 500 BC, the state of Lu — by Kongzi (Confucius)' },
+      { k: 'Carried on by', v: 'Mencius, Xunzi, and the neo-Confucian master Zhu Xi' },
+      { k: 'The one idea', v: 'A person is not born complete but made complete — by learning, ritual, and humaneness in every human bond.', wide: true },
+      { k: 'Read first', v: 'the Analects (Lunyu) — the Master\'s own sayings, a few at a sitting' }
+    ],
+    remember: [
+      'The aim has a name: the <b>junzi</b>, the cultivated person, whose inner character and outer conduct have become one — set against the petty person, who thinks of profit where the junzi thinks of what is right.',
+      'And one rule to carry, Confucius\'s single word to live by (shu): <b>"Do not impose on others what you do not desire for yourself."</b>'
+    ],
+    faq: [
+      { q: 'Isn\'t Confucianism just rigid rules and empty ceremony?', a: 'Ritual (li) is central, but Confucius warned that form without feeling is hollow — "a man without ren, what has he to do with ritual?" The forms exist to train and express an inner humaneness; practised with sincerity, they shape the heart until doing right becomes second nature. It is a grammar of conduct, not mere etiquette.' },
+      { q: 'Is it a religion, and must I worship anything?', a: 'Confucianism is more a way of self-cultivation and social life than a creed about gods. Confucius honoured Heaven and the ancestral rites but kept his focus on this world — on how to become fully human within the family and community. Its daily practices ask no particular belief about the divine.' },
+      { q: 'How is it different from the Golden Rule I already know?', a: 'The wording is close — reciprocity (shu) is at its core — but Confucianism sets it inside a whole formation: reverence for parents (xiao) as the root, ritual as the training, and the lifelong shaping of character toward the junzi. The rule is not a stand-alone maxim but the fruit of a cultivated self.' },
+      { q: 'Where should a complete beginner start?', a: 'Read the Analects, and read it slowly — a few sayings at a sitting, for it is not a system but a portrait of a mind. Learn the central terms in the Master\'s own mouth: ren (humaneness), li (ritual), junzi (the cultivated person), xiao (filial devotion). Slingerland\'s translation is the finest first doorway.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Confucianism is',

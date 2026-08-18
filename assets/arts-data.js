@@ -16,6 +16,18 @@ window.ARTS = [
     colorSoft: '#fef3c7',
     icon: 'sun',
     blurb: 'Before any one of the arts, an orientation. What the classical tradition holds about education, why it survived for two thousand years, how the seven liberal arts fit together, and what shape your own learning might take. Built for the adult who wants to recover a kind of formation modern schooling did not give them.',
+    glance: [
+      { k: 'Part of', v: 'Begin — the orientation before the arts' },
+      { k: 'In one line', v: 'The deliberate forming of a free person: paideia, the making of a whole human being.', wide: true },
+      { k: 'Start with', v: 'Pick two arts that draw you, and begin daily memory work' }
+    ],
+    remember: [
+      'The seven liberal arts are the two ways human thought meets reality: <b>words</b> (the Trivium) and <b>number</b> (the Quadrivium). Master both and you can study anything serious.'
+    ],
+    faq: [
+      { q: 'Am I too old to begin a classical education?', a: 'No. The tradition was designed to form a whole person, and that work has no age limit. Many take it up in adulthood precisely to recover what modern schooling left out. Begin with one small daily habit and let it grow.' },
+      { q: 'Do I need Latin or Greek before I can start?', a: 'No. The languages open the canon in the original, and you should begin them early if you can — but the reading, the memory work, and the great books can all start today in English. The languages deepen the project; they do not gate it.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What classical learning is',
@@ -112,6 +124,22 @@ window.ARTS = [
     colorSoft: '#ecfccb',
     icon: 'leaf',
     blurb: 'In the classical tradition, Grammar is far more than rules of punctuation. It is the art of reading carefully, writing precisely, and knowing the structure of the languages in which thought is carried. The grammarian becomes capable of taking in any well-written text, in any classical tongue, and giving back its meaning rightly.',
+    glance: [
+      { k: 'Part of', v: 'The Trivium — the first of the three arts of language' },
+      { k: 'In one line', v: 'The art of words rightly used: careful reading, precise writing, and the structure of language itself.', wide: true },
+      { k: 'Start with', v: 'Daily copywork by hand — ten minutes of Cicero, Lincoln, or the King James Bible' },
+      { k: 'Classical authority', v: 'Quintilian, Donatus, Priscian; Erasmus in the Renaissance' }
+    ],
+    remember: [
+      'Grammar is the <b>gate</b> of the Trivium: it takes the words in. Logic then orders them; Rhetoric delivers them. No later art stands without it.',
+      'Work the four levels in order — <b>letter, syllable, word, sentence</b> — and precision follows.'
+    ],
+    faq: [
+      { q: 'Isn\'t grammar just boring rules of punctuation?', a: 'That is the shrunken modern sense. Classical Grammar is the art of reading any well-written text closely and writing precisely yourself — practised on Caesar, Cicero, and Virgil, not on drill sheets. The rules serve the reading; they are not the point.' },
+      { q: 'Why does copywork by hand matter in the age of typing?', a: 'Writing a sentence by hand engages the mind differently than typing it. The shape of a balanced Ciceronian sentence enters you through the fingers and stays. It is the oldest exercise in the discipline for a reason.' },
+      { q: 'Do I have to learn Latin to study Grammar?', a: 'It is not required, but it is where classical Grammar comes alive. A language\'s structure reveals its way of thinking — Latin\'s cases, Greek\'s middle voice — and learning one stretches the mind. Begin with careful English first if you prefer; add Latin when you are ready.' },
+      { q: 'Where should a beginner start?', a: 'Read Strunk and White\'s Elements of Style twice, begin ten minutes of daily copywork by hand, and start a commonplace book of passages that strike you. Add a short poem to memory every fortnight. That is a full beginning.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Grammar is',
@@ -207,6 +235,22 @@ window.ARTS = [
     colorSoft: '#e2e8f0',
     icon: 'scales',
     blurb: 'Logic is the art of drawing true conclusions from true premises, and the art of detecting where this is not being done. The classical curriculum places it second in the Trivium — after Grammar, because logic operates on propositions; before Rhetoric, because persuasion without logic is manipulation.',
+    glance: [
+      { k: 'Part of', v: 'The Trivium — the second of the three arts of language' },
+      { k: 'In one line', v: 'The art of reasoning rightly: drawing true conclusions, and detecting where that is not being done.', wide: true },
+      { k: 'Start with', v: 'Peter Kreeft\'s Socratic Logic, and learning the twenty most common fallacies' },
+      { k: 'Classical authority', v: 'Aristotle, whose Organon founded the field' }
+    ],
+    remember: [
+      'Logic is the middle art of the Trivium: Grammar takes the words in, <b>Logic orders</b> them, Rhetoric delivers them.',
+      'Keep the two apart: <b>validity</b> is about form (does the conclusion follow?); <b>soundness</b> also needs the premises to be true. Confusing them is the commonest adult thinking error.'
+    ],
+    faq: [
+      { q: 'Isn\'t logic dry and abstract — what use is it day to day?', a: 'It is the tool for seeing what is really being claimed and what would have to be true for a claim to hold. Once you can name a fallacy — straw man, false dilemma, begging the question — you can dismantle it instead of being quietly persuaded against your better judgement. That is a daily protection, not an abstraction.' },
+      { q: 'Do I need mathematics to learn logic?', a: 'No. Classical logic — the syllogism, the fallacies, dialectic — needs no mathematics at all. Modern symbolic logic uses more formal notation, but you meet it later and only if you wish. Begin with the syllogism and ordinary arguments.' },
+      { q: 'What is the difference between classical and modern logic?', a: 'Classical logic, from Aristotle, centres on the syllogism and the analysis of ordinary reasoning. Modern symbolic logic — propositional and predicate logic — grew in the 19th and 20th centuries and handles cases Aristotle could not. The modern extends the classical; it does not replace it. A complete education includes both.' },
+      { q: 'Where should a beginner start?', a: 'Learn the common informal fallacies and spot them in the wild each day. Read Kreeft\'s Socratic Logic slowly. Practise the four perfect syllogistic forms — Barbara, Celarent, Darii, Ferio. And before disagreeing with anyone, state their view in its strongest form first.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Logic is',
@@ -300,6 +344,22 @@ window.ARTS = [
     colorSoft: '#fee2e2',
     icon: 'mouth',
     blurb: 'Rhetoric is the art of using language — written and spoken — to move people. In the classical tradition it is the third member of the Trivium because it presupposes the other two: you cannot persuade if you cannot use words well (Grammar) or reason rightly (Logic). The rhetorician learns to do both in front of an audience.',
+    glance: [
+      { k: 'Part of', v: 'The Trivium — the third of the three arts of language' },
+      { k: 'In one line', v: 'The art of persuasion in service of truth: moving people through spoken and written language.', wide: true },
+      { k: 'Start with', v: 'Learn ethos, pathos, logos, and begin the progymnasmata exercises' },
+      { k: 'Classical authority', v: 'Aristotle, Cicero, and Quintilian' }
+    ],
+    remember: [
+      'Rhetoric is the last art of the Trivium: Grammar takes in, Logic orders, <b>Rhetoric delivers</b>.',
+      'The five canons, in order: <b>invention, arrangement, style, memory, delivery</b> — find it, order it, word it, fix it in mind, speak it. Most speakers work only the first two; adding the rest transforms the speech.'
+    ],
+    faq: [
+      { q: 'Isn\'t rhetoric just manipulation — spin and empty persuasion?', a: 'That danger is exactly why the classical tradition took it seriously. Rhetoric in a bad person\'s hands is sophistry; in a good person\'s hands it is essential. Plato attacked the Sophists for severing speech from truth, and the tradition since has held the line: rhetoric must serve truth or it serves a lie. Learning the tools also lets you detect them being used against you.' },
+      { q: 'I never plan to give speeches — why learn this?', a: 'Rhetoric is written as much as spoken. Every email, letter, proposal, and argument you make uses it. And knowing ethos, pathos, and logos makes you a far sharper listener — you cannot un-see the three modes once you know them, in every advertisement and speech you meet.' },
+      { q: 'What are the progymnasmata?', a: 'They are the graded classical exercises in composition — fable, narrative, chreia, proverb, encomium, comparison, and up to the full thesis. Working through them one at a time is how the ancients built rhetorical skill from the ground up, and they remain surprisingly usable today.' },
+      { q: 'Where should a beginner start?', a: 'Learn Aristotle\'s three modes — ethos, pathos, logos — and notice them at work in every speech and advertisement. Memorise one great speech, such as Lincoln\'s Gettysburg Address. Then begin the progymnasmata, one exercise a fortnight. Read the first book of Aristotle\'s Rhetoric in a modern translation.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Rhetoric is',
@@ -400,6 +460,22 @@ window.ARTS = [
     colorSoft: '#dbeafe',
     icon: 'numerals',
     blurb: 'In the classical tradition, Arithmetic is not the calculation of grocery bills. It is the study of number in itself — what numbers are, how they relate, what properties belong to them. The Pythagoreans held that all of reality could be understood through number. The classical Arithmetic student learns to see numbers as objects of contemplation, not just tools.',
+    glance: [
+      { k: 'Part of', v: 'The Quadrivium — the first of the four arts of number' },
+      { k: 'In one line', v: 'The science of number in itself: what numbers are, how they relate, what properties belong to them.', wide: true },
+      { k: 'Start with', v: 'Daily mental arithmetic, ten minutes, no calculator' },
+      { k: 'Classical authority', v: 'Pythagoras, Nicomachus, and Boethius' }
+    ],
+    remember: [
+      'The Quadrivium is number in four modes. Arithmetic is <b>number at rest</b> — Geometry adds space, Music adds time, Astronomy adds motion. All four rest on this one.',
+      'Number is the first object the mind grasps: a child counts before it reads. Arithmetic studies that prior grasp.'
+    ],
+    faq: [
+      { q: 'Isn\'t this just the arithmetic I learned in school?', a: 'No. School arithmetic is calculation — a tool for grocery bills. Classical Arithmetic is the study of number itself: what makes a number perfect, prime, triangular, or square; the ratios that structure music and the cosmos. It is contemplative, not merely practical.' },
+      { q: 'Do I need to be good at maths to begin?', a: 'No. The discipline begins with fluent mental calculation, which is built by simple daily practice, not talent. From there it opens naturally into the qualitative properties of numbers and, if you wish, into number theory. Start with ten minutes a day and no calculator.' },
+      { q: 'Why bother doing arithmetic by hand when calculators exist?', a: 'A mind that has done its own calculation is shaped differently from one that has always reached for the calculator. The practice builds attention, memory, and pattern recognition. The calculator gives you the answer; the practice gives you the mind.' },
+      { q: 'Where should a beginner start?', a: 'Make the multiplication tables to twelve fully fluent, then do ten minutes of mental arithmetic daily. Memorise the squares to twenty-five and the primes to a hundred. Read Nicomachus\'s Introduction to Arithmetic in D\'Ooge\'s translation to see how the ancients thought about number.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Arithmetic is',
@@ -496,6 +572,22 @@ window.ARTS = [
     colorSoft: '#ffedd5',
     icon: 'triangle',
     blurb: 'Euclid\'s Elements is the second most-published book in history, after the Bible. It taught the world what a proof is. The classical Geometry student does not just learn shapes — they learn the form of rigorous reasoning that every later science took as a model.',
+    glance: [
+      { k: 'Part of', v: 'The Quadrivium — the art of number in space' },
+      { k: 'In one line', v: 'The science of shape, space, and proof: certain truths drawn from a few definitions and axioms.', wide: true },
+      { k: 'Start with', v: 'A compass and straightedge, and Euclid\'s Elements, Book I' },
+      { k: 'Classical authority', v: 'Euclid, whose Elements taught the world what a proof is' }
+    ],
+    remember: [
+      'In the Quadrivium, Geometry is <b>number in space</b> — Arithmetic at rest, given magnitude and shape.',
+      'The whole of the Elements — 465 propositions — is drawn from <b>23 definitions, 5 postulates, and 5 common notions</b>. That is what rigorous knowledge looks like: everything proven from almost nothing.'
+    ],
+    faq: [
+      { q: 'Isn\'t geometry just the shapes and angles I learned at school?', a: 'School geometry gives you the results; classical Geometry gives you the proofs. Working through Euclid\'s own demonstration of the Pythagorean theorem — not just stating the formula — teaches you what certainty actually is. That is the real inheritance: the form of rigorous reasoning, which every later science took as its model.' },
+      { q: 'Why construct with compass and straightedge instead of just reading?', a: 'Greek geometry was constructive: you did not merely state that a line could be bisected, you showed how, by hand. Drawing the geometry embeds it in the body. The hand that has constructed an equilateral triangle understands it differently from the eye that has only seen one.' },
+      { q: 'Do I need advanced mathematics to start Euclid?', a: 'No. The Elements begins from nothing — a point, a line, a circle — and builds every result step by step. That is its genius: a beginner with a compass, a straightedge, and patience can follow it from the first proposition. It assumes no prior mathematics at all.' },
+      { q: 'Where should a beginner start?', a: 'Acquire a compass, a straightedge, a soft pencil, and a notebook. Work through Euclid Book I, Propositions 1 to 10, constructing each by hand. Read the proof of the Pythagorean theorem (I.47) carefully. Memorise the five postulates and five common notions.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Geometry is',
@@ -589,6 +681,22 @@ window.ARTS = [
     colorSoft: '#ede9fe',
     icon: 'lyre',
     blurb: 'In the classical tradition, Music is not the playing of instruments. It is the study of harmony itself — of the ratios that produce pleasing sound, of the proportions that structure beautiful melody and pleasing form. Pythagoras\'s discovery that the octave is a 2:1 ratio, the perfect fifth a 3:2, the perfect fourth a 4:3, made Music a mathematical art and bound it forever to the Quadrivium.',
+    glance: [
+      { k: 'Part of', v: 'The Quadrivium — the art of number in time' },
+      { k: 'In one line', v: 'Number heard: the study of harmony itself, of the ratios that produce pleasing sound.', wide: true },
+      { k: 'Start with', v: 'Learn the basic intervals by ear, and listen daily to one great piece' },
+      { k: 'Classical authority', v: 'Pythagoras, and Boethius, whose De Musica named the three kinds of music' }
+    ],
+    remember: [
+      'In the Quadrivium, Music is <b>number in time</b> — the same ratios of Arithmetic and Geometry, now heard.',
+      'The simplest ratios make the sweetest sounds: the octave is <b>2:1</b>, the fifth <b>3:2</b>, the fourth <b>4:3</b>. Beauty in sound is mathematical simplicity — one of the deepest hints the tradition offers about reality.'
+    ],
+    faq: [
+      { q: 'Do I need to play an instrument to study classical Music?', a: 'No. Classical Music is not performance but the study of harmony and its ratios, and the attentive listening to the great repertoire. Singing helps, and playing an instrument is a gift if you have it, but the core discipline is the ear and the mind, not the hands.' },
+      { q: 'Why is Music grouped with mathematics and astronomy?', a: 'Because Pythagoras discovered that the intervals which please the ear are exactly the simple ratios that govern arithmetic and geometry. Music is number heard. Boethius bound it to the Quadrivium for this reason: it is the study of proportion, in sound as geometry is proportion in space.' },
+      { q: 'Can I really learn music just by listening?', a: 'The classical education in Music is largely listening — slowly, repeatedly, attentively — to what the masters made. You cannot learn music as music by reading about it; you learn by hearing the great works again and again until they are part of you. Add singing and some notation, and the ear does the rest.' },
+      { q: 'Where should a beginner start?', a: 'Learn the basic intervals by ear — octave, fifth, fourth, third — and begin to sing, even alone and quietly, since the voice is the first instrument. Listen to one piece attentively each day: a Bach Cello Suite, a Mozart concerto, a Gregorian chant. Read the opening of Anthony Storr\'s Music and the Mind.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Music is',
@@ -685,6 +793,22 @@ window.ARTS = [
     colorSoft: '#e0e7ff',
     icon: 'star',
     blurb: 'In the classical tradition, Astronomy is the study of moving magnitude — bodies in motion through space. The Greeks made it a liberal art because the heavens are the most orderly and beautiful thing the eye can see, and because the night sky is the great teacher of perspective.',
+    glance: [
+      { k: 'Part of', v: 'The Quadrivium — the art of number in motion' },
+      { k: 'In one line', v: 'The science of the heavens: moving magnitude, bodies in ordered motion through space.', wide: true },
+      { k: 'Start with', v: 'Learn to find the Pole Star, Orion, and the Plough; track the moon for a month' },
+      { k: 'Classical authority', v: 'Ptolemy, whose Almagest ordered ancient astronomy; later Kepler and Newton' }
+    ],
+    remember: [
+      'In the Quadrivium, Astronomy is <b>number in motion</b> — Arithmetic at rest, Geometry in space, Music in time, and here number set moving through the heavens.',
+      'Kepler is where the whole Quadrivium meets: orbits are <b>ellipses</b> (geometry), sweeping <b>equal areas in equal times</b> (motion), with T² proportional to a³ (a ratio) — the music of the spheres made calculable.'
+    ],
+    faq: [
+      { q: 'Do I need a telescope to begin?', a: 'No. For most of its history the entire science was built by the naked eye — Hipparchus catalogued 850 stars without one. The classical student returns to the eye first: learning the constellations, tracking the moon, finding the planets. A small telescope comes later, and only if you wish.' },
+      { q: 'The classical model put Earth at the centre and was wrong — why study it?', a: 'The Ptolemaic system was wrong about the centre but right about something deeper: that the heavens are ordered and the order can be known. The Copernican revolution moved the Earth but did not dethrone that order. Studying how the model was built, tested, and overturned is one of the great lessons in what knowledge is.' },
+      { q: 'Why is astronomy counted among the liberal arts at all?', a: 'Because the heavens are the most orderly and beautiful thing the eye can see, and the night sky is the great teacher of perspective. To know the scale of the cosmos is to be at once humbled and elevated — an aim the classical tradition has always held. It is number in motion, the crown of the Quadrivium.' },
+      { q: 'Where should a beginner start?', a: 'Learn to find the Pole Star, the Plough, Orion, and Cassiopeia. Track the moon\'s phases through one full lunar month. Identify the visible planets when they appear, and begin a weekly fifteen-minute observation. Read H. A. Rey\'s The Stars — a children\'s book that adults find perfect.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Astronomy is',
@@ -784,6 +908,22 @@ window.ARTS = [
     colorSoft: '#ffe4e6',
     icon: 'books',
     blurb: 'The classical tradition holds that there is a canon — a relatively small group of books that together carry the deepest human conversation about the deepest human questions. Reading them is not a luxury for the educated; it is the formation of an educated person. This tile is your map of the territory.',
+    glance: [
+      { k: 'Part of', v: 'Beyond the Arts — the two-thousand-year conversation' },
+      { k: 'In one line', v: 'The canon read as one long conversation you are invited to join, not a museum to admire.', wide: true },
+      { k: 'Start with', v: 'Homer, Plato\'s Apology, and Aristotle\'s Ethics — and a reading plan you keep for a year' },
+      { k: 'Classical authority', v: 'Mortimer Adler and Robert Hutchins, who compiled the Great Books' }
+    ],
+    remember: [
+      'The canon is a <b>conversation, not a museum</b>: Aristotle answers Plato, Aquinas answers Aristotle, Hobbes answers both. Read enough to hear them talking to each other across the centuries.',
+      'A great book <b>rewards re-reading</b> — the tenth read still teaches. Read the original, never the summary; the journey is most of the formation.'
+    ],
+    faq: [
+      { q: 'The great books look too hard — am I ready?', a: 'Difficulty is part of their value, not a sign you are unready. A great book rewards re-reading precisely because the first pass leaves you unsure and the tenth still teaches. The skill is retrained by doing it: read slowly, with a pencil, and do not skip the hard parts. Read Adler\'s How to Read a Book first and it will show you how.' },
+      { q: 'Can I just read summaries to save time?', a: 'A summary tells you what a book is about; only the book itself gives you what the book is. Skipping to summaries gets the answer without the journey — and the journey is most of the formation. A person who has read summaries of Plato knows facts about Plato; they have not read Plato.' },
+      { q: 'Why read old books when the world has moved on?', a: 'Without this conversation you are a creature of your moment, with only contemporary opinion to consult. With it you have two thousand years of the best thought on every important human question. The books argue with each other and with you — that is what an educated mind is made of.' },
+      { q: 'Where should a beginner start?', a: 'Pick a reading plan and keep it for a year rather than drifting. Begin with Homer\'s Iliad and Odyssey in the Fagles translation, Plato\'s Apology and Republic, and Aristotle\'s Nicomachean Ethics. Read every day, even twenty minutes, with a pencil in hand and a commonplace book beside you.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What the Great Books are',
@@ -907,6 +1047,22 @@ window.ARTS = [
     colorSoft: '#fef3c7',
     icon: 'alpha',
     blurb: 'For two thousand years, an educated person in the West knew Latin. Most also knew Greek. Without these languages, the canon is closed — you read only what someone has translated, and you read it filtered through their choices. This tile is your roadmap into both.',
+    glance: [
+      { k: 'Part of', v: 'Beyond the Arts — the keys to the canon' },
+      { k: 'In one line', v: 'Latin and Greek: the languages in which most serious Western thought was first written.', wide: true },
+      { k: 'Start with', v: 'Thirty minutes of Latin daily — Wheelock or Lingua Latina — for reading, not speaking' },
+      { k: 'Classical authority', v: 'Cicero and Virgil in Latin; Plato and Homer in Greek' }
+    ],
+    remember: [
+      'The original is more than the translation: <b>Plato in English is Plato as filtered by his translator; Plato in Greek is Plato.</b>',
+      'The rule that carries the whole project: <b>daily small beats sporadic large</b>. Thirty minutes a day for three years beats four hours on weekends for one. A language is a habit before it is knowledge.'
+    ],
+    faq: [
+      { q: 'Isn\'t it too late to start Latin or Greek as an adult?', a: 'No. These are reading languages, learned by daily practice, not by early immersion. Many adults reach fluent reading of Caesar or the Gospels in a few years of steady work. The method suits the adult mind: heavy grammar early, slow translation, and a great deal of reading.' },
+      { q: 'Do I have to learn to speak Latin or Greek?', a: 'No — and historically that was never the point. Classical language learning aims at reading Cicero and Plato, not at conversation. The spoken-Latin movement exists and has its place, but the goal here is to open the canon in the original, which changes the method: grammar, translation, and reading come first.' },
+      { q: 'Which should I learn first, Latin or Greek?', a: 'Most begin with Latin. It has shaped English more directly — about sixty per cent of English words descend from it — and its grammar prepares the mind for the greater complexity of Greek. Once Latin is secure, Greek opens the New Testament, Plato, and Homer.' },
+      { q: 'Where should a beginner start?', a: 'Choose one Latin textbook — Wheelock\'s Latin or Ørberg\'s Lingua Latina — and finish it, doing thirty minutes daily. Memorise the declensions and conjugations as tables, and translate a little every day. By year\'s end you can read simple Caesar with a vocabulary. Small and daily beats large and sporadic.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'Why Latin and Greek',
