@@ -12,11 +12,13 @@
   <style>
     /* ============================================================
        One-page topic template. Everything about a School or an Art
-       on a single scrolling page you want to come back to — the gist,
-       an at-a-glance strip, the core ideas laid out to read, the key
-       figures, a memory hook, deeper material behind drop-downs, an
-       FAQ, and the reading list. Colour is a soft accent on a warm
-       light ground, never a heavy slab. Family gradient-outline kept.
+       on a single scrolling page — but broken into drop-down
+       sections so it reads as a set of small, separate, tappable
+       pieces rather than one long passage. You land on the gist,
+       the at-a-glance strip and the core ideas (open); everything
+       below is collapsed, each with its own look and a count that
+       invites the tap. Colour is a soft accent on a warm light
+       ground, never a heavy slab. Family gradient-outline kept.
        ============================================================ */
     .op-main{ max-width:680px; margin:0 auto; padding:0 16px 72px; }
     .op-outline{ position:relative; }
@@ -51,83 +53,95 @@
     .op-gk{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--m-deep,#2F4550); opacity:.8; }
     .op-gv{ margin-top:.4em; font-size:.98em; line-height:1.4; font-weight:600; color:var(--ink,#2A2038); }
 
-    /* Section label — a coloured rule that lets you find your place */
-    .op-label{ font:800 .8rem/1.1 -apple-system,system-ui,sans-serif; letter-spacing:.05em; text-transform:uppercase;
-      color:var(--m-deep,#2F4550); margin:34px 0 14px; display:flex; align-items:center; gap:.7em; }
-    .op-label::after{ content:""; flex:1; height:2px; border-radius:2px; background:linear-gradient(90deg,color-mix(in srgb, var(--m-color) 50%, transparent),transparent); }
-    .op-intro{ font-size:1em; line-height:1.55; color:var(--ink-mute,#7a7488); margin:-4px 0 16px; }
-
-    /* Core ideas — read them, don't tap them. Bold name, body, a why highlight */
-    .op-idea{ background:#fff; border-radius:18px; padding:18px 19px 16px; margin:0 0 13px;
+    /* ---- Section drop-downs — the backbone of the page ---- */
+    .op-drop{ background:#fff; border-radius:18px; margin:14px 0 0; overflow:hidden;
       box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.07); }
-    .op-idea-top{ display:flex; align-items:baseline; gap:12px; }
-    .op-idx{ flex:none; width:28px; height:28px; border-radius:9px; display:grid; place-items:center; transform:translateY(2px);
-      font:800 .92em -apple-system,system-ui,sans-serif; color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); }
-    .op-idea h3{ margin:0; font-weight:800; font-size:1.16em; letter-spacing:-.015em; line-height:1.22; color:var(--ink,#2A2038); }
-    .op-idea p{ margin:.55em 0 0; font-size:1em; line-height:1.58; color:var(--ink-soft,#4d4658); }
-    .op-why{ margin:.75em 0 0; padding:.7em .9em; border-radius:12px; background:var(--m-soft,#E3ECF0);
-      font-size:.95em; line-height:1.52; color:var(--ink-soft,#3f3a4c); }
-    .op-why b{ font:800 .66rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); display:block; margin-bottom:.35em; }
+    .op-drop > summary{ list-style:none; cursor:pointer; padding:17px 18px; display:flex; align-items:center; gap:13px; -webkit-tap-highlight-color:transparent; }
+    .op-drop > summary::-webkit-details-marker{ display:none; }
+    .op-sum-tt{ flex:1; min-width:0; display:flex; flex-direction:column; }
+    .op-sum-title{ display:flex; align-items:center; gap:.55em; font-weight:800; font-size:1.12em; letter-spacing:-.015em; color:var(--ink,#2A2038); line-height:1.2; }
+    .op-sum-title::before{ content:""; flex:none; width:9px; height:9px; border-radius:3px; background:linear-gradient(150deg,var(--m-color),var(--m-deep)); }
+    .op-count{ font:800 .62rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.03em; text-transform:uppercase;
+      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); padding:.42em .62em; border-radius:999px; }
+    .op-sub{ font-weight:600; font-size:.83em; color:var(--ink-mute,#7a7488); margin-top:.28em; letter-spacing:0; }
+    .op-chev{ margin-left:auto; flex:none; width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); font-weight:800; transition:transform .22s ease; }
+    .op-drop[open] > summary .op-chev{ transform:rotate(90deg); }
+    .op-drop-body{ padding:0 18px 18px; }
+    .op-drop-body .op-intro{ margin:0 0 15px; }
 
-    /* Remember it by — the memory hook, a warm tinted callout */
-    .op-remember{ position:relative; border-radius:18px; padding:18px 20px 18px 22px; overflow:hidden;
-      background:linear-gradient(155deg,var(--m-soft,#E3ECF0),#FFFDF9); box-shadow:0 2px 4px rgba(60,45,20,.05); }
+    /* An intro line for a section */
+    .op-intro{ font-size:1em; line-height:1.55; color:var(--ink-mute,#7a7488); }
+
+    /* Core ideas — read them (open section). Numbered, with a why highlight */
+    .op-idea{ background:var(--paper,#FAF6EC); border-radius:15px; padding:15px 16px 14px; margin:0 0 11px; }
+    .op-idea:last-child{ margin-bottom:0; }
+    .op-idea-top{ display:flex; align-items:baseline; gap:11px; }
+    .op-idx{ flex:none; width:27px; height:27px; border-radius:9px; display:grid; place-items:center; transform:translateY(2px);
+      font:800 .9em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(150deg,var(--m-color),var(--m-deep)); }
+    .op-idea h3{ margin:0; font-weight:800; font-size:1.1em; letter-spacing:-.015em; line-height:1.24; color:var(--ink,#2A2038); }
+    .op-idea p{ margin:.5em 0 0; font-size:.99em; line-height:1.56; color:var(--ink-soft,#4d4658); }
+    .op-why{ margin:.7em 0 0; padding:.7em .9em; border-radius:11px; background:#fff; box-shadow:0 1px 3px rgba(60,45,20,.06);
+      font-size:.93em; line-height:1.5; color:var(--ink-soft,#3f3a4c); }
+    .op-why b{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); display:block; margin-bottom:.35em; }
+
+    /* Remember it by — visible highlight that breaks the page in half */
+    .op-remember{ position:relative; border-radius:18px; padding:18px 20px 18px 22px; margin:22px 0 6px; overflow:hidden;
+      background:linear-gradient(155deg,var(--m-soft,#E3ECF0),#FFFDF9); box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.06); }
     .op-remember::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--m-color),var(--m-deep)); }
     .op-remember .op-rk{ font:800 .68rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
     .op-remember p{ margin:.5em 0 0; font-size:1.05em; line-height:1.55; color:var(--ink,#2A2038); }
     .op-remember p + p{ margin-top:.55em; font-size:.98em; color:var(--ink-soft,#4d4658); }
     .op-remember b{ color:var(--m-deep,#2F4550); }
 
-    /* Key figures — compact people cards, ready to take a portrait later */
-    .op-fig{ display:flex; gap:14px; align-items:flex-start; background:#fff; border-radius:16px; padding:14px 15px; margin:0 0 11px;
-      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
-    .op-fig-av{ flex:none; width:48px; height:48px; border-radius:14px; overflow:hidden; display:grid; place-items:center;
-      font:800 1.02em Georgia,serif; color:#fff; background:linear-gradient(140deg,var(--m-color),var(--m-deep)); }
+    /* Key figures — compact people rows, ready to take a portrait later */
+    .op-fig{ display:flex; gap:13px; align-items:flex-start; padding:13px 0; border-bottom:1px solid var(--rule,#EADFC6); }
+    .op-fig:first-child{ padding-top:2px; }
+    .op-fig:last-child{ border-bottom:0; padding-bottom:2px; }
+    .op-fig-av{ flex:none; width:46px; height:46px; border-radius:13px; overflow:hidden; display:grid; place-items:center;
+      font:800 1em Georgia,serif; color:#fff; background:linear-gradient(140deg,var(--m-color),var(--m-deep)); }
     .op-fig-av img{ width:100%; height:100%; object-fit:cover; }
     .op-fig-tt{ min-width:0; }
-    .op-fig-name{ font-weight:800; font-size:1.02em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
-    .op-fig-what{ margin-top:.25em; font-size:.94em; line-height:1.5; color:var(--ink-soft,#4d4658); }
+    .op-fig-name{ font-weight:800; font-size:1.01em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
+    .op-fig-what{ margin-top:.25em; font-size:.93em; line-height:1.5; color:var(--ink-soft,#4d4658); }
 
-    /* Go deeper — drop-downs. Depth is one tap away, still on this page */
-    .op-drop{ background:#fff; border-radius:16px; margin:0 0 12px; overflow:hidden;
-      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
-    .op-drop > summary{ list-style:none; cursor:pointer; padding:16px 18px; display:flex; align-items:center; gap:12px;
-      font-weight:800; font-size:1.06em; letter-spacing:-.01em; color:var(--ink,#2A2038); }
-    .op-drop > summary::-webkit-details-marker{ display:none; }
-    .op-drop > summary .op-chev{ margin-left:auto; flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center;
-      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); font-weight:800; transition:transform .2s ease; }
-    .op-drop[open] > summary .op-chev{ transform:rotate(90deg); }
-    .op-drop .op-sub{ font-weight:600; font-size:.82em; color:var(--ink-mute,#7a7488); display:block; margin-top:.2em; letter-spacing:0; }
-    .op-drop-body{ padding:2px 18px 18px; }
-    .op-drop-body .op-intro{ margin:0 0 14px; }
-
-    /* Path stages inside a drop-down */
+    /* Path stages — bullets, a change of texture from the cards */
     .op-stage{ margin:0 0 16px; }
     .op-stage:last-child{ margin-bottom:0; }
-    .op-stage h4{ margin:0 0 .5em; font-weight:800; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
-    .op-stage ul{ margin:0; padding-left:1.15em; }
-    .op-stage li{ font-size:.97em; line-height:1.55; color:var(--ink-soft,#4d4658); margin:0 0 .45em; }
+    .op-stage h4{ margin:0 0 .55em; font-weight:800; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
+    .op-stage ul{ margin:0; padding-left:1.1em; list-style:none; }
+    .op-stage li{ position:relative; font-size:.97em; line-height:1.55; color:var(--ink-soft,#4d4658); margin:0 0 .5em; padding-left:.2em; }
+    .op-stage li::before{ content:""; position:absolute; left:-.85em; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--m-color); }
 
-    /* Practice items inside a drop-down */
+    /* Practice items — name + body list with dividers */
     .op-prac{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
     .op-prac:first-child{ padding-top:2px; }
     .op-prac:last-child{ border-bottom:0; padding-bottom:2px; }
     .op-prac-name{ font-weight:800; font-size:1.01em; color:var(--ink,#2A2038); }
-    .op-prac-body{ margin-top:.25em; font-size:.95em; line-height:1.55; color:var(--ink-soft,#4d4658); }
+    .op-prac-body{ margin-top:.28em; font-size:.95em; line-height:1.55; color:var(--ink-soft,#4d4658); }
 
-    /* FAQ — same drop-down, phrased as questions */
-    .op-faq > summary{ font-size:1.02em; }
+    /* FAQ — smaller nested accordions, a different rhythm again */
+    .op-faq{ margin-top:11px; border-radius:14px; }
+    .op-faq > summary{ padding:14px 16px; }
+    .op-faq .op-sum-title{ font-size:1.02em; }
+    .op-faq .op-sum-title::before{ display:none; }
 
     /* Reading — primary sources first, with a coloured tag */
-    .op-book{ background:#fff; border-radius:16px; padding:15px 16px; margin:0 0 11px;
-      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
-    .op-book-title{ font-weight:800; font-size:1.04em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
+    .op-book{ padding:14px 0; border-bottom:1px solid var(--rule,#EADFC6); }
+    .op-book:first-child{ padding-top:2px; }
+    .op-book:last-child{ border-bottom:0; padding-bottom:2px; }
+    .op-book-title{ font-weight:800; font-size:1.03em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
     .op-book-author{ margin-top:.15em; font-size:.9em; font-weight:600; color:var(--ink-mute,#7a7488); }
-    .op-book-note{ margin:.55em 0 0; font-size:.94em; line-height:1.55; color:var(--ink-soft,#4d4658); }
-    .op-tag{ display:inline-block; font:800 .6rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase;
+    .op-book-note{ margin:.5em 0 0; font-size:.93em; line-height:1.55; color:var(--ink-soft,#4d4658); }
+    .op-tag{ display:inline-block; font:800 .58rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase;
       padding:.35em .6em; border-radius:999px; margin-right:.5em; vertical-align:.08em; }
     .op-tag.primary{ color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
     .op-tag.onramp{ color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); }
+
+    /* Section label (used above the FAQ group) */
+    .op-label{ font:800 .8rem/1.1 -apple-system,system-ui,sans-serif; letter-spacing:.05em; text-transform:uppercase;
+      color:var(--m-deep,#2F4550); margin:30px 0 4px; display:flex; align-items:center; gap:.7em; }
+    .op-label::after{ content:""; flex:1; height:2px; border-radius:2px; background:linear-gradient(90deg,color-mix(in srgb, var(--m-color) 50%, transparent),transparent); }
 
     /* Read aloud + back */
     .op-actions{ display:flex; align-items:center; gap:12px; margin:30px 0 0; flex-wrap:wrap; }
@@ -144,6 +158,7 @@
     .tryit-fb{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); font-size:.93em; line-height:1.5; }
     .tryit-fb.ok{ background:#E7F6EE; }
     .tryit-card{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
+    .tryit-card:first-child{ padding-top:2px; }
     .tryit-card:last-child{ border-bottom:0; }
     .tryit-hint{ font-size:.9em; color:var(--ink-mute); font-style:italic; margin-bottom:10px; }
     .tryit-reveal-btn, .tryit-mem-btn{ cursor:pointer; border:0; border-radius:999px; padding:.55em 1.1em; font:800 .88em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
@@ -167,6 +182,16 @@
     function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
     function initials(name){ return String(name).replace(/\(.*?\)/g,'').trim().split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
 
+    // A section drop-down: header with a count, a one-line teaser, and a body.
+    function drop(opts){
+      const count = (opts.count != null && opts.count !== '') ? `<span class="op-count">${esc(opts.count)}</span>` : '';
+      const sub = opts.sub ? `<span class="op-sub">${esc(opts.sub)}</span>` : '';
+      return `<details class="op-drop"${opts.open ? ' open' : ''}${opts.id ? ` id="${opts.id}"` : ''}>
+          <summary><span class="op-sum-tt"><span class="op-sum-title">${esc(opts.title)}${count}</span>${sub}</span><span class="op-chev">›</span></summary>
+          <div class="op-drop-body">${opts.body}</div>
+        </details>`;
+    }
+
     const id = new URLSearchParams(location.search).get('id') || 'foundation';
     const a = window.ART_BY_ID(id);
     const root = document.getElementById('root');
@@ -187,13 +212,9 @@
 
     function render(a){
       const S = a.sections || {};
-      const whatItIs = S['what-it-is'];
-      const path = S['the-path'];
-      const practice = S['practice'];
-      const reading = S['reading'];
-      const masters = S['masters'];
+      const whatItIs = S['what-it-is'], path = S['the-path'], practice = S['practice'], reading = S['reading'], masters = S['masters'];
 
-      // ---- At a glance: use authored a.glance, else a light auto-fallback ----
+      // ---- At a glance (open) ----
       let glance = a.glance;
       if (!glance || !glance.length) {
         glance = [{ k: 'Tradition', v: a.group }];
@@ -206,99 +227,87 @@
             </div>`).join('')}
         </div>`;
 
-      // ---- Core ideas (was "what it is") ----
-      const ideasHtml = whatItIs ? `
-        <div class="op-label" id="what-it-is">The core ideas</div>
-        ${whatItIs.intro ? `<p class="op-intro">${esc(whatItIs.intro)}</p>` : ''}
-        ${whatItIs.principles.map((p, i) => `
-          <div class="op-idea op-outline">
-            <div class="op-idea-top"><div class="op-idx">${i + 1}</div><h3>${esc(p.name)}</h3></div>
-            <p>${esc(p.body)}</p>
-            ${p.why ? `<div class="op-why"><b>Why it matters</b>${esc(p.why)}</div>` : ''}
-          </div>`).join('')}` : '';
+      // ---- Core ideas (open drop-down — you land on substance) ----
+      const ideasHtml = whatItIs ? drop({
+        id: 'what-it-is', open: true, title: 'The core ideas', count: whatItIs.principles.length,
+        sub: 'The heart of it — read these',
+        body: `${whatItIs.intro ? `<p class="op-intro">${esc(whatItIs.intro)}</p>` : ''}
+          ${whatItIs.principles.map((p, i) => `
+            <div class="op-idea">
+              <div class="op-idea-top"><div class="op-idx">${i + 1}</div><h3>${esc(p.name)}</h3></div>
+              <p>${esc(p.body)}</p>
+              ${p.why ? `<div class="op-why"><b>Why it matters</b>${esc(p.why)}</div>` : ''}
+            </div>`).join('')}`
+      }) : '';
 
-      // ---- Remember it by (authored a.remember) ----
+      // ---- Remember it by (visible highlight) ----
       const rememberHtml = a.remember ? `
-        <div class="op-label">Remember it by</div>
         <div class="op-remember">
-          <div class="op-rk">The hook</div>
+          <div class="op-rk">Remember it by</div>
           ${(Array.isArray(a.remember) ? a.remember : [a.remember]).map(x => `<p>${x}</p>`).join('')}
         </div>` : '';
 
-      // ---- Key figures (was "masters") ----
-      const figuresHtml = masters ? `
-        <div class="op-label" id="masters">The key figures</div>
-        ${masters.intro ? `<p class="op-intro">${esc(masters.intro)}</p>` : ''}
-        ${masters.figures.map(f => `
-          <div class="op-fig op-outline">
-            <div class="op-fig-av">${f.image ? `<img src="${esc(f.image)}" alt="" onerror="this.replaceWith(document.createTextNode('${esc(initials(f.name))}'))">` : esc(initials(f.name))}</div>
-            <div class="op-fig-tt"><div class="op-fig-name">${esc(f.name)}</div><div class="op-fig-what">${esc(f.what)}</div></div>
-          </div>`).join('')}` : '';
+      // ---- Key figures (collapsed) ----
+      const figuresHtml = masters ? drop({
+        id: 'masters', title: 'The key figures', count: masters.figures.length,
+        sub: masters.intro ? masters.intro.replace(/\s+/g, ' ').slice(0, 78).trim() + '…' : 'Who carried it',
+        body: `${masters.intro ? `<p class="op-intro">${esc(masters.intro)}</p>` : ''}
+          ${masters.figures.map(f => `
+            <div class="op-fig">
+              <div class="op-fig-av">${f.image ? `<img src="${esc(f.image)}" alt="" onerror="this.replaceWith(document.createTextNode('${esc(initials(f.name))}'))">` : esc(initials(f.name))}</div>
+              <div class="op-fig-tt"><div class="op-fig-name">${esc(f.name)}</div><div class="op-fig-what">${esc(f.what)}</div></div>
+            </div>`).join('')}`
+      }) : '';
 
-      // ---- Go deeper: the path + the practices, behind drop-downs ----
-      let deeperHtml = '';
-      if (path || practice) {
-        deeperHtml += `<div class="op-label" id="the-path">Go deeper</div>`;
-        if (path) {
-          deeperHtml += `
-            <details class="op-drop">
-              <summary>The path <span class="op-sub">Beginner → intermediate → advanced</span><span class="op-chev">›</span></summary>
-              <div class="op-drop-body">
-                ${path.intro ? `<p class="op-intro">${esc(path.intro)}</p>` : ''}
-                ${path.levels.map(l => `<div class="op-stage"><h4>${esc(l.stage)}</h4><ul>${l.items.map(it => `<li>${esc(it)}</li>`).join('')}</ul></div>`).join('')}
-              </div>
-            </details>`;
-        }
-        if (practice) {
-          deeperHtml += `
-            <details class="op-drop" id="practice">
-              <summary>Practices to try <span class="op-sub">Concrete exercises you can begin today</span><span class="op-chev">›</span></summary>
-              <div class="op-drop-body">
-                ${practice.intro ? `<p class="op-intro">${esc(practice.intro)}</p>` : ''}
-                ${practice.items.map(it => `<div class="op-prac"><div class="op-prac-name">${esc(it.name)}</div><div class="op-prac-body">${esc(it.body)}</div></div>`).join('')}
-              </div>
-            </details>`;
-        }
-      }
+      // ---- The path (collapsed) ----
+      const pathHtml = path ? drop({
+        id: 'the-path', title: 'The path', count: (path.levels && path.levels.length) ? path.levels.length + ' stages' : '',
+        sub: 'Beginner → intermediate → advanced',
+        body: `${path.intro ? `<p class="op-intro">${esc(path.intro)}</p>` : ''}
+          ${path.levels.map(l => `<div class="op-stage"><h4>${esc(l.stage)}</h4><ul>${l.items.map(it => `<li>${esc(it)}</li>`).join('')}</ul></div>`).join('')}`
+      }) : '';
 
-      // ---- FAQ (authored a.faq) ----
+      // ---- Practices (collapsed) ----
+      const practiceHtml = practice ? drop({
+        id: 'practice', title: 'Practices to try', count: practice.items.length,
+        sub: 'Concrete exercises you can begin today',
+        body: `${practice.intro ? `<p class="op-intro">${esc(practice.intro)}</p>` : ''}
+          ${practice.items.map(it => `<div class="op-prac"><div class="op-prac-name">${esc(it.name)}</div><div class="op-prac-body">${esc(it.body)}</div></div>`).join('')}`
+      }) : '';
+
+      // ---- FAQ (small nested accordions under a label) ----
       const faqHtml = (a.faq && a.faq.length) ? `
         <div class="op-label">Common questions</div>
         ${a.faq.map(f => `
           <details class="op-drop op-faq">
-            <summary>${esc(f.q)}<span class="op-chev">›</span></summary>
+            <summary><span class="op-sum-tt"><span class="op-sum-title">${esc(f.q)}</span></span><span class="op-chev">›</span></summary>
             <div class="op-drop-body"><p class="op-prac-body" style="font-size:1em">${esc(f.a)}</p></div>
           </details>`).join('')}` : '';
 
-      // ---- Reading ----
-      const readingHtml = reading ? `
-        <div class="op-label" id="reading">What to read</div>
-        ${reading.intro ? `<p class="op-intro">${esc(reading.intro)}</p>` : ''}
-        ${reading.books.map(b => {
-          const note = b.note || '';
-          const m = note.match(/^(PRIMARY[\w-]*|ON-RAMP|PRIMARY-adjacent)\b[.,:]?\s*/i);
-          let tag = '';
-          let rest = note;
-          if (m) {
-            const label = /on-ramp/i.test(m[1]) ? 'On-ramp' : 'Primary';
-            const cls = /on-ramp/i.test(m[1]) ? 'onramp' : 'primary';
-            tag = `<span class="op-tag ${cls}">${label}</span>`;
-            rest = note.slice(m[0].length);
-          }
-          return `<div class="op-book op-outline">
-              <div class="op-book-title">${esc(b.title)}</div>
-              <div class="op-book-author">${esc(b.author)}</div>
-              <div class="op-book-note">${tag}${esc(rest)}</div>
-            </div>`;
-        }).join('')}` : '';
+      // ---- Reading (collapsed) ----
+      const readingHtml = reading ? drop({
+        id: 'reading', title: 'What to read', count: (reading.books && reading.books.length) ? reading.books.length + ' books' : '',
+        sub: 'Primary sources first, then the on-ramps',
+        body: `${reading.intro ? `<p class="op-intro">${esc(reading.intro)}</p>` : ''}
+          ${reading.books.map(b => {
+            const note = b.note || '';
+            const m = note.match(/^(PRIMARY[\w-]*|ON-RAMP|PRIMARY-adjacent)\b[.,:]?\s*/i);
+            let tag = '', rest = note;
+            if (m) {
+              const isRamp = /on-ramp/i.test(m[1]);
+              tag = `<span class="op-tag ${isRamp ? 'onramp' : 'primary'}">${isRamp ? 'On-ramp' : 'Primary'}</span>`;
+              rest = note.slice(m[0].length);
+            }
+            return `<div class="op-book"><div class="op-book-title">${esc(b.title)}</div><div class="op-book-author">${esc(b.author)}</div><div class="op-book-note">${tag}${esc(rest)}</div></div>`;
+          }).join('')}`
+      }) : '';
 
-      // ---- Test yourself (interactive tryit) ----
-      const tryitHtml = a.tryit ? `
-        <div class="op-label">Test yourself</div>
-        <details class="op-drop" id="tryit-drop">
-          <summary>Quick check <span class="op-sub">A few exercises to see what stuck</span><span class="op-chev">›</span></summary>
-          <div class="op-drop-body" id="tryit-body"></div>
-        </details>` : '';
+      // ---- Test yourself (collapsed, interactive) ----
+      const tryitHtml = a.tryit ? drop({
+        id: 'tryit-drop', title: 'Test yourself', count: (a.tryit.exercises && a.tryit.exercises.length) || '',
+        sub: 'A few exercises to see what stuck',
+        body: `<div id="tryit-body"></div>`
+      }) : '';
 
       root.innerHTML = `
         <header class="op-hero op-outline">
@@ -315,7 +324,8 @@
         ${ideasHtml}
         ${rememberHtml}
         ${figuresHtml}
-        ${deeperHtml}
+        ${pathHtml}
+        ${practiceHtml}
         ${faqHtml}
         ${readingHtml}
         ${tryitHtml}
@@ -336,10 +346,10 @@
       // Interactive tryit, mounted into its drop-down
       if (a.tryit) mountTryIt(a.tryit);
 
-      // Deep-link: ?s=KEY scrolls to that section (daily feed links still land well)
+      // Deep-link: ?s=KEY opens that section and scrolls to it
       const sub = new URLSearchParams(location.search).get('s');
       if (sub) {
-        const target = document.getElementById(sub) || document.getElementById(sub === 'practice' ? 'practice' : sub);
+        const target = document.getElementById(sub);
         if (target) {
           if (target.tagName === 'DETAILS') target.open = true;
           setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
