@@ -1024,6 +1024,22 @@ window.ARTS = [
     icon: 'column',
     image: 'assets/schools/stoicism.jpg',
     blurb: 'Founded by Zeno of Citium in the painted colonnade — the Stoa — of Athens around 300 BC, and carried to Rome by Seneca, Epictetus, and the emperor Marcus Aurelius, Stoicism is the most practical of the ancient schools. Its single great insight: some things are within our power and some are not, and nearly all human misery comes from confusing the two. Master that distinction and you become, in the Stoic phrase, invincible — not because nothing can touch your body or your fortune, but because nothing can touch the one thing that is truly yours, the governing reason within.',
+    glance: [
+      { k: 'Founded', v: 'c. 300 BC, Athens — by Zeno of Citium' },
+      { k: 'Flourished', v: 'Imperial Rome, 1st–2nd c. AD' },
+      { k: 'The one idea', v: 'Some things are up to you; most are not. Peace lives only in the first.' },
+      { k: 'Read first', v: 'Epictetus, the Enchiridion — a few pages, the whole doorway' }
+    ],
+    remember: [
+      'Three teachers, three stations of life — a <b>slave</b> (Epictetus), a <b>statesman</b> (Seneca), an <b>emperor</b> (Marcus Aurelius). The philosophy proved itself at the bottom, the middle, and the top.',
+      'And one line to carry: <b>"It is not things that disturb us, but our judgements about things."</b> Between what happens and how you feel, there is always a judgement — and the judgement is yours.'
+    ],
+    faq: [
+      { q: 'Is being Stoic just bottling up your feelings?', a: 'No — that is the everyday sense of the word, not the philosophy. The Stoics did not suppress emotion; they examined the judgement underneath it. The aim is not to feel nothing but to stop being ruled by false alarms — to grieve, love, and act, without being wrecked by things you never controlled.' },
+      { q: 'Do I have to believe in their cosmic religion to use it?', a: 'The old Stoics did hold that the cosmos is a single rational order (the logos). But the daily practice — the dichotomy of control, the evening review, the view from above — stands on its own and can be tested without the metaphysics. Take the exercises first; decide about the physics later.' },
+      { q: 'Isn\'t "accept what you can\'t change" just giving up?', a: 'The Stoics distinguish acceptance from passivity. You act with everything you have on what is up to you — your effort, your choices, your conduct — and you release only the outcome, which was never yours. It is the opposite of giving up: it is pouring all your energy where it can actually do work.' },
+      { q: 'Where should a complete beginner start?', a: 'Read Epictetus\'s Enchiridion straight through — it is short. Learn the one question, "is this up to me?", and ask it at every upset for a week. Add a two-minute evening review: what did I do well, badly, and leave undone? That is enough to begin; the rest deepens it.' }
+    ],
     sections: {
       'what-it-is': {
         title: 'What Stoicism is',

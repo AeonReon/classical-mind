@@ -4,55 +4,159 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FAF6EC">
-  <title>Classical Mind — Art</title>
+  <title>Classical Mind</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-    .art-banner{ position:relative; border-radius:18px; overflow:hidden; height:172px; margin:2px 0 18px; box-shadow:0 3px 8px rgba(60,45,20,.10),0 14px 32px rgba(60,45,20,.14); }
-    .art-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .art-banner::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.18)); }
-    .method-page .method-hero{ padding-top:0; }
-    .sub-tile-section .rtile-list{ margin-top:4px; }
-    /* Continue footer — carry the reader 1→2→3→4→5 without going back out */
-    .sub-nav{ display:flex; gap:10px; align-items:stretch; margin:30px 0 10px; }
-    .sub-nav-btn{ text-decoration:none; border-radius:14px; padding:12px 16px; font-family:var(--sans); font-weight:800; box-shadow:var(--shadow-sm); transition:transform .15s ease, box-shadow .15s ease; display:flex; flex-direction:column; justify-content:center; }
-    .sub-nav-btn:active{ transform:scale(.98); }
-    .sub-prev{ flex:none; align-self:stretch; display:flex; align-items:center; background:#fff; color:var(--ink); border:1.5px solid var(--rule); font-size:.86em; }
-    .sub-next{ flex:1; text-align:right; color:#fff; gap:2px; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); box-shadow:0 4px 14px rgba(60,45,20,.2); }
-    .sub-next .sn-kick{ font-size:.68em; font-weight:800; letter-spacing:.06em; text-transform:uppercase; opacity:.92; }
-    .sub-next .sn-title{ font-size:1.06em; }
-    .sub-finish{ background:linear-gradient(135deg,#2FA96B,#1B7A4A); }
-    /* "Try it" beginner exercises */
-    .tryit-q{ font-weight:700; color:var(--ink); font-size:1.05em; line-height:1.4; margin-bottom:12px; }
+    /* ============================================================
+       One-page topic template. Everything about a School or an Art
+       on a single scrolling page you want to come back to — the gist,
+       an at-a-glance strip, the core ideas laid out to read, the key
+       figures, a memory hook, deeper material behind drop-downs, an
+       FAQ, and the reading list. Colour is a soft accent on a warm
+       light ground, never a heavy slab. Family gradient-outline kept.
+       ============================================================ */
+    .op-main{ max-width:680px; margin:0 auto; padding:0 16px 72px; }
+    .op-outline{ position:relative; }
+    .op-outline::before{ content:""; position:absolute; inset:0; border-radius:inherit; padding:1.5px;
+      background:linear-gradient(135deg,var(--m-color),var(--m-deep)); opacity:.5;
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; }
+
+    /* Hero — a cover image with the title resting on it, magazine-style */
+    .op-hero{ position:relative; border-radius:22px; overflow:hidden; margin:12px 0 0; min-height:230px;
+      display:flex; flex-direction:column; justify-content:flex-end;
+      background:linear-gradient(150deg,var(--m-color),var(--m-deep));
+      box-shadow:0 4px 10px rgba(60,45,20,.10),0 16px 38px rgba(60,45,20,.16); }
+    .op-hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .op-hero::after{ content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(15,10,5,.14) 55%,rgba(15,10,5,.68) 100%); }
+    .op-hero-txt{ position:relative; z-index:2; padding:20px 22px 20px; }
+    .op-eyebrow{ font:800 .7rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.13em; text-transform:uppercase; color:#fff; opacity:.92;
+      text-shadow:0 1px 6px rgba(0,0,0,.5); }
+    .op-hero h1{ margin:.32em 0 0; font-weight:800; font-size:clamp(30px,8vw,42px); letter-spacing:-.035em; line-height:1; color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,.5); }
+    .op-hero .op-tagline{ margin:.5em 0 0; font-weight:700; font-size:1.02em; color:#fff; opacity:.95; text-shadow:0 1px 8px rgba(0,0,0,.5); }
+
+    /* The gist — the first thing you read, sets the whole picture */
+    .op-gist{ font-size:1.09em; line-height:1.62; color:var(--ink,#2A2038); margin:20px 2px 0; }
+    .op-gist::first-letter{ font-weight:800; }
+
+    /* At a glance — scannable chips: when, where, who, the one idea */
+    .op-glance{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0 4px; }
+    .op-glance.one{ grid-template-columns:1fr; }
+    .op-gcard{ background:#fff; border-radius:14px; padding:12px 14px; box-shadow:0 2px 4px rgba(60,45,20,.05),0 7px 18px rgba(60,45,20,.06); }
+    .op-gcard.wide{ grid-column:1 / -1; }
+    .op-gk{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--m-deep,#2F4550); opacity:.8; }
+    .op-gv{ margin-top:.4em; font-size:.98em; line-height:1.4; font-weight:600; color:var(--ink,#2A2038); }
+
+    /* Section label — a coloured rule that lets you find your place */
+    .op-label{ font:800 .8rem/1.1 -apple-system,system-ui,sans-serif; letter-spacing:.05em; text-transform:uppercase;
+      color:var(--m-deep,#2F4550); margin:34px 0 14px; display:flex; align-items:center; gap:.7em; }
+    .op-label::after{ content:""; flex:1; height:2px; border-radius:2px; background:linear-gradient(90deg,color-mix(in srgb, var(--m-color) 50%, transparent),transparent); }
+    .op-intro{ font-size:1em; line-height:1.55; color:var(--ink-mute,#7a7488); margin:-4px 0 16px; }
+
+    /* Core ideas — read them, don't tap them. Bold name, body, a why highlight */
+    .op-idea{ background:#fff; border-radius:18px; padding:18px 19px 16px; margin:0 0 13px;
+      box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.07); }
+    .op-idea-top{ display:flex; align-items:baseline; gap:12px; }
+    .op-idx{ flex:none; width:28px; height:28px; border-radius:9px; display:grid; place-items:center; transform:translateY(2px);
+      font:800 .92em -apple-system,system-ui,sans-serif; color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); }
+    .op-idea h3{ margin:0; font-weight:800; font-size:1.16em; letter-spacing:-.015em; line-height:1.22; color:var(--ink,#2A2038); }
+    .op-idea p{ margin:.55em 0 0; font-size:1em; line-height:1.58; color:var(--ink-soft,#4d4658); }
+    .op-why{ margin:.75em 0 0; padding:.7em .9em; border-radius:12px; background:var(--m-soft,#E3ECF0);
+      font-size:.95em; line-height:1.52; color:var(--ink-soft,#3f3a4c); }
+    .op-why b{ font:800 .66rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); display:block; margin-bottom:.35em; }
+
+    /* Remember it by — the memory hook, a warm tinted callout */
+    .op-remember{ position:relative; border-radius:18px; padding:18px 20px 18px 22px; overflow:hidden;
+      background:linear-gradient(155deg,var(--m-soft,#E3ECF0),#FFFDF9); box-shadow:0 2px 4px rgba(60,45,20,.05); }
+    .op-remember::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--m-color),var(--m-deep)); }
+    .op-remember .op-rk{ font:800 .68rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
+    .op-remember p{ margin:.5em 0 0; font-size:1.05em; line-height:1.55; color:var(--ink,#2A2038); }
+    .op-remember p + p{ margin-top:.55em; font-size:.98em; color:var(--ink-soft,#4d4658); }
+    .op-remember b{ color:var(--m-deep,#2F4550); }
+
+    /* Key figures — compact people cards, ready to take a portrait later */
+    .op-fig{ display:flex; gap:14px; align-items:flex-start; background:#fff; border-radius:16px; padding:14px 15px; margin:0 0 11px;
+      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
+    .op-fig-av{ flex:none; width:48px; height:48px; border-radius:14px; overflow:hidden; display:grid; place-items:center;
+      font:800 1.02em Georgia,serif; color:#fff; background:linear-gradient(140deg,var(--m-color),var(--m-deep)); }
+    .op-fig-av img{ width:100%; height:100%; object-fit:cover; }
+    .op-fig-tt{ min-width:0; }
+    .op-fig-name{ font-weight:800; font-size:1.02em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
+    .op-fig-what{ margin-top:.25em; font-size:.94em; line-height:1.5; color:var(--ink-soft,#4d4658); }
+
+    /* Go deeper — drop-downs. Depth is one tap away, still on this page */
+    .op-drop{ background:#fff; border-radius:16px; margin:0 0 12px; overflow:hidden;
+      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
+    .op-drop > summary{ list-style:none; cursor:pointer; padding:16px 18px; display:flex; align-items:center; gap:12px;
+      font-weight:800; font-size:1.06em; letter-spacing:-.01em; color:var(--ink,#2A2038); }
+    .op-drop > summary::-webkit-details-marker{ display:none; }
+    .op-drop > summary .op-chev{ margin-left:auto; flex:none; width:24px; height:24px; border-radius:50%; display:grid; place-items:center;
+      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); font-weight:800; transition:transform .2s ease; }
+    .op-drop[open] > summary .op-chev{ transform:rotate(90deg); }
+    .op-drop .op-sub{ font-weight:600; font-size:.82em; color:var(--ink-mute,#7a7488); display:block; margin-top:.2em; letter-spacing:0; }
+    .op-drop-body{ padding:2px 18px 18px; }
+    .op-drop-body .op-intro{ margin:0 0 14px; }
+
+    /* Path stages inside a drop-down */
+    .op-stage{ margin:0 0 16px; }
+    .op-stage:last-child{ margin-bottom:0; }
+    .op-stage h4{ margin:0 0 .5em; font-weight:800; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
+    .op-stage ul{ margin:0; padding-left:1.15em; }
+    .op-stage li{ font-size:.97em; line-height:1.55; color:var(--ink-soft,#4d4658); margin:0 0 .45em; }
+
+    /* Practice items inside a drop-down */
+    .op-prac{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
+    .op-prac:first-child{ padding-top:2px; }
+    .op-prac:last-child{ border-bottom:0; padding-bottom:2px; }
+    .op-prac-name{ font-weight:800; font-size:1.01em; color:var(--ink,#2A2038); }
+    .op-prac-body{ margin-top:.25em; font-size:.95em; line-height:1.55; color:var(--ink-soft,#4d4658); }
+
+    /* FAQ — same drop-down, phrased as questions */
+    .op-faq > summary{ font-size:1.02em; }
+
+    /* Reading — primary sources first, with a coloured tag */
+    .op-book{ background:#fff; border-radius:16px; padding:15px 16px; margin:0 0 11px;
+      box-shadow:0 2px 4px rgba(60,45,20,.05),0 8px 20px rgba(60,45,20,.06); }
+    .op-book-title{ font-weight:800; font-size:1.04em; letter-spacing:-.01em; line-height:1.25; color:var(--ink,#2A2038); }
+    .op-book-author{ margin-top:.15em; font-size:.9em; font-weight:600; color:var(--ink-mute,#7a7488); }
+    .op-book-note{ margin:.55em 0 0; font-size:.94em; line-height:1.55; color:var(--ink-soft,#4d4658); }
+    .op-tag{ display:inline-block; font:800 .6rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase;
+      padding:.35em .6em; border-radius:999px; margin-right:.5em; vertical-align:.08em; }
+    .op-tag.primary{ color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
+    .op-tag.onramp{ color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); }
+
+    /* Read aloud + back */
+    .op-actions{ display:flex; align-items:center; gap:12px; margin:30px 0 0; flex-wrap:wrap; }
+    .op-read{ display:inline-flex; align-items:center; gap:.5em; cursor:pointer; font:800 .96em -apple-system,system-ui,sans-serif;
+      color:var(--m-deep,#2F4550); background:#fff; border:1.7px solid currentColor; padding:.62em 1.2em; border-radius:999px; box-shadow:0 2px 5px rgba(60,45,20,.08); }
+    .op-back{ font:700 .92em -apple-system,system-ui,sans-serif; color:var(--ink-mute,#7a7488); text-decoration:none; }
+
+    /* Interactive "test yourself" (reuses tryit data) */
+    .tryit-q{ font-weight:700; color:var(--ink); font-size:1.02em; line-height:1.4; margin-bottom:12px; }
     .tryit-opts{ display:flex; flex-direction:column; gap:8px; }
-    .tryit-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule); border-radius:12px; padding:12px 14px; font:600 1em var(--sans); color:var(--ink); transition:border-color .12s ease, background .12s ease; }
-    .tryit-opt:hover:not(:disabled){ border-color:var(--m-color,#7c3aed); }
-    .tryit-opt:disabled{ cursor:default; }
+    .tryit-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule,#EADFC6); border-radius:12px; padding:11px 13px; font:600 .98em -apple-system,system-ui,sans-serif; color:var(--ink); }
     .tryit-opt.correct{ border-color:#1F8F5E; background:#E7F6EE; color:#13603f; font-weight:800; }
     .tryit-opt.wrong{ border-color:#D9534F; background:#FBEAEA; color:#a3312d; }
-    .tryit-fb{ margin-top:12px; padding:12px 14px; border-radius:12px; background:var(--m-soft,#f0eef7); color:var(--ink-soft); font-size:.95em; line-height:1.5; }
+    .tryit-fb{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); font-size:.93em; line-height:1.5; }
     .tryit-fb.ok{ background:#E7F6EE; }
-    .tryit-fb b{ color:var(--ink); }
-    .tryit-hint{ font-size:.9em; color:var(--ink-mute); font-style:italic; margin-bottom:12px; }
-    .tryit-reveal-btn, .tryit-mem-btn{ cursor:pointer; border:0; border-radius:999px; padding:.62em 1.2em; font:800 .9em var(--sans); color:#fff; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); }
-    .tryit-reveal{ margin-top:12px; padding:12px 14px; border-radius:12px; background:var(--m-soft,#f0eef7); color:var(--ink-soft); line-height:1.55; }
-    .tryit-mem-label{ font:800 .72rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--m-deep,#5b21b6); margin-bottom:8px; }
-    .tryit-mem-text{ font-size:1.1em; line-height:1.5; color:var(--ink); transition:filter .2s ease; }
+    .tryit-card{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
+    .tryit-card:last-child{ border-bottom:0; }
+    .tryit-hint{ font-size:.9em; color:var(--ink-mute); font-style:italic; margin-bottom:10px; }
+    .tryit-reveal-btn, .tryit-mem-btn{ cursor:pointer; border:0; border-radius:999px; padding:.55em 1.1em; font:800 .88em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
+    .tryit-reveal{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); line-height:1.55; }
+    .tryit-mem-label{ font:800 .7rem -apple-system,system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--m-deep); margin-bottom:8px; }
+    .tryit-mem-text{ font-size:1.08em; line-height:1.5; color:var(--ink); transition:filter .2s ease; }
     .tryit-mem-text.blurred{ filter:blur(7px); user-select:none; }
-    .tryit-mem-src{ margin-top:8px; font-weight:700; color:var(--m-deep,#5b21b6); font-size:.9em; }
-    .tryit-mem-btn{ margin-top:12px; }
-    .tryit-more{ display:block; text-decoration:none; margin-top:16px; padding:16px 18px; border-radius:16px; color:#fff; background:linear-gradient(135deg,var(--m-color,#7c3aed),var(--m-deep,#5b21b6)); box-shadow:0 4px 14px rgba(60,45,20,.2); }
-    .tryit-more-note{ display:block; font-size:.92em; opacity:.95; line-height:1.45; margin-bottom:9px; }
-    .tryit-more-cta{ display:block; font-weight:800; font-size:1.06em; }
-    .read-row{ display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
-    .voice-pick{ display:inline-flex; align-items:center; gap:6px; font:700 .74em var(--sans); letter-spacing:.02em; text-transform:uppercase; color:var(--ink-mute); }
-    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:170px; }
+    .tryit-mem-src{ margin-top:8px; font-weight:700; color:var(--m-deep); font-size:.9em; }
+    .tryit-mem-btn{ margin-top:11px; }
   </style>
 </head>
 <body class="method-page">
-  <main id="root" class="method-main"></main>
+  <main id="root" class="op-main"></main>
 
   <script src="assets/arts-data.js"></script>
   <script src="assets/schools-data.js"></script>
@@ -60,254 +164,223 @@
   <script src="assets/reader.js"></script>
   <script src="assets/app.js"></script>
   <script>
-    const SUB_ICONS = {
-      'try-it': '<circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="32" r="12" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="32" r="4" fill="currentColor"/>',
-      'what-it-is': '<circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="4"/><polygon points="32,16 38,32 32,48 26,32" fill="currentColor"/>',
-      'the-path': '<path d="M12 50 Q 20 30 32 30 Q 44 30 52 14" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="12" cy="50" r="4" fill="currentColor"/><circle cx="32" cy="30" r="4" fill="currentColor"/><circle cx="52" cy="14" r="4" fill="currentColor"/>',
-      'practice': '<path d="M20 36 V22 a3 3 0 0 1 6 0 V32 V18 a3 3 0 0 1 6 0 V32 V20 a3 3 0 0 1 6 0 V34 V24 a3 3 0 0 1 6 0 V42 a14 14 0 0 1 -14 14 H26 a8 8 0 0 1 -8 -8 V40 a4 4 0 0 1 2 -4 Z" fill="currentColor"/>',
-      'reading': '<rect x="14" y="14" width="36" height="40" rx="2" fill="currentColor"/><rect x="16" y="16" width="32" height="36" rx="1" fill="white"/><line x1="22" y1="24" x2="42" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="32" x2="42" y2="32" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="40" x2="36" y2="40" stroke="currentColor" stroke-width="2.5"/>',
-      'masters': '<polygon points="32,8 38,26 56,26 42,38 48,56 32,46 16,56 22,38 8,26 26,26" fill="currentColor"/>'
-    };
-
-    const SECTION_ORDER = ['what-it-is', 'the-path', 'practice', 'reading', 'masters', 'try-it'];
-
-    const SUB_TITLES = {
-      'try-it': 'Try it',
-      'what-it-is': 'What it is',
-      'the-path': 'The path',
-      'practice': 'Practice',
-      'reading': 'Reading',
-      'masters': 'Masters'
-    };
-    const SUB_TAGS = {
-      'try-it': 'A few beginner exercises — do them now',
-      'what-it-is': 'Definition, history, the why',
-      'the-path': 'Beginner → intermediate → advanced',
-      'practice': 'Concrete exercises and habits',
-      'reading': 'Primary sources & modern guides',
-      'masters': 'The great figures of this art'
-    };
-    // One image per sub-section type, shared across every art and school page.
-    const SUB_IMAGES = {
-      'try-it': 'assets/daily/do.jpg',
-      'what-it-is': 'assets/sub/what-it-is.jpg',
-      'the-path': 'assets/sub/the-path.jpg',
-      'practice': 'assets/sub/practice.jpg',
-      'reading': 'assets/sub/reading.jpg',
-      'masters': 'assets/sub/masters.jpg'
-    };
+    function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    function initials(name){ return String(name).replace(/\(.*?\)/g,'').trim().split(/\s+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
 
     const id = new URLSearchParams(location.search).get('id') || 'foundation';
     const a = window.ART_BY_ID(id);
     const root = document.getElementById('root');
 
-    // Attach the "Try it" beginner exercises (if this art has any) as a section.
-    if (a && window.TRYIT && window.TRYIT[id]) a.sections['try-it'] = window.TRYIT[id];
+    if (a && window.TRYIT && window.TRYIT[id]) a.tryit = window.TRYIT[id];
 
     if (!a) {
       root.innerHTML = '<h1>Not found</h1><p><a href="index.html">← Home</a></p>';
     } else {
       document.title = 'Classical Mind — ' + a.name;
-      document.documentElement.style.setProperty('--m-color', a.color);
-      document.documentElement.style.setProperty('--m-deep', a.colorDeep);
-      document.documentElement.style.setProperty('--m-soft', a.colorSoft);
+      const de = document.documentElement;
+      de.style.setProperty('--m-color', a.color);
+      de.style.setProperty('--m-deep', a.colorDeep);
+      de.style.setProperty('--m-soft', a.colorSoft);
+      const mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.setAttribute('content', a.colorDeep);
+      render(a);
+    }
 
-      const sub = new URLSearchParams(location.search).get('s');
-      if (sub && a.sections && a.sections[sub]) {
-        renderSubSection(a, sub);
-      } else {
-        renderArtLanding(a);
+    function render(a){
+      const S = a.sections || {};
+      const whatItIs = S['what-it-is'];
+      const path = S['the-path'];
+      const practice = S['practice'];
+      const reading = S['reading'];
+      const masters = S['masters'];
+
+      // ---- At a glance: use authored a.glance, else a light auto-fallback ----
+      let glance = a.glance;
+      if (!glance || !glance.length) {
+        glance = [{ k: 'Tradition', v: a.group }];
+        if (a.short) glance.push({ k: 'In a phrase', v: a.short });
       }
-    }
+      const glanceHtml = `
+        <div class="op-glance ${glance.length === 1 ? 'one' : ''}">
+          ${glance.map((g, i) => `<div class="op-gcard op-outline ${g.wide || (glance.length % 2 === 1 && i === glance.length - 1) ? 'wide' : ''}">
+              <div class="op-gk">${esc(g.k)}</div><div class="op-gv">${esc(g.v)}</div>
+            </div>`).join('')}
+        </div>`;
 
-    function renderArtLanding(a) {
-      const subTiles = SECTION_ORDER.filter(key => a.sections && a.sections[key]).map(key => {
-        const img = SUB_IMAGES[key];
-        return `
-          <a class="rtile" href="art.html?id=${a.id}&s=${key}" style="--c:${a.color};--cd:${a.colorDeep};">
-            <span class="rtile-photo">${img ? `<img src="${img}" alt="" loading="lazy" onerror="this.remove()">` : ''}<span class="rtile-ic"><svg viewBox="0 0 64 64">${SUB_ICONS[key]}</svg></span></span>
-            <span class="rtile-body">
-              <span class="rtile-name">${SUB_TITLES[key]}</span>
-              <span class="rtile-tagline">${SUB_TAGS[key]}</span>
-            </span>
-            <span class="rtile-chev" aria-hidden="true">→</span>
-          </a>
-        `;
-      }).join('');
+      // ---- Core ideas (was "what it is") ----
+      const ideasHtml = whatItIs ? `
+        <div class="op-label" id="what-it-is">The core ideas</div>
+        ${whatItIs.intro ? `<p class="op-intro">${esc(whatItIs.intro)}</p>` : ''}
+        ${whatItIs.principles.map((p, i) => `
+          <div class="op-idea op-outline">
+            <div class="op-idea-top"><div class="op-idx">${i + 1}</div><h3>${esc(p.name)}</h3></div>
+            <p>${esc(p.body)}</p>
+            ${p.why ? `<div class="op-why"><b>Why it matters</b>${esc(p.why)}</div>` : ''}
+          </div>`).join('')}` : '';
 
-      root.innerHTML = `
-        ${a.image ? `<div class="art-banner"><img src="${a.image}" alt="" onerror="this.parentNode.remove()"></div>` : ''}
-        <header class="method-hero">
-          <div class="method-hero-eyebrow">${a.group}</div>
-          <h1>${a.name}</h1>
-          <p class="method-tagline">${a.tagline}</p>
-          <p class="method-blurb">${a.blurb}</p>
-        </header>
+      // ---- Remember it by (authored a.remember) ----
+      const rememberHtml = a.remember ? `
+        <div class="op-label">Remember it by</div>
+        <div class="op-remember">
+          <div class="op-rk">The hook</div>
+          ${(Array.isArray(a.remember) ? a.remember : [a.remember]).map(x => `<p>${x}</p>`).join('')}
+        </div>` : '';
 
-        <section class="sub-tile-section">
-          <h2>Explore</h2>
-          <div class="rtile-list">${subTiles}</div>
-        </section>
-      `;
-    }
+      // ---- Key figures (was "masters") ----
+      const figuresHtml = masters ? `
+        <div class="op-label" id="masters">The key figures</div>
+        ${masters.intro ? `<p class="op-intro">${esc(masters.intro)}</p>` : ''}
+        ${masters.figures.map(f => `
+          <div class="op-fig op-outline">
+            <div class="op-fig-av">${f.image ? `<img src="${esc(f.image)}" alt="" onerror="this.replaceWith(document.createTextNode('${esc(initials(f.name))}'))">` : esc(initials(f.name))}</div>
+            <div class="op-fig-tt"><div class="op-fig-name">${esc(f.name)}</div><div class="op-fig-what">${esc(f.what)}</div></div>
+          </div>`).join('')}` : '';
 
-    function renderSubSection(a, key) {
-      const s = a.sections[key];
-      const builtSections = SECTION_ORDER.filter(k => a.sections && a.sections[k]);
-      const idx = builtSections.indexOf(key);
-      const total = builtSections.length;
-      const prevKey = builtSections[idx - 1];
-      const nextKey = builtSections[idx + 1];
-      let body = '';
-
-      if (key === 'what-it-is') {
-        body = `
-          <p class="lede">${s.intro}</p>
-          ${s.principles.map((p, i) => `
-            <div class="card principle-card">
-              <div class="principle-num">${i + 1}</div>
-              <h3>${p.name}</h3>
-              <p>${p.body}</p>
-              <p class="why">${p.why}</p>
-            </div>
-          `).join('')}
-        `;
-      } else if (key === 'the-path') {
-        body = `
-          <p class="lede">${s.intro}</p>
-          ${s.levels.map(level => `
-            <div class="card stage-card">
-              <h3>${level.stage}</h3>
-              <ul>${level.items.map(i => `<li>${i}</li>`).join('')}</ul>
-            </div>
-          `).join('')}
-        `;
-      } else if (key === 'practice') {
-        body = `
-          <p class="lede">${s.intro}</p>
-          <div class="activity-grid">
-            ${s.items.map((item, i) => `
-              <div class="activity-card">
-                <div class="activity-num">${i + 1}</div>
-                <div class="activity-name">${item.name}</div>
-                <div class="activity-body">${item.body}</div>
+      // ---- Go deeper: the path + the practices, behind drop-downs ----
+      let deeperHtml = '';
+      if (path || practice) {
+        deeperHtml += `<div class="op-label" id="the-path">Go deeper</div>`;
+        if (path) {
+          deeperHtml += `
+            <details class="op-drop">
+              <summary>The path <span class="op-sub">Beginner → intermediate → advanced</span><span class="op-chev">›</span></summary>
+              <div class="op-drop-body">
+                ${path.intro ? `<p class="op-intro">${esc(path.intro)}</p>` : ''}
+                ${path.levels.map(l => `<div class="op-stage"><h4>${esc(l.stage)}</h4><ul>${l.items.map(it => `<li>${esc(it)}</li>`).join('')}</ul></div>`).join('')}
               </div>
-            `).join('')}
-          </div>
-        `;
-      } else if (key === 'reading') {
-        body = `
-          <p class="lede">${s.intro}</p>
-          <div class="card">
-            <ul class="book-list">
-              ${s.books.map(b => `
-                <li><strong>${b.title}</strong> — ${b.author}<br><span class="book-note">${b.note}</span></li>
-              `).join('')}
-            </ul>
-          </div>
-        `;
-      } else if (key === 'masters') {
-        body = `
-          <p class="lede">${s.intro}</p>
-          ${s.figures.map(f => `
-            <div class="card">
-              <h3>${f.name}</h3>
-              <p>${f.what}</p>
-            </div>
-          `).join('')}
-        `;
-      } else if (key === 'try-it') {
-        body = renderTryIt(s);
+            </details>`;
+        }
+        if (practice) {
+          deeperHtml += `
+            <details class="op-drop" id="practice">
+              <summary>Practices to try <span class="op-sub">Concrete exercises you can begin today</span><span class="op-chev">›</span></summary>
+              <div class="op-drop-body">
+                ${practice.intro ? `<p class="op-intro">${esc(practice.intro)}</p>` : ''}
+                ${practice.items.map(it => `<div class="op-prac"><div class="op-prac-name">${esc(it.name)}</div><div class="op-prac-body">${esc(it.body)}</div></div>`).join('')}
+              </div>
+            </details>`;
+        }
       }
+
+      // ---- FAQ (authored a.faq) ----
+      const faqHtml = (a.faq && a.faq.length) ? `
+        <div class="op-label">Common questions</div>
+        ${a.faq.map(f => `
+          <details class="op-drop op-faq">
+            <summary>${esc(f.q)}<span class="op-chev">›</span></summary>
+            <div class="op-drop-body"><p class="op-prac-body" style="font-size:1em">${esc(f.a)}</p></div>
+          </details>`).join('')}` : '';
+
+      // ---- Reading ----
+      const readingHtml = reading ? `
+        <div class="op-label" id="reading">What to read</div>
+        ${reading.intro ? `<p class="op-intro">${esc(reading.intro)}</p>` : ''}
+        ${reading.books.map(b => {
+          const note = b.note || '';
+          const m = note.match(/^(PRIMARY[\w-]*|ON-RAMP|PRIMARY-adjacent)\b[.,:]?\s*/i);
+          let tag = '';
+          let rest = note;
+          if (m) {
+            const label = /on-ramp/i.test(m[1]) ? 'On-ramp' : 'Primary';
+            const cls = /on-ramp/i.test(m[1]) ? 'onramp' : 'primary';
+            tag = `<span class="op-tag ${cls}">${label}</span>`;
+            rest = note.slice(m[0].length);
+          }
+          return `<div class="op-book op-outline">
+              <div class="op-book-title">${esc(b.title)}</div>
+              <div class="op-book-author">${esc(b.author)}</div>
+              <div class="op-book-note">${tag}${esc(rest)}</div>
+            </div>`;
+        }).join('')}` : '';
+
+      // ---- Test yourself (interactive tryit) ----
+      const tryitHtml = a.tryit ? `
+        <div class="op-label">Test yourself</div>
+        <details class="op-drop" id="tryit-drop">
+          <summary>Quick check <span class="op-sub">A few exercises to see what stuck</span><span class="op-chev">›</span></summary>
+          <div class="op-drop-body" id="tryit-body"></div>
+        </details>` : '';
 
       root.innerHTML = `
-        <header class="sub-hero">
-          <div class="sub-hero-eyebrow">${a.name} · ${idx + 1} of ${total}</div>
-          <h1>${SUB_TITLES[key]}</h1>
-          <div class="read-row">
-            <button class="read-btn" id="sub-read-btn">▶ Read aloud</button>
-            <span class="voice-pick" hidden></span>
+        <header class="op-hero op-outline">
+          ${a.image ? `<img class="op-hero-img" src="${esc(a.image)}" alt="" onerror="this.remove()">` : ''}
+          <div class="op-hero-txt">
+            <div class="op-eyebrow">${esc(a.group)}</div>
+            <h1>${esc(a.name)}</h1>
+            ${a.tagline ? `<div class="op-tagline">${esc(a.tagline)}</div>` : ''}
           </div>
         </header>
-        ${body}
-        <nav class="sub-nav">
-          ${prevKey
-            ? `<a class="sub-nav-btn sub-prev" href="art.html?id=${a.id}&s=${prevKey}">← ${SUB_TITLES[prevKey]}</a>`
-            : `<a class="sub-nav-btn sub-prev" href="art.html?id=${a.id}">← Overview</a>`}
-          ${nextKey
-            ? `<a class="sub-nav-btn sub-next" href="art.html?id=${a.id}&s=${nextKey}"><span class="sn-kick">Next · ${idx + 2} of ${total}</span><span class="sn-title">${SUB_TITLES[nextKey]} →</span></a>`
-            : `<a class="sub-nav-btn sub-next sub-finish" href="art.html?id=${a.id}"><span class="sn-kick">You've finished ${a.name}</span><span class="sn-title">Back to overview ✓</span></a>`}
-        </nav>
+
+        ${a.blurb ? `<p class="op-gist">${esc(a.blurb)}</p>` : ''}
+        ${glanceHtml}
+        ${ideasHtml}
+        ${rememberHtml}
+        ${figuresHtml}
+        ${deeperHtml}
+        ${faqHtml}
+        ${readingHtml}
+        ${tryitHtml}
+
+        <div class="op-actions">
+          <button class="op-read" id="op-read-btn">▶ Read this aloud</button>
+          <a class="op-back" href="index.html">← All of Classical Mind</a>
+        </div>
       `;
-      window.scrollTo(0, 0);
-      const readBtn = document.getElementById('sub-read-btn');
-      if (readBtn) {
-        readBtn.addEventListener('click', () => {
-          if (window.Reader.speaking) window.Reader.stop();
-          else window.Reader.readElement(document.getElementById('root'));
-        });
+
+      // Read aloud
+      const rb = document.getElementById('op-read-btn');
+      if (rb) rb.addEventListener('click', () => {
+        if (window.Reader && window.Reader.speaking) { window.Reader.stop(); rb.textContent = '▶ Read this aloud'; }
+        else if (window.Reader) { window.Reader.readElement(root); rb.textContent = '⏹ Stop'; }
+      });
+
+      // Interactive tryit, mounted into its drop-down
+      if (a.tryit) mountTryIt(a.tryit);
+
+      // Deep-link: ?s=KEY scrolls to that section (daily feed links still land well)
+      const sub = new URLSearchParams(location.search).get('s');
+      if (sub) {
+        const target = document.getElementById(sub) || document.getElementById(sub === 'practice' ? 'practice' : sub);
+        if (target) {
+          if (target.tagName === 'DETAILS') target.open = true;
+          setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+        }
       }
-      if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
-      if (key === 'try-it') wireTryIt(s);
     }
 
-    function renderTryIt(s) {
+    // ---- tryit rendering + wiring (reused, mounted inline) ----
+    function mountTryIt(s){
+      const host = document.getElementById('tryit-body');
+      if (!host) return;
       const cards = s.exercises.map((ex, i) => {
         if (ex.type === 'choice') {
-          const opts = ex.options.map((o, j) => `<button class="tryit-opt" data-i="${j}">${o}</button>`).join('');
-          return `<div class="card tryit-card" data-ex="${i}" data-answer="${ex.answer}">
-              <div class="tryit-q">${ex.q}</div>
-              <div class="tryit-opts">${opts}</div>
-              <div class="tryit-fb" hidden></div>
-            </div>`;
+          const opts = ex.options.map((o, j) => `<button class="tryit-opt" data-i="${j}">${esc(o)}</button>`).join('');
+          return `<div class="tryit-card" data-ex="${i}" data-answer="${ex.answer}"><div class="tryit-q">${esc(ex.q)}</div><div class="tryit-opts">${opts}</div><div class="tryit-fb" hidden></div></div>`;
         }
         if (ex.type === 'reveal') {
-          return `<div class="card tryit-card">
-              <div class="tryit-q">${ex.q}</div>
-              ${ex.hint ? `<div class="tryit-hint">${ex.hint}</div>` : ''}
-              <button class="tryit-reveal-btn" data-ex="${i}">Show a model answer</button>
-              <div class="tryit-reveal" id="rev-${i}" hidden>${ex.reveal}</div>
-            </div>`;
+          return `<div class="tryit-card"><div class="tryit-q">${esc(ex.q)}</div>${ex.hint ? `<div class="tryit-hint">${esc(ex.hint)}</div>` : ''}<button class="tryit-reveal-btn" data-ex="${i}">Show a model answer</button><div class="tryit-reveal" id="rev-${i}" hidden>${esc(ex.reveal)}</div></div>`;
         }
         if (ex.type === 'memorise') {
-          return `<div class="card tryit-card">
-              <div class="tryit-mem-label">Learn this by heart</div>
-              <div class="tryit-mem-text" id="mem-${i}">${ex.text}</div>
-              <div class="tryit-mem-src">— ${ex.source}</div>
-              <button class="tryit-mem-btn" data-ex="${i}">Hide &amp; recall</button>
-            </div>`;
+          return `<div class="tryit-card"><div class="tryit-mem-label">Learn this by heart</div><div class="tryit-mem-text" id="mem-${i}">${esc(ex.text)}</div><div class="tryit-mem-src">— ${esc(ex.source)}</div><button class="tryit-mem-btn" data-ex="${i}">Hide &amp; recall</button></div>`;
         }
         return '';
       }).join('');
-      const more = s.more ? `<a class="tryit-more" href="${s.more.href}">${s.more.note ? `<span class="tryit-more-note">${s.more.note}</span>` : ''}<span class="tryit-more-cta">${s.more.label} →</span></a>` : '';
-      return `<p class="lede">${s.intro}</p>${cards}${more}`;
-    }
-
-    function wireTryIt(s) {
-      root.addEventListener('click', (e) => {
+      host.innerHTML = `${s.intro ? `<p class="op-intro">${esc(s.intro)}</p>` : ''}${cards}`;
+      host.addEventListener('click', (e) => {
         const opt = e.target.closest('.tryit-opt');
         if (opt) {
           const card = opt.closest('.tryit-card');
           if (card.dataset.done) return;
           card.dataset.done = '1';
-          const answer = +card.dataset.answer;
-          const chosen = +opt.dataset.i;
-          const ex = s.exercises[+card.dataset.ex];
-          [...card.querySelectorAll('.tryit-opt')].forEach((b, j) => {
-            b.disabled = true;
-            if (j === answer) b.classList.add('correct');
-            else if (j === chosen) b.classList.add('wrong');
-          });
-          const fb = card.querySelector('.tryit-fb');
-          fb.hidden = false;
-          fb.classList.toggle('ok', chosen === answer);
-          fb.innerHTML = `<b>${chosen === answer ? '✓ Correct.' : '✗ Not quite.'}</b> ${ex.explain}`;
+          const answer = +card.dataset.answer, chosen = +opt.dataset.i, ex = s.exercises[+card.dataset.ex];
+          [...card.querySelectorAll('.tryit-opt')].forEach((b, j) => { b.disabled = true; if (j === answer) b.classList.add('correct'); else if (j === chosen) b.classList.add('wrong'); });
+          const fb = card.querySelector('.tryit-fb'); fb.hidden = false; fb.classList.toggle('ok', chosen === answer);
+          fb.innerHTML = `<b>${chosen === answer ? '✓ Correct.' : '✗ Not quite.'}</b> ${esc(ex.explain)}`;
           return;
         }
         const rev = e.target.closest('.tryit-reveal-btn');
-        if (rev) { const r = root.querySelector('#rev-' + rev.dataset.ex); if (r) r.hidden = false; rev.hidden = true; return; }
+        if (rev) { const r = host.querySelector('#rev-' + rev.dataset.ex); if (r) r.hidden = false; rev.hidden = true; return; }
         const mem = e.target.closest('.tryit-mem-btn');
-        if (mem) { const t = root.querySelector('#mem-' + mem.dataset.ex); const hidden = t.classList.toggle('blurred'); mem.textContent = hidden ? 'Reveal' : 'Hide & recall'; }
+        if (mem) { const t = host.querySelector('#mem-' + mem.dataset.ex); const hidden = t.classList.toggle('blurred'); mem.textContent = hidden ? 'Reveal' : 'Hide & recall'; }
       });
     }
 
