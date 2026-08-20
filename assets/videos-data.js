@@ -206,8 +206,8 @@ window.VIDEOS = {
       note: 'Longer than the others here at 23 minutes. Pythagoras has no good short introduction in English on YouTube — the short ones are jokes about the theorem.',
       checked: '2026-08-20' },
 
-    socrates: { id: 'rKhfFBbVtFg', title: 'The Death of Socrates: How To Read A Painting', channel: 'Nerdwriter1', mins: '7:34', views: 4392034,
-      why: 'An unusual way in, and the best one. It reads David\'s painting of the death scene inch by inch, and to do that it has to tell you the trial, the charges, the escape Socrates refused, and the last lesson from the Phaedo — that a philosopher should not fear death. Seven minutes, and beautiful.',
+    socrates: { id: 'vNDYUlxNIAA', title: 'This tool will help improve your critical thinking', channel: 'TED-Ed', mins: '5:19', views: 8189558,
+      why: 'Five minutes on the thing Socrates actually was: not a man with answers but a man with questions. It walks through a real dialogue — a confident young man is asked whether lying is unjust, says yes, then has to reckon with a general deceiving an enemy army, then a commander lying to lift his own troops — until he admits he does not know what justice is after all. That is the method, and it is why Athens killed him.',
       checked: '2026-08-20' },
 
     plato: { id: 'VDiyQub6vpw', title: 'PHILOSOPHY — Plato', channel: 'The School of Life', mins: '6:29', views: 7655929,
