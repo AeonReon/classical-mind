@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v37';
+const CACHE = 'classical-mind-v38';
 const ASSETS = [
   './',
   './index.html',
@@ -20,6 +20,7 @@ const ASSETS = [
   './assets/arts-data.js',
   './assets/schools-data.js',
   './assets/tryit-data.js',
+  './assets/videos-data.js',
   './assets/fallacies-data.js',
   './assets/greatbooks-data.js',
   './assets/masters-data.js',
