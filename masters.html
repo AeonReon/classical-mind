@@ -44,6 +44,29 @@
     .mm-actions{ margin-top:16px; }
     .mm-listen{ display:inline-flex; align-items:center; gap:7px; cursor:pointer; font:800 .86em var(--sans); border-radius:999px; padding:.6em 1.15em; border:0; color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
     .mm-listen:active{ transform:scale(.97); }
+
+    /* Watch — one curated video per mind. Facade: thumbnail until tapped, then
+       the real player is injected. Nothing loads from YouTube on page load. */
+    .mm-vid{ border-radius:14px; overflow:hidden; background:#fff; border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
+    .mm-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer; position:relative; aspect-ratio:16/9; line-height:0; }
+    .mm-vid-play img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1); }
+    .mm-vid-play:hover img{ opacity:1; transform:scale(1.03); }
+    .mm-vid-btn{ position:absolute; inset:0; margin:auto; width:58px; height:58px; border-radius:50%;
+      background:linear-gradient(135deg,var(--m-color,#B07C3A),var(--m-deep,#2F4550)); box-shadow:0 6px 20px rgba(0,0,0,.35);
+      display:flex; align-items:center; justify-content:center; transition:transform .3s cubic-bezier(0.34,1.56,0.64,1); }
+    .mm-vid-play:hover .mm-vid-btn{ transform:scale(1.1); }
+    .mm-vid-btn::after{ content:""; width:0; height:0; margin-left:5px; border-left:17px solid #fff; border-top:11px solid transparent; border-bottom:11px solid transparent; }
+    .mm-vid-len{ position:absolute; right:8px; bottom:8px; background:rgba(12,10,18,.82); color:#fff;
+      font:800 .75rem/1 -apple-system,system-ui,sans-serif; padding:5px 7px; border-radius:6px; }
+    .mm-vid iframe{ display:block; width:100%; aspect-ratio:16/9; border:0; }
+    .mm-vid-tt{ padding:11px 13px 12px; }
+    .mm-vid-name{ font:800 .98em/1.3 -apple-system,system-ui,sans-serif; color:var(--ink,#2A2038); }
+    .mm-vid-meta{ margin-top:4px; font:700 .8em -apple-system,system-ui,sans-serif; color:var(--m-deep,#2F4550); }
+    .mm-vid-meta span{ color:var(--ink-mute,#7a7488); font-weight:600; }
+    .mm-vid-why{ margin:8px 0 0; font-size:.92em; line-height:1.55; color:var(--ink-soft,#4d4658); }
+    .mm-vid-note{ margin-top:9px; padding:8px 10px; border-radius:9px; background:var(--m-soft,#F3EADA);
+      font-size:.85em; line-height:1.5; color:var(--ink-soft,#4d4658); }
+    .mm-vid-note b{ color:var(--m-deep,#2F4550); }
   </style>
 </head>
 <body class="method-page">
@@ -59,6 +82,7 @@
   <audio id="mmAudio" preload="none"></audio>
 
   <script src="assets/masters-data.js"></script>
+  <script src="assets/videos-data.js"></script>
   <script src="assets/app.js"></script>
   <script>
     const MASTERS = window.MASTERS || [];
@@ -66,6 +90,39 @@
     const root = document.getElementById('eras');
     const audio = document.getElementById('mmAudio');
     const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const VIDS = (window.VIDEOS && window.VIDEOS.masters) || {};
+
+    // 4392034 -> "4.4M". Real counts, refreshed by scripts/check-videos.mjs.
+    function fmtViews(n){
+      n = Number(n) || 0;
+      if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '') + 'M';
+      if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+      return String(n);
+    }
+
+    // One curated introduction per mind. Facade only until tapped.
+    function videoFor(id){
+      const v = VIDS[id];
+      if (!v) return '';
+      return `<div class="mm-sec">
+          <div class="mm-sec-h">Watch</div>
+          <div class="mm-vid">
+            <button type="button" class="mm-vid-play" data-vid="${esc(v.id)}" aria-label="Play: ${esc(v.title)}">
+              <img src="https://i.ytimg.com/vi/${esc(v.id)}/maxresdefault.jpg" alt="" loading="lazy"
+                   onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg'">
+              <span class="mm-vid-btn"></span>
+              ${v.mins ? `<span class="mm-vid-len">${esc(v.mins)}</span>` : ''}
+            </button>
+            <div class="mm-vid-tt">
+              <div class="mm-vid-name">${esc(v.title)}</div>
+              <div class="mm-vid-meta">${esc(v.channel)}${v.views ? ` <span>· ${fmtViews(v.views)} views</span>` : ''}</div>
+              ${v.why ? `<p class="mm-vid-why">${esc(v.why)}</p>` : ''}
+              ${v.note ? `<div class="mm-vid-note"><b>Worth knowing:</b> ${esc(v.note)}</div>` : ''}
+            </div>
+          </div>
+        </div>`;
+    }
+
 
     root.innerHTML = ERAS.map(era => {
       const list = MASTERS.filter(m => m.era === era);
@@ -94,6 +151,7 @@
                     ${s.bullets ? `<ul class="mm-bullets">${s.bullets.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
                   </div>`).join('')}
                 ${(m.quotes && m.quotes.length) ? `<div class="mm-sec"><div class="mm-sec-h">In their own words</div><div class="mm-quotes">${m.quotes.map(q => `<blockquote class="mm-quote">${esc(q.text)}${q.cite ? `<cite>— ${esc(q.cite)}</cite>` : ''}</blockquote>`).join('')}</div></div>` : ''}
+                ${videoFor(m.id)}
                 <div class="mm-actions">
                   <button type="button" class="mm-listen" data-id="${esc(m.id)}">▶ Listen</button>
                 </div>
@@ -106,6 +164,16 @@
     let activeBtn = null;
     function reset(b){ if (b) b.textContent = '▶ Listen'; }
     root.addEventListener('click', e => {
+      const play = e.target.closest('.mm-vid-play');
+      if (play) {
+        const f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + play.dataset.vid + '?autoplay=1&rel=0&modestbranding=1';
+        f.title = play.getAttribute('aria-label') || 'Video';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        f.allowFullscreen = true;
+        play.replaceWith(f);
+        return;
+      }
       const btn = e.target.closest('.mm-listen'); if (!btn) return;
       if (activeBtn === btn) {
         if (audio.paused) { audio.play(); btn.textContent = '⏸ Pause'; }

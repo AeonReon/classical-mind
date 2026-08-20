@@ -51,9 +51,14 @@ async function check(id) {
 
 let broken = 0, updated = 0, out = src;
 
+// Topics are {intro, items:[...]}; `masters` is {masterId: video}. Flatten both.
+function videosOf(group) {
+  return Array.isArray(group.items) ? group.items : Object.values(group);
+}
+
 for (const [topic, group] of Object.entries(window.VIDEOS)) {
   console.log(`\n${topic}`);
-  for (const v of group.items) {
+  for (const v of videosOf(group)) {
     const res = await check(v.id);
     if (!res.ok) {
       broken++;

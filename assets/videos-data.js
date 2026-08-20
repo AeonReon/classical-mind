@@ -180,5 +180,99 @@ window.VIDEOS = {
         checked: '2026-08-20' }
     ]
   }
+,
+
+  // ---------------------------------------------------------------------
+  // The Great Minds (masters.html). ONE video per figure, keyed by master id.
+  // Aim is 5–10 minutes and a genuine introduction to the person.
+  //
+  // Three entries break the length rule on purpose — Pythagoras, Erasmus and
+  // C.S. Lewis simply have no good short introduction in English on YouTube,
+  // and a weak short video is worse than a strong long one. Each says so in
+  // its own blurb.
+  //
+  // Plato, Aristotle and Marcus Aurelius reuse the video already chosen for
+  // their school page — in each case it is still the best introduction to the
+  // person, and the two pages are read in different places.
+  // ---------------------------------------------------------------------
+  masters: {
+
+    homer: { id: '1e7gy3fsJa8', title: 'History-Makers: Homer', channel: 'Overly Sarcastic Productions', mins: '10:34', views: 857258,
+      why: 'Nobody can tell you who Homer was, and this is the video that explains why so well you stop minding. The blind poet of Chios, the geography of the Iliad so accurate that Schliemann dug where the poem said and found Troy — and the Odyssey, where even Homer sounds unsure where Ithaca is.',
+      checked: '2026-08-20' },
+
+    pythagoras: { id: 'HgR6YrJDUR8', title: 'Pythagoras & His Weird Religious Cult', channel: 'Let\'s Talk Religion', mins: '22:47', views: 1285175,
+      why: 'Careful, scholarly, and it restores the half of Pythagoras that school leaves out: he was not only a mathematician but the head of a religious brotherhood with rules about silence, purity and beans, who held that number is the substance of reality and that the soul is reborn.',
+      note: 'Longer than the others here at 23 minutes. Pythagoras has no good short introduction in English on YouTube — the short ones are jokes about the theorem.',
+      checked: '2026-08-20' },
+
+    socrates: { id: 'rKhfFBbVtFg', title: 'The Death of Socrates: How To Read A Painting', channel: 'Nerdwriter1', mins: '7:34', views: 4392034,
+      why: 'An unusual way in, and the best one. It reads David\'s painting of the death scene inch by inch, and to do that it has to tell you the trial, the charges, the escape Socrates refused, and the last lesson from the Phaedo — that a philosopher should not fear death. Seven minutes, and beautiful.',
+      checked: '2026-08-20' },
+
+    plato: { id: 'VDiyQub6vpw', title: 'PHILOSOPHY — Plato', channel: 'The School of Life', mins: '6:29', views: 7655929,
+      why: 'Plato\'s four ideas for a more fulfilled life in six minutes — think properly instead of drifting on popular opinion, let the person you love change you, decode the message of beauty, reform society. The same video sits on the Platonism page; it is still the best short introduction to the man.',
+      checked: '2026-08-20' },
+
+    aristotle: { id: 'csIW4W_DYX4', title: 'PHILOSOPHY — Aristotle', channel: 'The School of Life', mins: '7:30', views: 5145976,
+      why: 'The golden mean explained through his own example — the boor who takes offence at everything, the buffoon who cannot stop joking, and wit sitting between them. Also on the Aristotelianism page, and it earns its place twice.',
+      checked: '2026-08-20' },
+
+    euclid: { id: 'WqzK3UAXaHs', title: 'Euclid as the father of geometry', channel: 'Khan Academy', mins: '8:22', views: 1620335,
+      why: 'Why Euclid is called the father of geometry when he was not the first to study it: he took what was known and built it into a single deductive structure, from a handful of definitions and postulates up. Sal Khan is unhurried and genuinely delighted by it.',
+      checked: '2026-08-20' },
+
+    cicero: { id: '6DRu9INTzbY', title: 'The Life and Death of Cicero', channel: 'The History Guy', mins: '10:56', views: 283914,
+      why: 'His words are remembered and his life is not, which this sets out to correct. The novus homo who reached the consulship on his voice alone, the Catiline conspiracy, the long fight for the Republic, and enemies who hated his oratory enough to hunt him down for it.',
+      checked: '2026-08-20' },
+
+    virgil: { id: 'p4mbk59rbjE', title: 'Why should you read Virgil\'s "Aeneid"?', channel: 'TED-Ed', mins: '5:35', views: 1180781,
+      why: 'Opens with Virgil dying of heatstroke, unhappy with ten years of work, asking his friends to burn the Aeneid — and Augustus ordering it published instead. Then what the poem is: Rome answering Homer, in 9,896 lines of dactylic hexameter, and what Augustus wanted from it.',
+      checked: '2026-08-20' },
+
+    seneca: { id: 'm5DABiixjXE', title: 'Life Is Not Short; We Just Waste Most of It', channel: 'Pursuit of Wonder', mins: '11:48', views: 1046059,
+      why: 'On the Shortness of Life, read closely and beautifully narrated. It is also honest about the thing that makes Seneca hard — that the richest man in Rome, tutor to Nero, spent his life writing about how little wealth matters, and struggled to follow his own advice.',
+      checked: '2026-08-20' },
+
+    epictetus: { id: 'bvYK-IWwKaw', title: 'How Epictetus Stayed Calm — 3 Stoic Methods', channel: 'Einzelgänger', mins: '6:56', views: 783462,
+      why: 'Starts from the fact that matters most about him: Marcus Aurelius was an emperor and Epictetus was a slave, and they held the same philosophy — so it cannot be a philosophy for the fortunate. Then three of his methods, plainly, in under seven minutes.',
+      checked: '2026-08-20' },
+
+    'marcus-aurelius': { id: 'tv6W0Nv5ev0', title: 'Marcus Aurelius: The Man Who Solved the Universe', channel: 'Horses', mins: '14:11', views: 10827504,
+      why: 'What it meant for the most powerful man alive to choose virtue every day for nineteen years with nobody watching. Also on the Stoicism page, and still the best introduction to him anywhere.',
+      note: 'One slip: it calls Marcus a founder of Stoicism. He came about 450 years after Zeno, who founded it.',
+      checked: '2026-08-20' },
+
+    augustine: { id: 'hBAxUBeVfsk', title: 'PHILOSOPHY — Augustine', channel: 'The School of Life', mins: '6:25', views: 1938046,
+      why: 'Augustine as the great critic of Roman optimism — of the confident, self-improving, technologically pleased outlook that he thought could not carry the weight people put on it. Sets his argument beside the modern West deliberately, and takes it seriously.',
+      checked: '2026-08-20' },
+
+    boethius: { id: 'pMUP48stXDc', title: 'Boethius\'s Consolation of Philosophy', channel: 'The School of Life', mins: '9:27', views: 564009,
+      why: 'For four hundred years this was the most prized book in Europe after the Bible — Chaucer translated it, so did Elizabeth I, and Dante built it into the Divine Comedy. Written in a few months in a prison cell in Pavia by a man awaiting execution, about the wheel of Fortune and what it cannot take.',
+      checked: '2026-08-20' },
+
+    aquinas: { id: 'GJvoFf2wCBU', title: 'PHILOSOPHY — Thomas Aquinas', channel: 'The School of Life', mins: '6:15', views: 1870981,
+      why: 'The clearest short account of what Aquinas actually did: he argued that any human being, Christian or not, can reach great truths by reason, because reason is a gift given to everyone. The modern conviction that a good idea counts regardless of who it comes from is partly his doing.',
+      checked: '2026-08-20' },
+
+    dante: { id: 'YbCEWSip9pQ', title: 'Why should you read Dante\'s "Divine Comedy"?', channel: 'TED-Ed', mins: '5:10', views: 2117313,
+      why: 'The whole architecture in five minutes — nine circles down, the mountain of Purgatory up, the nine spheres of Heaven — and the two things people miss: that it is a love story, and that it is a very funny and very savage piece of Florentine political score-settling.',
+      checked: '2026-08-20' },
+
+    erasmus: { id: 'po7QCNVnIzw', title: 'Erasmus, In Praise of Folly', channel: 'Michael Sugrue', mins: '45:55', views: 94383,
+      why: 'A professor on the most likeable figure of the whole Reformation era — a devout Catholic priest and brilliant Greek scholar who never climbed the hierarchy, and who argued for a humane, generous, non-theological piety while everyone around him was hardening into camps. Also on why comedy can teach what argument cannot.',
+      note: 'Forty-six minutes, far longer than the rest. There is no good short introduction to Erasmus in English on YouTube — the short ones are thin or machine-narrated, and this is worth the time.',
+      checked: '2026-08-20' },
+
+    newman: { id: 'AcR0NrFJmIc', title: 'Newman: Beyond the Left and the Right', channel: 'Bishop Robert Barron', mins: '10:30', views: 65684,
+      why: 'Ten minutes on Newman\'s two great themes — the development of doctrine, and the primacy of conscience — and a good argument that both get pulled out of shape when people press him into modern camps. It insists on reading him inside his own framework, which is the right way to meet anyone here.',
+      checked: '2026-08-20' },
+
+    lewis: { id: 'qgj3ctK7o30', title: 'The Tragic Life of C.S. Lewis — Narnia\'s Lost Poet', channel: 'Absolute History', mins: '57:36', views: 880150,
+      why: 'A proper broadcast documentary, presented by A.N. Wilson, who wrote a biography of him. The man of contrasts — the medieval scholar who hated the modern age, the popular theologian who had a crisis of faith, the Oxford don who failed his driving test seventeen times, and the three women whose loss shaped him.',
+      note: 'Just under an hour. Searching for a short C.S. Lewis introduction turns up mostly machine-narrated clickbait or broadcasts that end in an appeal; this is the one serious biography of him on YouTube.',
+      checked: '2026-08-20' }
+
+  }
 
 };
