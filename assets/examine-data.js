@@ -5,7 +5,14 @@
 // Socratic elenchus, Russell on acquaintance vs description.
 //
 // THE RULE THAT KEEPS THIS HONEST, and it must not be softened:
-//   'I cannot personally verify this' and 'this is false' are DIFFERENT findings.
+//   This is NOT about denying. It is about knowing that you do not know, and being
+//   at ease with it turning out either way. 'I cannot personally verify this' and
+//   'this is false' are DIFFERENT findings.
+//   The opposite slip matters just as much: reading an explanation is NOT checking.
+//   A prompt must never say 'you can go and look' about something no human can
+//   actually look at. Nobody has seen the Earth's core. Holding a fossil is not
+//   witnessing the past. Where the evidence is an interpretation of instrument
+//   readings, say so — that is testimony with extra steps, not verification.
 //   Prompts examine the reader's relationship to a belief — how it arrived, what
 //   would change it, what it costs to hold. They do NOT hand down verdicts on
 //   contested subjects, and they must apply the same standard in both directions:
@@ -16,7 +23,7 @@
 window.EXAMINE = [
   { q: "Name something you are certain of. Now trace how it got in: did you see it, work it out, or were you told?", note: "All three are legitimate. They are not equally strong, and most people cannot say which one they used.", source: "Russell's distinction \u2014 knowledge by acquaintance and by description" },
   { q: "Pick a fact you have repeated to other people this year. Where did you first hear it?", note: "If you cannot remember, that is the finding. You have been a link in a chain you never inspected.", source: "Hume, Of Miracles \u2014 on the weight of testimony" },
-  { q: "You almost certainly believe the Earth has a molten core. Could you say why we think so?", note: "There is a real answer \u2014 shear waves do not travel through liquid, so there is a shadow on the far side of the planet from any large earthquake. The point is not whether it is true. The point is that you can go and look at the reasoning, and almost nobody ever has.", source: "in the manner of Bacon \u2014 knowledge by tracing, not by assent" },
+  { q: "You almost certainly believe the Earth has a molten core. What is that belief actually resting on?", note: "Not on anybody's eyes. The deepest hole ever drilled goes about eight miles into a planet roughly eight thousand miles across. What exists is an interpretation of instrument readings \u2014 testimony with extra steps. It may well be right. But \u201cI have read the reasoning\u201d is not \u201cI have checked\u201d, and from the inside the two feel identical.", source: "Sextus Empiricus \u2014 on the gap between what is shown and what is inferred" },
   { q: "What did you learn at school that you have never checked since?", note: "Not to overturn it. To find out how much of your furniture was delivered before you were old enough to sign for it.", source: "Descartes, Discourse on the Method I" },
   { q: "Which of your opinions arrived through a screen?", note: "Then ask the harder half: does that make it wrong? It does not. It only means you have not yet done your own part.", source: "in the manner of the sceptical tradition" },
   { q: "What do you believe because a particular person believes it?", note: "Name the person. That is not a criticism \u2014 we all run on borrowed trust. But an unnamed authority is one you cannot weigh.", source: "Hume, Enquiry X" },
@@ -90,4 +97,18 @@ window.EXAMINE = [
   { q: "What is the difference between an open mind and no position at all?", note: "Suspension is not indifference. If this has made you care less rather than look harder, something has gone wrong.", source: "Sextus Empiricus \u2014 epoch\u00e9 is a discipline, not a shrug" },
   { q: "Has any of this changed what you will actually do tomorrow?", note: "Aristotle's test: a virtue that changes no action is not yet a virtue, only an opinion about one.", source: "after Aristotle, Nicomachean Ethics II" },
   { q: "What did you refuse to examine today?", note: "Say it plainly and leave it there. Naming the closed door is most of the work.", source: "the Socratic elenchus" },
+  { q: "Take a claim you accept. Could you test it yourself this month, with what you already have?", note: "Plant a seed and something grows. Lift weights for a season and you get stronger. Drink water when thirsty. This is the ground floor, and it is smaller than most people assume.", source: "in the manner of the empirical tradition" },
+  { q: "How many people could check this, and what would it cost them?", note: "That is a different question from whether it is true, and it is one you can actually answer. It sorts your map faster than almost anything else.", source: "in the manner of the sceptical tradition" },
+  { q: "Which of your beliefs could only ever be checked by a handful of people with equipment nobody else has?", note: "That does not make them false. It means the only thing that has ever reached you is their report. Rumour is a fair name for it, and rumours are sometimes true.", source: "Sextus Empiricus \u2014 epoch\u00e9, suspension without denial" },
+  { q: "Between 'I saw it', 'I could see it cheaply', 'many ordinary people have seen it independently', and 'a few people say so' \u2014 where does this belief sit?", note: "Four rungs, and most of what any of us carries is on the bottom two. Knowing which rung you are standing on is the whole skill.", source: "in the manner of the sceptical tradition" },
+  { q: "Do the people who could check this have reason to disagree with each other?", note: "Many independent parties who would love to catch each other out is a different situation from a few who share an interest. Neither is proof. The difference is still real.", source: "in the manner of the logic of testimony" },
+  { q: "Name something you accept because it is cheap for anyone to test \u2014 even though you never have.", note: "This is a reasonable way to live. It is also worth saying out loud rather than filing it as though you had done the test.", source: "in the manner of the empirical tradition" },
+  { q: "What have you personally tested and found to hold?", note: "Not read about. Done. Keep the list \u2014 it is the part of your map you actually own.", source: "in the manner of the liberal arts as practice" },
+  { q: "What is the largest thing you believe that has exactly one route of access?", note: "One route means one point of failure. Again: not a verdict. A location.", source: "in the manner of fair testing" },
+  { q: "Could you say out loud, about something you care about: I have not checked this, and I could not?", note: "If that sentence is hard to say, notice what is making it hard. It is usually not the evidence.", source: "the Delphic maxim \u2014 know thyself" },
+  { q: "If something was done once and never repeated while the tools got better, what do you make of that?", note: "It is a real consideration and it settles nothing by itself. Hold it as a question rather than converting it into a verdict \u2014 that conversion is the move this whole card exists to catch.", source: "Sextus Empiricus \u2014 suspension is a position, not a shrug" },
+  { q: "Is 'rumour until verified' a position you could genuinely hold \u2014 without it quietly becoming 'false'?", note: "That quiet slide is the commonest failure in sceptical thinking, and it feels like rigour while it happens.", source: "Sextus, Outlines of Pyrrhonism I" },
+  { q: "Which of your beliefs would you be content to be wrong about?", note: "Ease with either outcome is the test. Where you cannot be at ease, you are not weighing \u2014 you are defending.", source: "in the manner of epoch\u00e9" },
+  { q: "Ask someone what would change their mind. Then ask yourself the same about the thing you argued hardest for this year.", note: "When the honest answer is 'nothing', the position has stopped being a belief about the world and become part of the furniture of the self. It happens on every side, which is what makes it hard to see from inside one.", source: "after Popper \u2014 a claim that forbids nothing explains nothing" },
+  { q: "Is there anything you would rather not find out?", note: "Say it plainly. That door is where the work is, and naming it is most of the job.", source: "the Socratic elenchus" },
 ];

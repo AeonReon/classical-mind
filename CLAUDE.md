@@ -98,7 +98,7 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
-- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 76 prompts.
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 90 prompts.
   Added 2026-08-25 at the user's request. Separating what we have verified from what
   we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
   methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
@@ -108,13 +108,30 @@ than finished.
   **Two rules govern this card and must not be softened.** They are what keeps it a
   thinking tool rather than a machine for dismissing whatever is inconvenient:
 
-  1. **"I cannot verify this" and "this is false" are different findings.** The first
-     is a fact about the reader; the second is a claim about the world, and it needs
-     its own evidence. Sextus suspended judgement precisely because denial is another
-     unexamined claim wearing a sceptic's coat. Prompts examine the reader's
-     *relationship* to a belief — how it arrived, what would change it, what it costs
-     to hold. They never adjudicate contested subjects, and they never imply that
-     being unable to check something personally is grounds for rejecting it.
+  1. **This is not about denying.** It is about knowing that you do not know, and
+     being at ease with it turning out either way. "I cannot verify this" and "this
+     is false" are different findings: the first is a fact about the reader, the
+     second is a claim about the world needing its own evidence. Sextus suspended
+     judgement precisely because denial is another unexamined claim wearing a
+     sceptic's coat. Prompts examine the reader's *relationship* to a belief — how it
+     arrived, what would change it, what it costs to hold. They never adjudicate
+     contested subjects.
+
+     **The opposite slip matters just as much, and this card got it wrong once.** An
+     early prompt said of the Earth's molten core that "you can go and look at the
+     reasoning" — as though reading an explanation were checking. It is not. Nobody
+     has seen the core; the deepest borehole is ~8 miles into an ~8,000-mile planet,
+     and what exists is an interpretation of instrument readings. Holding a fossil is
+     not witnessing the past. **Never write "you can go and check" about something no
+     human can actually check.** Where the evidence is inference or instrument
+     reading, say so plainly — that is testimony with extra steps.
+
+     The card now teaches a ladder instead, which is the user's own framework and the
+     most useful thing in it: *I saw it* / *I could see it cheaply* / *many ordinary
+     independent people have seen it* / *a few people with unique resources say so*.
+     The bottom rung is honestly named rumour — and rumours are sometimes true. Ask
+     how many could check and at what cost; that question is answerable even when the
+     claim is not.
   2. **The standard runs both ways.** For every prompt aimed at what the reader wants
      to be true there is one aimed at what they want to be false. The "selective
      scepticism" and "turn it on yourself" sections exist for this and must survive
