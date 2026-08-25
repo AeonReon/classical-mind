@@ -98,7 +98,7 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
-- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 90 prompts.
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 93 prompts.
   Added 2026-08-25 at the user's request. Separating what we have verified from what
   we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
   methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
@@ -125,6 +125,22 @@ than finished.
      not witnessing the past. **Never write "you can go and check" about something no
      human can actually check.** Where the evidence is inference or instrument
      reading, say so plainly — that is testimony with extra steps.
+
+     **No bare frame-claims — this file only.** Every other data file may say
+     "Marcus Aurelius wrote Meditations around 170 AD" or "Rome fell". That is a
+     working convenience and the app could not function without it. This card cannot
+     afford it: asking someone to notice an inherited frame *while installing one in
+     the same sentence* is a performative contradiction that teaches the opposite of
+     what is intended. The corrected molten-core prompt still said "eight miles into
+     a planet roughly eight thousand miles across" — three received claims stated as
+     fact, inside a prompt about received claims. Rewritten to carry none.
+
+     No assertion about the physical world or a historical event as settled fact. If
+     a frame must be referenced, mark it: *we are told*, *the standard account says*,
+     *allegedly*, *according to*. Attributing an IDEA to a name is fine — "Bacon
+     called this the idol of the tribe" is already the "according to someone" form
+     and installs no picture of the world. Enforced by `node assets/check-examine.mjs`,
+     which exits non-zero on an unmarked claim; run it after any edit to this file.
 
      The card now teaches a ladder instead, which is the user's own framework and the
      most useful thing in it: *I saw it* / *I could see it cheaply* / *many ordinary

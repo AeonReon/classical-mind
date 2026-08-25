@@ -13,6 +13,23 @@
 //   actually look at. Nobody has seen the Earth's core. Holding a fossil is not
 //   witnessing the past. Where the evidence is an interpretation of instrument
 //   readings, say so — that is testimony with extra steps, not verification.
+//
+// NO BARE FRAME-CLAIMS — THIS FILE ONLY.
+//   The other cards may say 'Marcus Aurelius wrote Meditations around 170 AD' or
+//   'Rome fell'. That is a working convenience and the app could not function
+//   without it. THIS card cannot afford it: asking someone to notice an inherited
+//   frame while installing one in the same sentence is a performative contradiction,
+//   and it teaches the opposite of what is intended.
+//   An earlier draft of the 'what is under your feet' prompt said 'eight miles into
+//   a planet roughly eight thousand miles across' — three received claims stated as
+//   fact inside a prompt about noticing received claims.
+//   RULE: no assertion about the physical world or a historical event as settled
+//   fact. If a frame genuinely must be referenced, mark it — 'we are told',
+//   'the standard account says', 'allegedly', 'according to'.
+//   Attributing an IDEA to a name is fine ('Bacon called this the idol of the
+//   tribe') — a citation is already the 'according to someone' form, and it
+//   installs no picture of the world.
+//   Enforced by: node assets/check-examine.mjs
 //   Prompts examine the reader's relationship to a belief — how it arrived, what
 //   would change it, what it costs to hold. They do NOT hand down verdicts on
 //   contested subjects, and they must apply the same standard in both directions:
@@ -23,7 +40,7 @@
 window.EXAMINE = [
   { q: "Name something you are certain of. Now trace how it got in: did you see it, work it out, or were you told?", note: "All three are legitimate. They are not equally strong, and most people cannot say which one they used.", source: "Russell's distinction \u2014 knowledge by acquaintance and by description" },
   { q: "Pick a fact you have repeated to other people this year. Where did you first hear it?", note: "If you cannot remember, that is the finding. You have been a link in a chain you never inspected.", source: "Hume, Of Miracles \u2014 on the weight of testimony" },
-  { q: "You almost certainly believe the Earth has a molten core. What is that belief actually resting on?", note: "Not on anybody's eyes. The deepest hole ever drilled goes about eight miles into a planet roughly eight thousand miles across. What exists is an interpretation of instrument readings \u2014 testimony with extra steps. It may well be right. But \u201cI have read the reasoning\u201d is not \u201cI have checked\u201d, and from the inside the two feel identical.", source: "Sextus Empiricus \u2014 on the gap between what is shown and what is inferred" },
+  { q: "You almost certainly hold a picture of what is under your feet. What is that picture resting on?", note: "Nobody has been down to look. Whatever you believe about it reached you as a diagram, and the diagram was drawn from somebody's reading of somebody's instruments. It may be right. Notice only this: the picture arrived complete, and you were never once asked to check any part of it.", source: "Sextus Empiricus \u2014 on the gap between what is shown and what is inferred" },
   { q: "What did you learn at school that you have never checked since?", note: "Not to overturn it. To find out how much of your furniture was delivered before you were old enough to sign for it.", source: "Descartes, Discourse on the Method I" },
   { q: "Which of your opinions arrived through a screen?", note: "Then ask the harder half: does that make it wrong? It does not. It only means you have not yet done your own part.", source: "in the manner of the sceptical tradition" },
   { q: "What do you believe because a particular person believes it?", note: "Name the person. That is not a criticism \u2014 we all run on borrowed trust. But an unnamed authority is one you cannot weigh.", source: "Hume, Enquiry X" },
@@ -111,4 +128,7 @@ window.EXAMINE = [
   { q: "Which of your beliefs would you be content to be wrong about?", note: "Ease with either outcome is the test. Where you cannot be at ease, you are not weighing \u2014 you are defending.", source: "in the manner of epoch\u00e9" },
   { q: "Ask someone what would change their mind. Then ask yourself the same about the thing you argued hardest for this year.", note: "When the honest answer is 'nothing', the position has stopped being a belief about the world and become part of the furniture of the self. It happens on every side, which is what makes it hard to see from inside one.", source: "after Popper \u2014 a claim that forbids nothing explains nothing" },
   { q: "Is there anything you would rather not find out?", note: "Say it plainly. That door is where the work is, and naming it is most of the job.", source: "the Socratic elenchus" },
+  { q: "Look at the words in this very question. Which of them carry a picture of the world you never chose?", note: "Anything said about something large arrives pre-loaded \u2014 the nouns, the units, the scale. The frame is usually installed by the sentence rather than argued for in it.", source: "Bacon \u2014 the idols of the marketplace" },
+  { q: "When you repeat a fact, do you say it flatly or do you say who told you?", note: "The two sound almost the same and do completely different work. One passes on a claim; the other passes on a claim plus its receipt.", source: "in the manner of parrhesia \u2014 say what you actually have" },
+  { q: "Someone states a figure \u2014 a distance, an age, a temperature. Where would that number have come from?", note: "Not whether it is right. Where it came from. Numbers are the most trusted and least examined thing anyone hands you, because they arrive already sounding like measurement.", source: "in the manner of the sceptical tradition" },
 ];
