@@ -240,6 +240,7 @@
   <script src="assets/schools-data.js"></script>
   <script src="assets/daily-data.js"></script>
   <script src="assets/today-extra-data.js"></script>
+  <script src="assets/examine-data.js"></script>
   <script src="assets/tryit-data.js"></script>
   <script src="assets/fallacies-data.js"></script>
   <script src="assets/reader.js"></script>
@@ -397,6 +398,7 @@
         word:    { c:'#0EA5A4', cd:'#0F766E' },
         puzzle:  { c:'#D6455E', cd:'#9B2740' },
         review:  { c:'#3F5BAF', cd:'#27356B' },
+        examine: { c:'#9B4D96', cd:'#6B2E68' },
       };
 
       // ---- Modal ----
@@ -531,6 +533,17 @@
             html:`<div class="cm-word-line"><b>Language</b><span>${esc(w.lang)} · ${esc(w.root)}</span></div>`
               + `<div class="cm-word-line"><b>Means</b><span>${esc(w.meaning)}</span></div>`
               + `<div class="cm-word-line"><b>In English</b><span>${esc(w.english)}</span></div>`
+          })));
+        }
+
+        const ex = pick(window.EXAMINE, off);
+        if (ex) {
+          cards.push(bar('examine','\u{1F50D}','Know or suppose?', 'Test one belief', ex.q, () => openModal({
+            type:'examine', emoji:'\u{1F50D}', kicker:'Know or suppose?', title:'Test one belief',
+            html:`<p class="cm-quote">${esc(ex.q)}</p>`
+              + `<p class="cm-note">${esc(ex.note)}</p>`
+              + `<p class="cm-source">\u2014 ${esc(ex.source)}</p>`
+              + `<button class="cm-read" data-read="${esc(ex.q)}">\u25B6 Read aloud</button>`
           })));
         }
 

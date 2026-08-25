@@ -76,9 +76,9 @@ for no gain.
 the number of days before that card repeats.** The floor is 60 (two months);
 current levels are ~70. If you add a category, it starts at 60 or it does not ship.
 
-## The "For today" feed — 8 cards
+## The "For today" feed — 9 cards
 
-Read → read → act → **puzzle** → read → read → read → **reflect**. The two
+Read → read → act → **puzzle** → read → read → read → **examine** → **reflect**. The three
 interactive cards were added 2026-08-25 because the feed was receive-only: six
 cards, nothing that ever asked the reader a question, so a session stopped rather
 than finished.
@@ -98,7 +98,46 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 76 prompts.
+  Added 2026-08-25 at the user's request. Separating what we have verified from what
+  we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
+  methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
+  on acquaintance vs description. It is a genuine classical line, not a modern
+  bolt-on.
+
+  **Two rules govern this card and must not be softened.** They are what keeps it a
+  thinking tool rather than a machine for dismissing whatever is inconvenient:
+
+  1. **"I cannot verify this" and "this is false" are different findings.** The first
+     is a fact about the reader; the second is a claim about the world, and it needs
+     its own evidence. Sextus suspended judgement precisely because denial is another
+     unexamined claim wearing a sceptic's coat. Prompts examine the reader's
+     *relationship* to a belief — how it arrived, what would change it, what it costs
+     to hold. They never adjudicate contested subjects, and they never imply that
+     being unable to check something personally is grounds for rejecting it.
+  2. **The standard runs both ways.** For every prompt aimed at what the reader wants
+     to be true there is one aimed at what they want to be false. The "selective
+     scepticism" and "turn it on yourself" sections exist for this and must survive
+     any edit. Sextus applied scepticism to scepticism; so does the last section.
+
+  Where a prompt uses a concrete example it points at where the real evidence chain
+  is (seismic shadow zones for the molten core), so the reader can go and look. That
+  is the difference between teaching a method and spreading doubt.
+
+## Card images
+
 Card images live at `assets/daily/<type>.jpg` and the filename must match the
-**type string in `bar()`**, not the card's wording — `think.jpg`, not
-`thought.jpg`. A mismatch fails silently to the gradient+glyph fallback.
-`puzzle.jpg` and `review.jpg` are not sourced yet, so those two show the glyph.
+**type string in `bar()`**, not the card's wording — `think.jpg`, not `thought.jpg`.
+A mismatch fails silently to the gradient+glyph fallback, which is how the thought
+card went months without its photo.
+
+Generate with Draw Things headless, matching the existing marble-on-black look:
+
+    draw-things-cli generate --model flux_2_klein_9b_i8x.ckpt \
+      --prompt "<subject>, dramatic single side light, pure black background, monochrome greyscale, museum photograph, high detail, sharp" \
+      --negative-prompt "colour, text, watermark, blurry, deformed, cartoon, modern objects" \
+      --width 768 --height 1024 --steps 6 --seed <n> --output out.png
+
+Then `sips -s format jpeg out.png --out assets/daily/<type>.jpg`. Each image takes
+2-8 minutes because the model reloads per run, so generate ONE PER BACKGROUND CALL —
+a launcher script that backgrounds the work itself gets killed when its parent exits.
