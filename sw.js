@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v42';
+const CACHE = 'classical-mind-v43';
 const ASSETS = [
   './',
   './index.html',
@@ -20,6 +20,7 @@ const ASSETS = [
   './assets/arts-data.js',
   './assets/schools-data.js',
   './assets/tryit-data.js',
+  './assets/today-extra-data.js',
   './assets/videos-data.js',
   './assets/fallacies-data.js',
   './assets/greatbooks-data.js',
@@ -34,7 +35,7 @@ const ASSETS = [
   './assets/schools/cynicism.jpg',
   './assets/schools/confucius.jpg',
   './assets/daily/quote.jpg',
-  './assets/daily/thought.jpg',
+  './assets/daily/think.jpg',
   './assets/daily/do.jpg',
   './assets/daily/verse.jpg',
   './assets/daily/passage.jpg',

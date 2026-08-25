@@ -75,3 +75,30 @@ for no gain.
 `index.html` picks with `dayNum % arr.length`, so **an array's length is literally
 the number of days before that card repeats.** The floor is 60 (two months);
 current levels are ~70. If you add a category, it starts at 60 or it does not ship.
+
+## The "For today" feed — 8 cards
+
+Read → read → act → **puzzle** → read → read → read → **reflect**. The two
+interactive cards were added 2026-08-25 because the feed was receive-only: six
+cards, nothing that ever asked the reader a question, so a session stopped rather
+than finished.
+
+- **Puzzle of the day** (`🧩`) is built at RUNTIME in `index.html` from
+  `tryit-data.js` + `fallacies-data.js` — 112 items, no content duplicated. Those
+  exercises already existed but were buried inside the category pages.
+  - Exercises starting "And/Now/Then" are dropped: they lean on the exercise above
+    them on their own page, and on the feed there is nothing above them.
+  - Stoicism / Cynicism / Epicureanism drills are bare noun phrases that only make
+    sense under their page heading, so `LEADIN` restores the question.
+  - Ordering is NOT round-robin. There are 42 fallacy puzzles against 3–6 per
+    topic, and round-robin leaves a block of ~36 fallacies at the tail. Items are
+    sorted by fractional position within their own group instead, which spreads the
+    big group evenly. Longest run of one topic is now 4.
+- **The evening review** (`🌙`) is Seneca's nightly examination — `REVIEWS` in
+  `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
+  keep it last.
+
+Card images live at `assets/daily/<type>.jpg` and the filename must match the
+**type string in `bar()`**, not the card's wording — `think.jpg`, not
+`thought.jpg`. A mismatch fails silently to the gradient+glyph fallback.
+`puzzle.jpg` and `review.jpg` are not sourced yet, so those two show the glyph.

@@ -82,6 +82,18 @@
     .cm-word-line{ display:flex; gap:.6em; margin:0 0 .55em; font-size:.98em; }
     .cm-word-line b{ flex:none; width:5.5em; color:var(--mcd,#8A5A0F); }
     .cm-morelink{ display:inline-block; margin-top:1.1em; font:800 14px -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); padding:.6em 1.15em; border-radius:999px; text-decoration:none; }
+    .cm-opts{ display:grid; gap:.55em; margin:1.2em 0 .2em; }
+    .cm-opt{ text-align:left; cursor:pointer; font:700 15px -apple-system,system-ui,sans-serif; color:var(--ink,#2A2038);
+      background:#fff; border:1.8px solid #E4DED6; padding:.8em 1em; border-radius:14px; line-height:1.35;
+      transition:transform .18s cubic-bezier(0.34,1.56,0.64,1), border-color .18s, background .18s; }
+    .cm-opt:not(:disabled):hover{ transform:translateY(-2px); border-color:var(--mc,#D6455E); }
+    .cm-opt:disabled{ cursor:default; }
+    .cm-opt.right{ border-color:#1F8F5E; background:#EDF9F3; color:#14603A; }
+    .cm-opt.wrong{ opacity:.55; }
+    .cm-opt.chosen.wrong{ opacity:1; border-color:#D6455E; background:#FDF0F2; color:#9B2740; }
+    .cm-opt .mark{ float:right; font-weight:900; }
+    .cm-explain{ margin-top:1.1em; padding:.9em 1.05em; border-radius:14px; background:#FBF7F1;
+      border-left:4px solid var(--mc,#D6455E); font-size:.97em; line-height:1.5; }
     .cm-read{ display:inline-flex; align-items:center; gap:.5em; margin-top:1.1em; margin-right:.6em; cursor:pointer; font:800 14px -apple-system,system-ui,sans-serif; color:var(--mcd,#8A5A0F); background:#fff; border:1.6px solid currentColor; padding:.55em 1.05em; border-radius:999px; }
     .cm-mclose{ position:absolute; top:14px; right:14px; z-index:2; width:34px; height:34px; border-radius:50%; border:0; cursor:pointer; background:rgba(255,255,255,.22); color:#fff; font-size:20px; line-height:34px; text-align:center; }
 
@@ -227,6 +239,9 @@
   <script src="assets/arts-data.js"></script>
   <script src="assets/schools-data.js"></script>
   <script src="assets/daily-data.js"></script>
+  <script src="assets/today-extra-data.js"></script>
+  <script src="assets/tryit-data.js"></script>
+  <script src="assets/fallacies-data.js"></script>
   <script src="assets/reader.js"></script>
   <script src="assets/app.js"></script>
   <script>
@@ -307,6 +322,65 @@
       const el = id => document.getElementById(id);
       const byId = id => (window.ARTS || []).find(a => a.id === id);
 
+      // Daily puzzle pool. Built from exercises ALREADY written elsewhere in the app —
+      // the multiple-choice drills in tryit-data.js and the worked examples in
+      // fallacies-data.js — so the feed surfaces work that was previously buried
+      // inside the category pages. Nothing is duplicated.
+      const PUZZLES = [];
+      // Some drills are a bare noun phrase that only makes sense under the heading
+      // it sits below on its own page ("A cup of water when you are thirsty").
+      // On the feed they arrive alone, so they get their question restored.
+      const LEADIN = {
+        stoicism:     'Is this in your power, or not?',
+        cynicism:     'Is this according to nature, or only convention?',
+        epicureanism: 'Which kind of desire is this?'
+      };
+      const byTopic = {};
+      Object.keys(window.TRYIT || {}).forEach(topic => {
+        (window.TRYIT[topic].exercises || []).forEach(ex => {
+          if (ex.type !== 'choice' || !ex.options || ex.options.length < 2) return;
+          // Drop anything that leans on the exercise before it — on the feed there isn't one.
+          if (/^(And|Now|Then)\b/.test(ex.q)) return;
+          const art = (window.ARTS || []).find(a => a.id === topic)
+                   || (window.SCHOOLS || []).find(a => a.id === topic);
+          const q = ex.q.includes('?') ? ex.q
+                  : ex.q + (LEADIN[topic] ? '\n\n' + LEADIN[topic] : '');
+          (byTopic[topic] = byTopic[topic] || []).push({
+            q, options: ex.options, answer: ex.answer, explain: ex.explain, topic,
+            kind: art ? art.name : topic.replace(/-/g, ' ')
+          });
+        });
+      });
+      const fallacyPuzzles = [];
+      (window.FALLACIES || []).forEach((f, fi) => {
+        const others = (window.FALLACIES || []).filter(x => x.id !== f.id);
+        (f.examples || []).forEach((example, ei) => {
+          // Distractors picked by a fixed offset, so the same puzzle shows all day.
+          const seed = fi * 7 + ei * 3;
+          const opts = [others[seed % others.length].name,
+                        others[(seed + 6) % others.length].name,
+                        others[(seed + 13) % others.length].name];
+          const slot = seed % 4;
+          opts.splice(slot, 0, f.name);
+          fallacyPuzzles.push({ q: '\u201C' + example + '\u201D\n\nWhich fallacy is this?',
+                         options: opts, answer: slot,
+                         explain: f.name + ' \u2014 ' + f.definition + ' ' + f.why,
+                         kind: 'Spot the fallacy', topic: 'logic' });
+        });
+      });
+
+      // Spread the topics evenly so you never get a run of the same kind. Plain
+      // round-robin would not do it: there are 42 fallacy puzzles against 3-6 per
+      // topic, so it would leave a solid block of fallacies at the end. Instead each
+      // item is given a fractional position in its own group and everything is sorted
+      // by that, which mixes a big group evenly through the small ones.
+      byTopic.fallacy = fallacyPuzzles;
+      Object.keys(byTopic).forEach(k => {
+        const g = byTopic[k];
+        g.forEach((item, i) => PUZZLES.push({ ...item, _pos: (i + 0.5) / g.length }));
+      });
+      PUZZLES.sort((a, b) => a._pos - b._pos);
+
       // Gather every practice across all arts + schools for the "do today" card.
       const PRACTICES = [];
       (window.ARTS || []).forEach(a => {
@@ -321,19 +395,39 @@
         verse:   { c:'#7C3AED', cd:'#5B21B6' },
         passage: { c:'#4F6D7A', cd:'#2F4550' },
         word:    { c:'#0EA5A4', cd:'#0F766E' },
+        puzzle:  { c:'#D6455E', cd:'#9B2740' },
+        review:  { c:'#3F5BAF', cd:'#27356B' },
       };
 
       // ---- Modal ----
       const modal = el('cmModal');
-      const openModal = ({ type, emoji, kicker, title, html }) => {
+      const openModal = ({ type, emoji, kicker, title, html, answer }) => {
         const acc = ACC[type];
         el('cmKicker').innerHTML = `${emoji} ${esc(kicker)}`;
         el('cmTitle').textContent = title;
         el('cmBody').innerHTML = html;
+        el('cmBody').dataset.answered = '0';
+        if (answer != null) el('cmBody').dataset.answer = String(answer);
         const head = modal.querySelector('.cm-mhead');
         head.style.setProperty('--mc', acc.c); head.style.setProperty('--mcd', acc.cd);
         el('cmBody').style.setProperty('--mc', acc.c); el('cmBody').style.setProperty('--mcd', acc.cd);
         modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+        el('cmBody').querySelectorAll('.cm-opt').forEach((btn, idx) => {
+          btn.addEventListener('click', () => {
+            const body = el('cmBody');
+            if (body.dataset.answered === '1') return;
+            body.dataset.answered = '1';
+            const correct = Number(body.dataset.answer);
+            body.querySelectorAll('.cm-opt').forEach((b, i) => {
+              b.classList.add(i === correct ? 'right' : 'wrong');
+              if (i === correct) b.insertAdjacentHTML('beforeend', '<span class="mark">\u2713</span>');
+              b.disabled = true;
+            });
+            if (idx !== correct) btn.classList.add('chosen');
+            const ex = body.querySelector('.cm-explain');
+            if (ex) ex.hidden = false;
+          });
+        });
         const rb = el('cmBody').querySelector('.cm-read');
         if (rb && window.Reader) {
           rb.addEventListener('click', () => {
@@ -396,6 +490,20 @@
           })));
         }
 
+        const z = pick(PUZZLES, off);
+        if (z) {
+          cards.push(bar('puzzle','\u{1F9E9}','Puzzle of the day', z.kind,
+            z.kind === 'Spot the fallacy' ? 'Read the argument and name the trick.' : z.q,
+            () => openModal({
+              type:'puzzle', emoji:'\u{1F9E9}', kicker:'Puzzle of the day', title:z.kind,
+              answer: z.answer,
+              html: z.q.split('\n\n').map(par => `<p>${esc(par)}</p>`).join('')
+                + `<div class="cm-opts">` + z.options.map(o => `<button class="cm-opt" type="button">${esc(o)}</button>`).join('') + `</div>`
+                + `<p class="cm-explain" hidden>${esc(z.explain)}</p>`
+                + `<a class="cm-morelink" href="${z.topic === 'logic' ? 'fallacies.html' : 'art.html?id=' + z.topic}">More like this \u2192</a>`
+          })));
+        }
+
         const v = pick(window.VERSES, off);
         if (v) {
           cards.push(bar('verse','📜','Learn by heart', v.title, v.note || v.text.split('\n')[0], () => openModal({
@@ -423,6 +531,17 @@
             html:`<div class="cm-word-line"><b>Language</b><span>${esc(w.lang)} · ${esc(w.root)}</span></div>`
               + `<div class="cm-word-line"><b>Means</b><span>${esc(w.meaning)}</span></div>`
               + `<div class="cm-word-line"><b>In English</b><span>${esc(w.english)}</span></div>`
+          })));
+        }
+
+        const rv = pick(window.REVIEWS, off);
+        if (rv) {
+          cards.push(bar('review','\u{1F319}','The evening review', 'Tonight\u2019s question', rv.q, () => openModal({
+            type:'review', emoji:'\u{1F319}', kicker:'The evening review', title:'Tonight\u2019s question',
+            html:`<p class="cm-quote">${esc(rv.q)}</p>`
+              + `<p class="cm-note">${esc(rv.note)}</p>`
+              + `<p class="cm-source">\u2014 ${esc(rv.source)}</p>`
+              + `<button class="cm-read" data-read="${esc(rv.q)}">\u25B6 Read aloud</button>`
           })));
         }
 
