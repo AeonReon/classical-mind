@@ -98,7 +98,7 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
-- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 93 prompts.
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 98 prompts.
   Added 2026-08-25 at the user's request. Separating what we have verified from what
   we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
   methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
@@ -137,10 +137,20 @@ than finished.
 
      No assertion about the physical world or a historical event as settled fact. If
      a frame must be referenced, mark it: *we are told*, *the standard account says*,
-     *allegedly*, *according to*. Attributing an IDEA to a name is fine — "Bacon
-     called this the idol of the tribe" is already the "according to someone" form
-     and installs no picture of the world. Enforced by `node assets/check-examine.mjs`,
-     which exits non-zero on an unmarked claim; run it after any edit to this file.
+     *allegedly*, *according to*. "Allegedly the Russians drilled eight miles" is
+     legitimate; the bare version is not.
+
+     **Attributions are hedged here too** — the user's call, and he is right that it
+     is the more honest standard. Elsewhere in the app a citation reads "Bacon,
+     Novum Organum I.41"; in this file it reads "attributed to Bacon, Novum Organum
+     I.41", and in-text references read "this is said to be what Bacon called…".
+     We did not watch him write it either. This is deliberately more pedantic than
+     daily life could stand — that is what makes it a periodic drill rather than a
+     habit, which is exactly how the user wants it used.
+
+     Enforced by `node assets/check-examine.mjs`, which exits non-zero on an unmarked
+     claim OR an unhedged attribution. Run it after any edit to this file. Both
+     checks have been verified to fire on real examples rather than passing vacuously.
 
      The card now teaches a ladder instead, which is the user's own framework and the
      most useful thing in it: *I saw it* / *I could see it cheaply* / *many ordinary

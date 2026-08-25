@@ -27,8 +27,17 @@ const RULES = [
   [/\b(the moon landing|astronauts?|outer space)\b/i, 'contested event stated as fact'],
 ];
 
+// Attributions are hedged in this file too: "attributed to Bacon, Novum Organum",
+// not "Bacon, Novum Organum". We did not watch him write it either, and practising
+// the frame is the point. More pedantic than daily life needs — that is the drill.
+const HEDGED_SOURCE = /^(in the manner of|the |attributed to|after what is attributed to|what is)/;
+
 let bad = 0;
 items.forEach((e, i) => {
+  if (!HEDGED_SOURCE.test(e.source)) {
+    bad++;
+    console.log(`[${i}] unhedged attribution: "${e.source}"\n    prefix it with "attributed to"\n`);
+  }
   const text = `${e.q} ${e.note}`;
   if (HEDGE.test(text)) return;                 // marked as somebody's account — fine
   for (const [re, why] of RULES) {
@@ -41,7 +50,7 @@ items.forEach((e, i) => {
   }
 });
 
-console.log(`${items.length} prompts checked, ${bad} carrying an unmarked frame-claim.`);
+console.log(`${items.length} prompts checked, ${bad} problem(s).`);
 if (bad) {
   console.log('\nFix by removing the claim, or marking it: "we are told", "the standard');
   console.log('account says", "allegedly", "according to". Attributing an IDEA to a name');
