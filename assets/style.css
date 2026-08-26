@@ -1803,12 +1803,6 @@ body.random-page {
 [data-theme="dark"] .rt-img img { filter: brightness(0.88) contrast(1.03); }
 
 
-/* Pages whose header is drawn by JS get a floating one instead. */
-.theme-toggle-btn.floating {
-  position: fixed; z-index: 60;
-  top: max(12px, env(safe-area-inset-top)); right: 12px;
-  box-shadow: var(--shadow-sm);
-}
 
 [data-theme="dark"] {
   --ok-soft:   #12301F;
