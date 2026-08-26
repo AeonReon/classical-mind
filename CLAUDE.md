@@ -98,7 +98,7 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
-- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 98 prompts.
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 158 prompts (99 method + 59 topic).
   Added 2026-08-25 at the user's request. Separating what we have verified from what
   we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
   methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
@@ -148,8 +148,29 @@ than finished.
      daily life could stand — that is what makes it a periodic drill rather than a
      habit, which is exactly how the user wants it used.
 
+     **Topic prompts** (`kind: "topic"`, 59 of them) are the same question — *what
+     would it take to change your mind about X* — aimed at named hot-button subjects:
+     the moon landings, vaccines, the Iraq war, whether Jesus lived, your own party,
+     your own memory. Naming a subject asserts nothing about it, and the question
+     runs identically whichever side the reader is on — that is the entire point, it
+     tests willingness to move rather than the subject. **They are paired on purpose**
+     (the party you vote for AND the one you never would; the advice you follow AND
+     the advice you refused) so the card can never be read as pushing one way. Keep
+     that pairing through any edit. `index.html` spreads them ~1 in 3 through the
+     method prompts and relabels the card "What would change your mind?" when one
+     comes up.
+
+     **A prompt was removed here, and the reason matters.** An earlier one asked
+     whether the people who could check a claim had reason to disagree with each
+     other — using adversarial corroboration as grounds to relax. The user caught it
+     as a smuggled defence of institutional consensus, and he was right: this card's
+     axis is *can I check it, and how cheaply could anyone*. Agreement among alleged
+     independent parties is still a report, and their independence is one more thing
+     you were told. Do not reintroduce that move in any form.
+
      Enforced by `node assets/check-examine.mjs`, which exits non-zero on an unmarked
-     claim OR an unhedged attribution. Run it after any edit to this file. Both
+     claim OR an unhedged attribution (topic prompts are exempt from the frame rules,
+     for the reason above, and still need a hedged source). Run it after any edit to this file. Both
      checks have been verified to fire on real examples rather than passing vacuously.
 
      The card now teaches a ladder instead, which is the user's own framework and the

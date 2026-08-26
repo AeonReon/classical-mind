@@ -382,6 +382,18 @@
       });
       PUZZLES.sort((a, b) => a._pos - b._pos);
 
+      // Same spreading trick as the puzzle pool: the topic prompts were appended in
+      // a block, so today landed in the tail and served seven in a row. Sorting by
+      // fractional position within each group mixes them ~1 in 3.
+      const EXAMINE_MIXED = [];
+      {
+        const groups = [(window.EXAMINE || []).filter(e => e.kind !== 'topic'),
+                        (window.EXAMINE || []).filter(e => e.kind === 'topic')];
+        groups.forEach(g => g.forEach((item, i) =>
+          EXAMINE_MIXED.push({ ...item, _pos: (i + 0.5) / g.length })));
+        EXAMINE_MIXED.sort((a, b) => a._pos - b._pos);
+      }
+
       // Gather every practice across all arts + schools for the "do today" card.
       const PRACTICES = [];
       (window.ARTS || []).forEach(a => {
@@ -536,10 +548,14 @@
           })));
         }
 
-        const ex = pick(window.EXAMINE, off);
+        const ex = pick(EXAMINE_MIXED, off);
         if (ex) {
-          cards.push(bar('examine','\u{1F50D}','Know or suppose?', 'Test one belief', ex.q, () => openModal({
-            type:'examine', emoji:'\u{1F50D}', kicker:'Know or suppose?', title:'Test one belief',
+          // Topic prompts announce themselves — they are the same question aimed at a
+          // named subject, and the point is that it reads the same from either side.
+          const exKicker = ex.kind === 'topic' ? 'What would change your mind?' : 'Know or suppose?';
+          const exTitle  = ex.kind === 'topic' ? 'Either side, same question' : 'Test one belief';
+          cards.push(bar('examine','\u{1F50D}', exKicker, exTitle, ex.q, () => openModal({
+            type:'examine', emoji:'\u{1F50D}', kicker:exKicker, title:exTitle,
             html:`<p class="cm-quote">${esc(ex.q)}</p>`
               + `<p class="cm-note">${esc(ex.note)}</p>`
               + `<p class="cm-source">\u2014 ${esc(ex.source)}</p>`

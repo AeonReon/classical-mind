@@ -39,6 +39,11 @@ items.forEach((e, i) => {
     console.log(`[${i}] unhedged attribution: "${e.source}"\n    prefix it with "attributed to"\n`);
   }
   const text = `${e.q} ${e.note}`;
+  // Topic prompts only NAME a subject inside "what would it take to change your
+  // mind about X". Naming asserts nothing, and the question runs the same from
+  // either side, so the frame-claim rules do not apply — the hedged-source check
+  // above still does.
+  if (e.kind === 'topic') return;
   if (HEDGE.test(text)) return;                 // marked as somebody's account — fine
   for (const [re, why] of RULES) {
     const m = text.match(re);
