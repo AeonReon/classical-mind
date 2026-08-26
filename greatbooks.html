@@ -18,14 +18,14 @@
     .gb-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:56ch; }
     .gb-voice{ margin-top:14px; }
     .voice-pick{ display:inline-flex; align-items:center; gap:7px; font:700 .72em var(--sans); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-mute); }
-    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
+    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:var(--paper-card); border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
 
     .gb-era{ margin:26px 0 12px; }
     .gb-era-title{ font-weight:800; font-size:1.28em; letter-spacing:-.02em; color:var(--ink); }
     .gb-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .gb-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .gb-book{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .gb-book{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .gb-book[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(51,70,140,.14); }
     .gb-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .gb-sum::-webkit-details-marker{ display:none; }
@@ -52,6 +52,7 @@
     .gb-free{ color:var(--cd); background:var(--cs); }
     .gb-listen:active, .gb-free:active{ transform:scale(.97); }
   </style>
+  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script>
 </head>
 <body class="method-page">
   <main class="gb-main">
@@ -136,5 +137,6 @@
 
     if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
   </script>
+  <script src="assets/theme.js"></script>
 </body>
 </html>

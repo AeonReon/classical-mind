@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v49';
+const CACHE = 'classical-mind-v50';
 const ASSETS = [
   './',
   './index.html',
@@ -15,6 +15,7 @@ const ASSETS = [
   './icon-512.png',
   './apple-touch-icon.png',
   './assets/style.css',
+  './assets/theme.js',
   './assets/app.js',
   './assets/reader.js',
   './assets/arts-data.js',

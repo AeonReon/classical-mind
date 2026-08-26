@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
+  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script>
 </head>
 <body class="random-page">
   <a href="index.html" class="home-link">← Home</a>
@@ -59,5 +60,6 @@
     document.getElementById('another-btn').addEventListener('click', render);
     render();
   </script>
+  <script src="assets/theme.js"></script>
 </body>
 </html>

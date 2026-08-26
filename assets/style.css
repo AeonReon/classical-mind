@@ -1,4 +1,13 @@
 :root {
+  /* Answer-feedback + veil tints, named so dark mode can restate them. */
+  --ok-soft:   var(--ok-soft);
+  --ok-ink:    var(--ok-ink);
+  --bad-soft:  var(--bad-soft);
+  --bad-ink:   var(--bad-ink);
+  --warn-soft: var(--warn-soft);
+  --warn-ink:  var(--warn-ink);
+  --veil:      rgba(255, 255, 255, 0.97);
+
   --ink: #2A2038;
   --ink-soft: #5C4B6B;
   --ink-mute: #7A6D85;
@@ -1667,7 +1676,7 @@ body.random-page {
 .rtile-list { display: flex; flex-direction: column; gap: 0.7em; }
 .rtile {
   position: relative; display: flex; align-items: stretch; width: 100%;
-  text-decoration: none; background: #fff; border-radius: 16px; overflow: hidden;
+  text-decoration: none; background: var(--paper-card); border-radius: 16px; overflow: hidden;
   box-shadow: 0 2px 4px rgba(60,45,20,.07), 0 10px 24px rgba(60,45,20,.09);
   transition: transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease;
 }
@@ -1706,7 +1715,7 @@ body.random-page {
   position: fixed;
   top: calc(0.8em + env(safe-area-inset-top, 0px));
   z-index: 9999;
-  background: #fff;
+  background: var(--paper-card);
   color: var(--ink);
   padding: 0.52em 1.05em;
   border-radius: 999px;
@@ -1727,7 +1736,98 @@ body.random-page {
 /* ---- Read-aloud voice toggle: Echo (streamed) / Device (offline) ---- */
 .vp-label { font: 700 0.74em var(--sans); letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-mute); }
 .vp-seg { display: inline-flex; border: 1.5px solid var(--rule); border-radius: 999px; overflow: hidden; }
-.vp-seg button { border: 0 !important; background: #fff; color: var(--ink-mute); font: 800 0.92em var(--sans); text-transform: none; letter-spacing: 0; padding: 0.42em 0.95em; cursor: pointer; }
+.vp-seg button { border: 0 !important; background: var(--paper-card); color: var(--ink-mute); font: 800 0.92em var(--sans); text-transform: none; letter-spacing: 0; padding: 0.42em 0.95em; cursor: pointer; }
 .vp-seg button::before { display: none !important; }
 .vp-seg button.on { background: var(--ink); color: #fff; }
-.vp-voice { font: 600 0.95em var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); background: #fff; border: 1.5px solid var(--rule); border-radius: 999px; padding: 0.4em 0.8em; max-width: 150px; }
+.vp-voice { font: 600 0.95em var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--paper-card); border: 1.5px solid var(--rule); border-radius: 999px; padding: 0.4em 0.8em; max-width: 150px; }
+
+/* ===== Dark mode — "midnight sky" navy, lifted from Days Out NI so the two
+   feel like the same house. Opt-in via data-theme="dark" on <html>, set by an
+   inline boot script in every page head (before paint, so there is no flash of
+   cream) and persisted in localStorage; first visit follows the OS setting.
+
+   ONLY the neutrals flip. The sun / pink / sky / mint accents stay exactly as
+   they are, because they are the app's identity — the same rule Days Out uses.
+   Surface whites throughout the CSS and the page <style> blocks were routed to
+   var(--paper-card), which is still #FFFFFF in light mode, so light mode is
+   visually unchanged by any of this. ===== */
+[data-theme="dark"] {
+  --ink:        #E6EDF3;          /* soft off-white — never pure white */
+  --ink-soft:   #AEBECE;
+  --ink-mute:   #8194A6;
+
+  --paper:         #0F1E2A;       /* midnight sky-navy */
+  --paper-warm:    #14273A;
+  --paper-card:    #182C3B;       /* lifted card surface */
+  --paper-surface: #142534;
+
+  --rule:        #294256;
+  --rule-soft:   #21384A;
+  --rule-strong: #3B5A73;
+
+  /* Accents nudged brighter so they still carry on a dark ground. */
+  --sky:      #6BB6E8;
+  --sky-soft: #8CC8EE;
+  --sky-deep: #6BB6E8;
+  --sun-deep: #E8B25A;
+
+  /* The pale tint colours become dark tints of the same hue. */
+  --leaf-soft:   #14342A;
+  --rose-soft:   #3A1C28;
+  --sky-soft-bg: #17384F;
+  --sun-soft:    #3A2F14;
+
+  /* Shadows need real darkness behind them rather than warm brown. */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30), 0 4px 12px rgba(0, 0, 0, 0.26);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.34), 0 10px 28px rgba(0, 0, 0, 0.34);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.40), 0 24px 60px rgba(0, 0, 0, 0.46);
+}
+
+/* The sunburst washes are hardcoded rgba over var(--paper); at their light-mode
+   strength they go muddy on navy, so they are re-laid much fainter and cooler. */
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+  background:
+    radial-gradient(900px 500px at -10% -20%, rgba(107, 182, 232, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 110% -10%, rgba(255, 94, 142, 0.07), transparent 60%),
+    var(--paper);
+}
+
+/* Links read as warm orange on cream; on navy that is muddy, so they take sky. */
+[data-theme="dark"] a { color: var(--sky-soft); border-bottom-color: rgba(107, 182, 232, 0.35); }
+[data-theme="dark"] a:hover { color: var(--sun); border-bottom-color: var(--sun); }
+
+/* Photographs are lit for a bright page; take a little glare off them. */
+[data-theme="dark"] .tb-photo img,
+[data-theme="dark"] .tile-img img,
+[data-theme="dark"] .rt-img img { filter: brightness(0.88) contrast(1.03); }
+
+/* ---- The theme button, matching the Days Out header treatment ---- */
+.theme-toggle-btn {
+  display: inline-grid; place-items: center;
+  width: 38px; height: 38px; flex: none;
+  padding: 0; cursor: pointer;
+  color: var(--ink-soft);
+  background: var(--paper-card);
+  border: 1.6px solid var(--rule);
+  border-radius: 999px;
+  transition: transform .18s cubic-bezier(0.34, 1.56, 0.64, 1), color .18s, border-color .18s;
+}
+.theme-toggle-btn:hover { transform: translateY(-2px); color: var(--ink); border-color: var(--rule-strong); }
+.theme-toggle-btn:active { transform: translateY(0); }
+/* Pages whose header is drawn by JS get a floating one instead. */
+.theme-toggle-btn.floating {
+  position: fixed; z-index: 60;
+  top: max(12px, env(safe-area-inset-top)); right: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] {
+  --ok-soft:   #12301F;
+  --ok-ink:    #6BD3A0;
+  --bad-soft:  #3A1C22;
+  --bad-ink:   #F08CA0;
+  --warn-soft: #3A2F14;
+  --warn-ink:  #E8C46A;
+  --veil:      rgba(15, 30, 42, 0.97);
+}
