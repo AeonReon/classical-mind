@@ -14,7 +14,10 @@
 (function () {
   var KEY = 'theme:' + location.pathname.split('/').slice(0, 2).join('/');
   var meta = document.querySelector('meta[name="theme-color"]');
-  var LIGHT_CHROME = meta ? meta.getAttribute('content') : '#3F8FCB';
+  // The boot script may already have darkened the meta, so take the page's real
+  // light colour from the attribute it stashed rather than from the live meta.
+  var LIGHT_CHROME = document.documentElement.getAttribute('data-chrome-light')
+                  || (meta ? meta.getAttribute('content') : '#3F8FCB');
   var DARK_CHROME = '#12252F';   // matches the darkened app bar
 
   function current() {

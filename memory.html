@@ -72,7 +72,9 @@
     .mem-row .r-src{ font-size:.82em; color:var(--ink-mute); margin-top:5px; }
     .mem-row .r-box{ float:right; font:800 .6rem var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--cd); }
   </style>
-  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";var dark=t==="dark",m=document.querySelector('meta[name="theme-color"]');if(m)document.documentElement.setAttribute("data-chrome-light",m.getAttribute("content"));document.documentElement.setAttribute("data-theme",dark?"dark":"light");if(dark&&m)m.setAttribute("content","#12252F");}catch(e){}})();</script>
 </head>
 <body class="method-page">
   <main class="mem-main">

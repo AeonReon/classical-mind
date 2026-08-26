@@ -111,7 +111,10 @@
     .stile-name{ font-weight:800; font-size:1.08em; letter-spacing:-.01em; color:var(--ink,#2A2038); }
     .stile-tagline{ margin-top:.22em; font-size:.9em; line-height:1.35; color:#6b6478; }
   </style>
-  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Classical Mind">
+  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";var dark=t==="dark",m=document.querySelector('meta[name="theme-color"]');if(m)document.documentElement.setAttribute("data-chrome-light",m.getAttribute("content"));document.documentElement.setAttribute("data-theme",dark?"dark":"light");if(dark&&m)m.setAttribute("content","#12252F");}catch(e){}})();</script>
 </head>
 <body class="launcher">
   <div class="appbar">

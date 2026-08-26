@@ -204,7 +204,9 @@
     .op-vid-out{ display:inline-block; margin-top:10px; font:700 .86em -apple-system,system-ui,sans-serif;
       color:var(--ink-mute,#7a7488); text-decoration:none; }
   </style>
-  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script>(function(){try{var k="theme:"+location.pathname.split("/").slice(0,2).join("/"),t=localStorage.getItem(k);if(!t)t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";var dark=t==="dark",m=document.querySelector('meta[name="theme-color"]');if(m)document.documentElement.setAttribute("data-chrome-light",m.getAttribute("content"));document.documentElement.setAttribute("data-theme",dark?"dark":"light");if(dark&&m)m.setAttribute("content","#12252F");}catch(e){}})();</script>
 </head>
 <body class="method-page">
   <main id="root" class="op-main"></main>
