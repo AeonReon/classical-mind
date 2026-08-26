@@ -98,7 +98,7 @@ than finished.
   `today-extra-data.js`, 71 prompts. One question, no typing. It is the closer;
   keep it last.
 
-- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 158 prompts (99 method + 59 topic).
+- **Know or suppose?** (`🔍`) — `EXAMINE` in `examine-data.js`, 216 prompts (123 method + 59 topic + 34 shifted).
   Added 2026-08-25 at the user's request. Separating what we have verified from what
   we have received: Sextus Empiricus and *epoché*, Bacon's four idols, Descartes'
   methodical doubt, Hume on testimony and induction, the Socratic elenchus, Russell
@@ -159,6 +159,22 @@ than finished.
      that pairing through any edit. `index.html` spreads them ~1 in 3 through the
      method prompts and relabels the card "What would change your mind?" when one
      comes up.
+
+     **Shifted prompts** (`kind: "shifted"`, 34) name a position that used to be held
+     and is not any more — peanut avoidance, sleeping infants on their fronts,
+     margarine, lobotomy carrying a Nobel, 48 human chromosomes counted off clear
+     photographs for thirty-five years, eugenics upheld by the US Supreme Court.
+     **They report the movement and refuse to certify where it landed.** That refusal
+     is the whole point and is the user's own correction: "and now we finally know"
+     is the same error wearing new clothes, and some of these have moved twice
+     (margarine, brontosaurus, inherited acquired characteristics). Never write "we
+     now know", "it turned out", "was proven" in this strand — there is a check for
+     those words below. Prefer cases that flipped back, and always ask what is being
+     held this morning with the same confidence.
+
+     Being claims about the history of belief, they are hedged like everything else
+     here — "the record of medical advice, as it reaches us". That doubles the lesson:
+     even the story of how the consensus moved is testimony you did not witness.
 
      **A prompt was removed here, and the reason matters.** An earlier one asked
      whether the people who could check a claim had reason to disagree with each

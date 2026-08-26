@@ -387,8 +387,9 @@
       // fractional position within each group mixes them ~1 in 3.
       const EXAMINE_MIXED = [];
       {
-        const groups = [(window.EXAMINE || []).filter(e => e.kind !== 'topic'),
-                        (window.EXAMINE || []).filter(e => e.kind === 'topic')];
+        const kinds = [undefined, 'topic', 'shifted'];
+        const groups = kinds.map(k => (window.EXAMINE || []).filter(e => e.kind === k))
+                            .filter(g => g.length);
         groups.forEach(g => g.forEach((item, i) =>
           EXAMINE_MIXED.push({ ...item, _pos: (i + 0.5) / g.length })));
         EXAMINE_MIXED.sort((a, b) => a._pos - b._pos);
@@ -552,8 +553,12 @@
         if (ex) {
           // Topic prompts announce themselves — they are the same question aimed at a
           // named subject, and the point is that it reads the same from either side.
-          const exKicker = ex.kind === 'topic' ? 'What would change your mind?' : 'Know or suppose?';
-          const exTitle  = ex.kind === 'topic' ? 'Either side, same question' : 'Test one belief';
+          const exKicker = ex.kind === 'topic'   ? 'What would change your mind?'
+                         : ex.kind === 'shifted' ? 'The consensus moved'
+                         : 'Know or suppose?';
+          const exTitle  = ex.kind === 'topic'   ? 'Either side, same question'
+                         : ex.kind === 'shifted' ? 'It has moved before'
+                         : 'Test one belief';
           cards.push(bar('examine','\u{1F50D}', exKicker, exTitle, ex.q, () => openModal({
             type:'examine', emoji:'\u{1F50D}', kicker:exKicker, title:exTitle,
             html:`<p class="cm-quote">${esc(ex.q)}</p>`

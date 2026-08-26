@@ -16,7 +16,7 @@ new Function(readFileSync(join(here, 'examine-data.js'), 'utf8')).call(globalThi
 const items = globalThis.window.EXAMINE;
 
 // A hedge anywhere in the sentence turns an assertion into an attribution, which is allowed.
-const HEDGE = /\b(we are told|the standard account|allegedly|reportedly|according to|said to be|supposedly|it is claimed|somebody's|someone's|you are told|reached you|arrived)\b/i;
+const HEDGE = /\b(we are told|the standard account|allegedly|reportedly|according to|said to be|supposedly|it is claimed|somebody's|someone's|you are told|reached you|reaches us|the record|the account|is said to|are said to|arrived)\b/i;
 
 const RULES = [
   [/\b\d[\d,.]*\s*(miles?|km|kilometres?|feet|years?|centuries|century|degrees?)\b/i, 'measurement stated as fact'],
@@ -62,3 +62,15 @@ if (bad) {
   console.log('is fine — a citation is already the "according to someone" form.');
   process.exit(1);
 }
+
+// The shifted strand must NEVER certify where a consensus landed — reporting the
+// movement is the point, and "and now we finally know" is the same error in new
+// clothes. Some of these positions have moved twice.
+const ENDORSE = /\b(we now know|it turned out|the truth is|was proven|has been proven|now proven|correctly identified)\b/i;
+const endorsing = items.filter(e => e.kind === 'shifted' && ENDORSE.test(`${e.q} ${e.note}`));
+if (endorsing.length) {
+  console.log(`\n${endorsing.length} shifted prompt(s) certifying the new position:`);
+  endorsing.forEach(e => console.log(`  ${e.q}`));
+  process.exit(1);
+}
+console.log(`${items.filter(e => e.kind === 'shifted').length} shifted prompts, none certifying the new position.`);
