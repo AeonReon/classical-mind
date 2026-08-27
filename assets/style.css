@@ -1,4 +1,5 @@
 :root {
+  --grad-cream: linear-gradient(135deg, #FFF6E2, #FFF0D2);
   /* Answer-feedback + veil tints, named so dark mode can restate them. */
   --ok-soft:   var(--ok-soft);
   --ok-ink:    var(--ok-ink);
@@ -365,7 +366,7 @@ table {
   border-collapse: collapse;
   margin: 1em 0;
   font-size: 0.94em;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -395,7 +396,7 @@ input[type="text"], input[type="search"], input[type="date"], textarea, select {
   padding: 0.7em 0.9em;
   border: 1.5px solid var(--rule);
   border-radius: var(--radius-sm);
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   width: 100%;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -431,7 +432,7 @@ button, .btn {
   border-radius: var(--radius-pill);
   cursor: pointer;
   color: var(--ink);
-  background: white;
+  background: var(--paper-card);
   position: relative;
   transition: transform 0.12s ease;
   display: inline-flex;
@@ -473,7 +474,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   flex-wrap: wrap;
   margin: 1.4em 0;
   padding: 1.2em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -520,7 +521,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   margin-bottom: 0.7em;
-  background: white;
+  background: var(--paper-card);
   font-size: 0.96em;
   box-shadow: var(--shadow-sm);
 }
@@ -539,14 +540,14 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
 .log-entry button.del {
   padding: 0.2em 0.7em;
   font-size: 0.72em;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink-mute);
   border: 1px solid var(--rule);
 }
 .log-entry button.del:hover {
   color: var(--rose);
   border-color: var(--rose);
-  background: white;
+  background: var(--paper-card);
   box-shadow: none;
   transform: none;
 }
@@ -571,7 +572,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   font-weight: 600;
   color: var(--ink-soft);
   cursor: pointer;
-  background: white;
+  background: var(--paper-card);
   user-select: none;
   transition: all 0.15s ease;
 }
@@ -632,7 +633,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   align-items: center;
   margin-bottom: 1.2em;
   padding: 1em 1.2em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   font-family: var(--sans);
@@ -774,7 +775,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   flex-wrap: wrap;
   margin: 1.4em 0;
   padding: 0.5em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
@@ -890,7 +891,7 @@ body.launcher {
 .age-pill {
   flex-shrink: 0;
   padding: 0.5em 1em;
-  background: white;
+  background: var(--paper-card);
   border-radius: 999px;
   font-size: 0.72em;
   font-weight: 800;
@@ -944,7 +945,7 @@ body.launcher {
 
 .tile {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1.3em 1.3em 1.4em;
   text-decoration: none;
@@ -1038,7 +1039,7 @@ body.launcher {
   top: 0.85em;
   right: 0.85em;
   z-index: 3;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink-soft);
   padding: 0.25em 0.7em;
   border-radius: 999px;
@@ -1055,7 +1056,7 @@ body.launcher {
   display: flex;
   align-items: center;
   gap: 0.9em;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1em 1.4em;
   box-shadow: 0 1px 2px rgba(40, 30, 20, 0.05), 0 10px 28px rgba(40, 30, 20, 0.07);
@@ -1123,7 +1124,7 @@ body.launcher {
   top: calc(0.8em + env(safe-area-inset-top, 0px));
   left: 0.8em;
   z-index: 9999;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   padding: 0.45em 0.95em;
   border-radius: 999px;
@@ -1195,7 +1196,7 @@ body.method-page {
   margin-bottom: 2.4em;
 }
 .borrow-card {
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-left: 4px solid var(--m-color, var(--sky));
   border-radius: var(--radius-md);
@@ -1227,7 +1228,7 @@ body.method-page {
 
 .sub-tile {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   padding: 1.3em 1.2em;
@@ -1374,7 +1375,7 @@ body.method-page {
   color: var(--m-deep, var(--sky-deep));
 }
 .day-content {
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   padding: 0.9em 1.1em;
@@ -1397,7 +1398,7 @@ body.method-page {
 }
 .activity-card {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   padding: 1em 1.1em 1em 3.4em;
@@ -1493,7 +1494,7 @@ body.method-page {
 .feast-nav button { flex: 1 1 auto; justify-content: center; }
 
 .virtue-card {
-  background: white;
+  background: var(--paper-card);
   padding: 1.2em 1.4em;
   border-radius: var(--radius-lg);
   position: relative;
@@ -1537,7 +1538,7 @@ body.method-page {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   border: none;
   font-family: var(--sans);
@@ -1609,7 +1610,7 @@ body.random-page {
 }
 
 .random-card {
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1.8em;
   position: relative;
@@ -1841,3 +1842,17 @@ body.random-page {
   padding: 0.5em 0.85em;
 }
 .corner-theme:active { transform: translateX(-50%) scale(.94); }
+
+[data-theme="dark"] {
+  --grad-cream: linear-gradient(135deg, #22323F, #1A2833);
+}
+
+/* ---- iOS status-bar strip -------------------------------------------------
+   With status-bar-style "black-translucent" the strip is transparent and the
+   page runs underneath it, so padding the app bar by the safe-area inset makes
+   the bar itself fill that space — it then follows the theme in both directions
+   with no meta juggling. "default" was the wrong choice: iOS draws that strip
+   light and ignores theme-color, which is why it stayed white in dark mode.
+   Pages with no app bar get body padding so nothing hides under the clock. */
+.appbar { padding-top: env(safe-area-inset-top, 0px); }
+body:not(:has(.appbar)) { padding-top: env(safe-area-inset-top, 0px); }
