@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#FAF6EC">
+  <meta name="theme-color" content="#3F8FCB">
   <title>Classical Mind — A random practice</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
@@ -47,7 +47,11 @@
       document.documentElement.style.setProperty('--m-color', a.color);
       document.documentElement.style.setProperty('--m-deep', a.colorDeep);
       document.documentElement.style.setProperty('--m-soft', a.colorSoft);
-      document.querySelector('meta[name="theme-color"]').setAttribute('content', a.color);
+      // The page used to repaint <meta name="theme-color"> with this topic's own
+      // accent here. That is what made the iOS status strip flicker between light
+      // and dark as you moved around: the chrome stopped following the theme and
+      // started following the topic. The strip is owned by theme.js now — two
+      // values only, the app chrome in light and #12252F in dark.
 
       document.getElementById('card-host').innerHTML = `
         <div class="random-card" style="--c:${a.color};--cd:${a.colorDeep};--cs:${a.colorSoft};">

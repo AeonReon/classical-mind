@@ -62,16 +62,20 @@
     ctrl.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
-    if (window.matchMedia) {
-      var mq = matchMedia('(prefers-color-scheme: dark)');
-      var onChange = function (e) {
-        var saved = null;
-        try { saved = localStorage.getItem(KEY); } catch (err) {}
-        if (!saved) apply(e.matches ? 'dark' : 'light', ctrl, isPill);   // OS wins until they choose
-      };
-      if (mq.addEventListener) mq.addEventListener('change', onChange);
-      else if (mq.addListener) mq.addListener(onChange);
-    }
+  }
+
+  // Until they choose for themselves, the OS setting wins — on every page, with
+  // or without a control on it.
+  function watchOS(ctrl, isPill) {
+    if (!window.matchMedia) return;
+    var mq = matchMedia('(prefers-color-scheme: dark)');
+    var onChange = function (e) {
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (err) {}
+      if (!saved) apply(e.matches ? 'dark' : 'light', ctrl, isPill);
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else if (mq.addListener) mq.addListener(onChange);
   }
 
   function mount() {
@@ -81,15 +85,16 @@
       icon.setAttribute('role', 'button');
       icon.setAttribute('tabindex', '0');
       wire(icon, false);
+      watchOS(icon, false);
       return;
     }
-    if (document.getElementById('themeToggle')) return;
-    var pill = document.createElement('button');
-    pill.id = 'themeToggle';
-    pill.type = 'button';
-    pill.className = 'corner-nav corner-theme';
-    document.body.insertAdjacentElement('afterbegin', pill);
-    wire(pill, true);
+    // ONE control, on the home page, and nowhere else — the user's call
+    // 2026-08-28. Inner pages still WEAR the theme (the boot script in their
+    // head sets it before paint from the same key); they just do not offer a
+    // second switch. An earlier build dropped a pill between the Back and Home
+    // corners on all ~50 inner pages, which read as a per-page setting.
+    apply(current(), null, false);
+    watchOS(null, false);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
