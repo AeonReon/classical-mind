@@ -51,12 +51,30 @@
     if (meta) meta.setAttribute('content', dark ? DARK_CHROME : LIGHT_CHROME);
   }
 
+  // Installed on the Home Screen, iOS reads <meta name="theme-color"> ONCE, when
+  // the document loads, and ignores every change to it after that. So flipping
+  // the theme repainted the whole page and left the strip behind the clock at
+  // whatever it was when you arrived — and walking into a section and back
+  // "set" it again, because that was a fresh load. Nothing in CSS can reach it.
+  // In a standalone window the toggle therefore reloads: the boot script in the
+  // head sets the theme and the meta before first paint, so the reload is
+  // invisible apart from the strip finally moving with everything else.
+  // Safari repaints its own chrome live, so there it just toggles.
+  var STANDALONE = window.navigator.standalone === true ||
+                   (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+
+  function reloadForChrome() {
+    try { sessionStorage.setItem('theme:scroll', String(window.scrollY || 0)); } catch (e) {}
+    location.reload();
+  }
+
   function wire(ctrl, isPill) {
     apply(current(), ctrl, isPill);
     function toggle() {
       var next = current() === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
       apply(next, ctrl, isPill);
+      if (STANDALONE) reloadForChrome();
     }
     ctrl.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
     ctrl.addEventListener('keydown', function (e) {
@@ -97,6 +115,16 @@
     watchOS(null, false);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
-  else mount();
+  function restoreScroll() {
+    try {
+      var y = sessionStorage.getItem('theme:scroll');
+      if (y === null) return;
+      sessionStorage.removeItem('theme:scroll');
+      window.scrollTo(0, parseInt(y, 10) || 0);
+    } catch (e) {}
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { mount(); restoreScroll(); });
+  } else { mount(); restoreScroll(); }
 })();
