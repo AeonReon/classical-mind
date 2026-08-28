@@ -12,7 +12,21 @@
 // and keeps the bar symmetrical. Inner pages have no app bar — they get a pill
 // that matches the existing Back / Home corner controls.
 (function () {
-  var KEY = 'theme:' + location.pathname.split('/').slice(0, 2).join('/');
+  // ONE key for the whole app, not one per page. This used to be built from
+  // location.pathname, which on a flat site resolved to '/index.html',
+  // '/schools.html' and so on — so every page remembered its own theme and the
+  // app flickered between light and dark as you moved through it. localStorage
+  // is already per-origin and each app has its own origin, so a bare 'theme'
+  // is enough. Old per-page keys are migrated once, so nobody loses their choice.
+  var KEY = 'theme';
+  try {
+    if (localStorage.getItem(KEY) === null) {
+      for (var i = 0; i < localStorage.length; i++) {
+        var ok = localStorage.key(i);
+        if (ok && ok.indexOf('theme:') === 0) { localStorage.setItem(KEY, localStorage.getItem(ok)); break; }
+      }
+    }
+  } catch (e) {}
   var meta = document.querySelector('meta[name="theme-color"]');
   // The boot script may already have darkened the meta, so take the page's real
   // light colour from the attribute it stashed rather than from the live meta.
