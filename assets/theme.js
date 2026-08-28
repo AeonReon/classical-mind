@@ -63,9 +63,16 @@
   var STANDALONE = window.navigator.standalone === true ||
                    (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
 
-  function reloadForChrome() {
+  function reloadForChrome(next) {
     try { sessionStorage.setItem('theme:scroll', String(window.scrollY || 0)); } catch (e) {}
-    location.reload();
+    // A same-URL reload is NOT enough. iOS treats it as the same document and
+    // keeps the strip colour it already has — which is why v55 changed nothing.
+    // Walking into a section and back out DID move it, because that is a real
+    // navigation, so that is what this does: go to a URL the app does not
+    // currently have open. `?t=` flips between two values, so the next toggle
+    // is always a different URL again.
+    var base = location.href.split('#')[0].split('?')[0];
+    location.replace(base + '?t=' + next);
   }
 
   function wire(ctrl, isPill) {
@@ -74,7 +81,7 @@
       var next = current() === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
       apply(next, ctrl, isPill);
-      if (STANDALONE) reloadForChrome();
+      if (STANDALONE) reloadForChrome(next);
     }
     ctrl.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
     ctrl.addEventListener('keydown', function (e) {
@@ -115,6 +122,35 @@
     watchOS(null, false);
   }
 
+  // ---- Strip diagnostic (temporary, v56) --------------------------------
+  // We cannot see the device, and the three possible iOS behaviours look alike
+  // in a screenshot. The version pill reports the one number that separates
+  // them for twelve seconds after launch, then goes back to the version.
+  //   inset > 0  -> the web view runs UNDER the clock, so the PAGE paints the
+  //                 strip: a pure CSS fix, guaranteed, no reload tricks.
+  //   inset 0    -> iOS owns an opaque bar and only re-reads its colour when a
+  //                 document loads, which is what the ?t= navigation is for.
+  // The pill is pointer-events:none by design, so this must not need a tap.
+  function mountDiag() {
+    var tries = 0;
+    var timer = setInterval(function () {
+      var pill = document.querySelector('.version-pill');
+      if (!pill) { if (++tries > 40) clearInterval(timer); return; }
+      clearInterval(timer);
+      var probe = document.createElement('div');
+      probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px)';
+      document.body.appendChild(probe);
+      var inset = Math.round(probe.getBoundingClientRect().height);
+      probe.remove();
+      var where = (window.navigator.standalone === true) ? 'home'
+                : (window.matchMedia && matchMedia('(display-mode: standalone)').matches) ? 'standalone'
+                : 'browser';
+      var version = pill.textContent;
+      pill.textContent = version + ' · inset ' + inset + ' · ' + where + ' · ' + current();
+      setTimeout(function () { pill.textContent = version; }, 12000);
+    }, 100);
+  }
+
   function restoreScroll() {
     try {
       var y = sessionStorage.getItem('theme:scroll');
@@ -125,6 +161,6 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { mount(); restoreScroll(); });
-  } else { mount(); restoreScroll(); }
+    document.addEventListener('DOMContentLoaded', function () { mount(); restoreScroll(); mountDiag(); });
+  } else { mount(); restoreScroll(); mountDiag(); }
 })();

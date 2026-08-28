@@ -1,4 +1,4 @@
-const APP_VERSION = 'v55';
+const APP_VERSION = 'v56';
 
 // Back = browser history, so it returns you to the EXACT spot you left
 // (scroll and all). Home = straight to the launcher. Falls back to Home if
