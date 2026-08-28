@@ -83,6 +83,26 @@
       apply(next, ctrl, isPill);
       if (STANDALONE) reloadForChrome(next);
     }
+    // ===== TEMPORARY STRIP TEST (v57) — remove with the block in index.html ==
+    // The icon cycles purple -> red -> blue instead of toggling the theme, and
+    // drives the app bar, the strip element and the theme-color meta together.
+    // Watch the APP BAR and the BAND above it separately: if the bar changes
+    // and the band does not, the band is the OS's and we cannot reach it.
+    if (window.stripTestApply) {
+      var idx = 0;
+      try { idx = parseInt(localStorage.getItem('stripTest'), 10) || 0; } catch (e) {}
+      ctrl.addEventListener('click', function (e) {
+        e.preventDefault();
+        idx = (idx + 1) % window.STRIP_TEST.length;
+        try { localStorage.setItem('stripTest', String(idx)); } catch (err) {}
+        window.stripTestApply(idx);
+        var pill = document.querySelector('.version-pill');
+        if (pill) pill.textContent = 'tap ' + (idx + 1) + ' · ' + window.STRIP_TEST[idx];
+      });
+      return;
+    }
+    // ===== end strip test ====================================================
+
     ctrl.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
     ctrl.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
@@ -145,9 +165,11 @@
       var where = (window.navigator.standalone === true) ? 'home'
                 : (window.matchMedia && matchMedia('(display-mode: standalone)').matches) ? 'standalone'
                 : 'browser';
-      var version = pill.textContent;
-      pill.textContent = version + ' · inset ' + inset + ' · ' + where + ' · ' + current();
-      setTimeout(function () { pill.textContent = version; }, 12000);
+      // Left up permanently for the test build — the inset is the whole answer.
+      // 0 means the web view stops BELOW the clock, so the band is the OS's and
+      // nothing the page does can reach it. Anything above 0 means the page runs
+      // underneath and paints it, and this is a CSS problem we can win.
+      pill.textContent = pill.textContent + ' · inset ' + inset + ' · ' + where;
     }, 100);
   }
 
