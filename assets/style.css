@@ -43,6 +43,12 @@
   --radius-md: 16px;
   --radius-lg: 22px;
   --radius-pill: 999px;
+
+  /* Body background glows + the frosted-panel surface. Held as variables so
+     dark mode can swap them without touching the rules that use them. */
+  --glow-a: rgba(255, 214, 74, 0.22);
+  --glow-b: rgba(255, 94, 142, 0.16);
+  --paper-glass: rgba(255, 255, 255, 0.85);
 }
 
 * { box-sizing: border-box; }
@@ -51,8 +57,8 @@ html, body {
   margin: 0;
   padding: 0;
   background:
-    radial-gradient(900px 500px at -10% -20%, rgba(255, 214, 74, 0.22), transparent 60%),
-    radial-gradient(900px 500px at 110% -10%, rgba(255, 94, 142, 0.16), transparent 60%),
+    radial-gradient(900px 500px at -10% -20%, var(--glow-a), transparent 60%),
+    radial-gradient(900px 500px at 110% -10%, var(--glow-b), transparent 60%),
     var(--paper);
   background-attachment: fixed;
   color: var(--ink);
@@ -176,7 +182,7 @@ blockquote::before {
 /* ---------- Header ---------- */
 
 header.site {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--paper-glass);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid var(--rule);
@@ -356,7 +362,7 @@ table {
   border-collapse: collapse;
   margin: 1em 0;
   font-size: 0.94em;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -386,7 +392,7 @@ input[type="text"], input[type="search"], input[type="date"], textarea, select {
   padding: 0.7em 0.9em;
   border: 1.5px solid var(--rule);
   border-radius: var(--radius-sm);
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   width: 100%;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -422,7 +428,7 @@ button, .btn {
   border-radius: var(--radius-pill);
   cursor: pointer;
   color: var(--ink);
-  background: white;
+  background: var(--paper-card);
   position: relative;
   transition: transform 0.12s ease;
   display: inline-flex;
@@ -464,7 +470,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   flex-wrap: wrap;
   margin: 1.4em 0;
   padding: 1.2em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -493,7 +499,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   height: 0.85em;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--sky), var(--sun));
-  box-shadow: 0 0 0 4px white, 0 0 0 5px var(--sky-soft);
+  box-shadow: 0 0 0 4px var(--paper-card), 0 0 0 5px var(--sky-soft);
 }
 .rhythm-timeline .time {
   font-family: var(--sans);
@@ -511,7 +517,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   margin-bottom: 0.7em;
-  background: white;
+  background: var(--paper-card);
   font-size: 0.96em;
   box-shadow: var(--shadow-sm);
 }
@@ -530,14 +536,14 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
 .log-entry button.del {
   padding: 0.2em 0.7em;
   font-size: 0.72em;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink-mute);
   border: 1px solid var(--rule);
 }
 .log-entry button.del:hover {
   color: var(--rose);
   border-color: var(--rose);
-  background: white;
+  background: var(--paper-card);
   box-shadow: none;
   transform: none;
 }
@@ -562,7 +568,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   font-weight: 600;
   color: var(--ink-soft);
   cursor: pointer;
-  background: white;
+  background: var(--paper-card);
   user-select: none;
   transition: all 0.15s ease;
 }
@@ -623,7 +629,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   align-items: center;
   margin-bottom: 1.2em;
   padding: 1em 1.2em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   font-family: var(--sans);
@@ -765,7 +771,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   flex-wrap: wrap;
   margin: 1.4em 0;
   padding: 0.5em;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
@@ -881,7 +887,7 @@ body.launcher {
 .age-pill {
   flex-shrink: 0;
   padding: 0.5em 1em;
-  background: white;
+  background: var(--paper-card);
   border-radius: 999px;
   font-size: 0.72em;
   font-weight: 800;
@@ -935,7 +941,7 @@ body.launcher {
 
 .tile {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1.3em 1.3em 1.4em;
   text-decoration: none;
@@ -1018,7 +1024,7 @@ body.launcher {
 .tile-era {
   font-size: 0.7em;
   letter-spacing: 0.08em;
-  color: var(--cd);
+  color: var(--c-ink);
   text-transform: uppercase;
   font-weight: 800;
   margin-top: auto;
@@ -1029,7 +1035,7 @@ body.launcher {
   top: 0.85em;
   right: 0.85em;
   z-index: 3;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink-soft);
   padding: 0.25em 0.7em;
   border-radius: 999px;
@@ -1046,7 +1052,7 @@ body.launcher {
   display: flex;
   align-items: center;
   gap: 0.9em;
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1em 1.4em;
   box-shadow: 0 1px 2px rgba(40, 30, 20, 0.05), 0 10px 28px rgba(40, 30, 20, 0.07);
@@ -1114,7 +1120,7 @@ body.launcher {
   top: calc(0.8em + env(safe-area-inset-top, 0px));
   left: 0.8em;
   z-index: 9999;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   padding: 0.45em 0.95em;
   border-radius: 999px;
@@ -1128,13 +1134,13 @@ body.launcher {
 }
 .home-link:hover {
   border-color: var(--m-color, var(--sky));
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
   box-shadow: var(--shadow-md);
 }
 
 body.method-page {
   background:
-    radial-gradient(ellipse 1200px 500px at 50% -100px, var(--m-soft, var(--sky-soft)) 0%, transparent 65%),
+    radial-gradient(ellipse 1200px 500px at 50% -100px, var(--page-glow) 0%, transparent 65%),
     var(--paper);
   background-attachment: fixed;
 }
@@ -1155,7 +1161,7 @@ body.method-page {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
   margin-bottom: 0.5em;
 }
 .method-hero h1 {
@@ -1186,7 +1192,7 @@ body.method-page {
   margin-bottom: 2.4em;
 }
 .borrow-card {
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-left: 4px solid var(--m-color, var(--sky));
   border-radius: var(--radius-md);
@@ -1195,7 +1201,7 @@ body.method-page {
 }
 .borrow-card h3 {
   margin: 0 0 0.4em;
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
   font-size: 0.9em;
   font-family: var(--sans);
   text-transform: uppercase;
@@ -1218,7 +1224,7 @@ body.method-page {
 
 .sub-tile {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
   padding: 1.3em 1.2em;
@@ -1251,8 +1257,8 @@ body.method-page {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: var(--m-soft, var(--sky-soft));
-  color: var(--m-deep, var(--sky-deep));
+  background: var(--m-tint);
+  color: var(--m-ink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1279,7 +1285,7 @@ body.method-page {
   font-size: 0.88em;
 }
 .sub-back a {
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
   border: none;
   font-weight: 600;
 }
@@ -1292,7 +1298,7 @@ body.method-page {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
   margin-bottom: 0.4em;
 }
 .sub-hero h1 {
@@ -1322,7 +1328,7 @@ body.method-page {
   font-size: 1em;
   flex-shrink: 0;
 }
-.principle-card h3 { margin-top: 0; color: var(--m-deep, var(--sky-deep)); }
+.principle-card h3 { margin-top: 0; color: var(--m-ink); }
 
 .day-timeline {
   position: relative;
@@ -1336,7 +1342,7 @@ body.method-page {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--m-soft, var(--sky-soft));
+  background: var(--m-tint);
 }
 .day-block {
   position: relative;
@@ -1351,7 +1357,7 @@ body.method-page {
   height: 14px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--m-color, var(--sky)), var(--m-deep, var(--sky-deep)));
-  box-shadow: 0 0 0 3px white, 0 0 0 4px var(--m-soft, var(--sky-soft));
+  box-shadow: 0 0 0 3px var(--paper-card), 0 0 0 4px var(--m-tint);
 }
 .day-time {
   position: absolute;
@@ -1362,10 +1368,10 @@ body.method-page {
   font-family: var(--sans);
   font-weight: 700;
   font-size: 0.85em;
-  color: var(--m-deep, var(--sky-deep));
+  color: var(--m-ink);
 }
 .day-content {
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   padding: 0.9em 1.1em;
@@ -1388,7 +1394,7 @@ body.method-page {
 }
 .activity-card {
   position: relative;
-  background: white;
+  background: var(--paper-card);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
   padding: 1em 1.1em 1em 3.4em;
@@ -1401,8 +1407,8 @@ body.method-page {
   width: 1.9em;
   height: 1.9em;
   border-radius: 50%;
-  background: var(--m-soft, var(--sky-soft));
-  color: var(--m-deep, var(--sky-deep));
+  background: var(--m-tint);
+  color: var(--m-ink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1438,7 +1444,7 @@ body.method-page {
   bottom: calc(0.6em + env(safe-area-inset-bottom, 0px));
   right: 0.6em;
   z-index: 9998;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--paper-glass);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: var(--ink-mute);
@@ -1484,7 +1490,7 @@ body.method-page {
 .feast-nav button { flex: 1 1 auto; justify-content: center; }
 
 .virtue-card {
-  background: white;
+  background: var(--paper-card);
   padding: 1.2em 1.4em;
   border-radius: var(--radius-lg);
   position: relative;
@@ -1528,7 +1534,7 @@ body.method-page {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  background: white;
+  background: var(--paper-card);
   color: var(--ink);
   border: none;
   font-family: var(--sans);
@@ -1600,7 +1606,7 @@ body.random-page {
 }
 
 .random-card {
-  background: white;
+  background: var(--paper-card);
   border-radius: var(--radius-lg);
   padding: 1.8em;
   position: relative;
@@ -1629,7 +1635,7 @@ body.random-page {
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--cd);
+  color: var(--c-ink);
   margin-bottom: 0.7em;
 }
 .random-card-name {
@@ -1647,12 +1653,12 @@ body.random-page {
 }
 .random-card-link {
   display: inline-block;
-  color: var(--cd);
+  color: var(--c-ink);
   font-weight: 700;
   border-bottom: none;
   font-size: 0.95em;
 }
-.random-card-link:hover { color: var(--c); }
+.random-card-link:hover { color: var(--c-ink); }
 
 .random-actions {
   text-align: center;
@@ -1667,7 +1673,7 @@ body.random-page {
 .rtile-list { display: flex; flex-direction: column; gap: 0.7em; }
 .rtile {
   position: relative; display: flex; align-items: stretch; width: 100%;
-  text-decoration: none; background: #fff; border-radius: 16px; overflow: hidden;
+  text-decoration: none; background: var(--paper-card); border-radius: 16px; overflow: hidden;
   box-shadow: 0 2px 4px rgba(60,45,20,.07), 0 10px 24px rgba(60,45,20,.09);
   transition: transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease;
 }
@@ -1686,7 +1692,7 @@ body.random-page {
 .rtile-ic {
   position: absolute; left: 8px; bottom: 8px; z-index: 3; width: 32px; height: 32px;
   border-radius: 9px; background: linear-gradient(150deg, var(--c), var(--cd));
-  display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.28); border: 2px solid #fff;
+  display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.28); border: 2px solid var(--paper-card);
 }
 .rtile-ic svg { width: 19px; height: 19px; color: #fff; }
 .rtile-body {
@@ -1697,7 +1703,7 @@ body.random-page {
 .rtile-tagline { font-size: .88em; line-height: 1.35; color: var(--ink-mute); }
 .rtile-count {
   margin-top: .3em; font-size: .72rem; font-weight: 800; letter-spacing: .02em;
-  text-transform: uppercase; color: var(--cd);
+  text-transform: uppercase; color: var(--c-ink);
 }
 .rtile-chev { flex: none; align-self: center; padding-right: 14px; color: var(--ink-mute); font-size: 1.2em; opacity: .6; }
 
@@ -1706,7 +1712,7 @@ body.random-page {
   position: fixed;
   top: calc(0.8em + env(safe-area-inset-top, 0px));
   z-index: 9999;
-  background: #fff;
+  background: var(--paper-card);
   color: var(--ink);
   padding: 0.52em 1.05em;
   border-radius: 999px;
@@ -1727,7 +1733,137 @@ body.random-page {
 /* ---- Read-aloud voice toggle: Echo (streamed) / Device (offline) ---- */
 .vp-label { font: 700 0.74em var(--sans); letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-mute); }
 .vp-seg { display: inline-flex; border: 1.5px solid var(--rule); border-radius: 999px; overflow: hidden; }
-.vp-seg button { border: 0 !important; background: #fff; color: var(--ink-mute); font: 800 0.92em var(--sans); text-transform: none; letter-spacing: 0; padding: 0.42em 0.95em; cursor: pointer; }
+.vp-seg button { border: 0 !important; background: var(--paper-card); color: var(--ink-mute); font: 800 0.92em var(--sans); text-transform: none; letter-spacing: 0; padding: 0.42em 0.95em; cursor: pointer; }
 .vp-seg button::before { display: none !important; }
 .vp-seg button.on { background: var(--ink); color: #fff; }
-.vp-voice { font: 600 0.95em var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); background: #fff; border: 1.5px solid var(--rule); border-radius: 999px; padding: 0.4em 0.8em; max-width: 150px; }
+[data-theme="dark"] .vp-seg button.on { color: var(--paper); }
+.vp-voice { font: 600 0.95em var(--sans); text-transform: none; letter-spacing: 0; color: var(--ink); background: var(--paper-card); border: 1.5px solid var(--rule); border-radius: 999px; padding: 0.4em 0.8em; max-width: 150px; }
+
+/* =========================================================================
+   DARK MODE — "night library"
+   Opt-in only: the <html> element carries data-theme="dark", set by the logo
+   toggle on the home page and persisted in localStorage. Never automatic —
+   the OS setting is deliberately ignored so the toggle is the single source
+   of truth.
+
+   The neutrals flip; the gold + sky accents stay (brightened just enough to
+   read on a dark ground) so the app still looks like itself at night. Every
+   surface in this stylesheet routes through a variable, so redefining the
+   variables here does most of the work — the rules below it are only for the
+   handful of places a variable can't reach.
+   ========================================================================= */
+[data-theme="dark"] {
+  --ink:        #EFEAF7;   /* soft off-white — never pure white */
+  --ink-soft:   #C4BAD4;
+  --ink-mute:   #A69BBA;   /* lifted until every muted line clears 4.5:1 on the warm tints */
+
+  --paper:         #17141F;   /* deep ink-purple night */
+  --paper-warm:    #2B2317;   /* warm amber-tinted panel */
+  --paper-card:    #221E2D;   /* lifted card surface */
+  --paper-surface: #272231;
+  --paper-glass:   rgba(38, 33, 50, 0.85);
+
+  --rule:        #383043;
+  --rule-soft:   #2D2739;
+  --rule-strong: #4C4260;
+
+  /* Accents — same hues, lifted for contrast against the dark ground. */
+  --sun:      #FFDD7A;
+  --sun-hot:  #FFB463;
+  --pink:     #FF7FA8;
+  --sky:      #6FBEEC;
+  --sky-soft: #8ED0F2;
+  --mint:     #5FDCB4;
+
+  --sky-deep: #8ED0F2;   /* used as a text colour — must go lighter, not darker */
+  --sun-deep: #F2BC63;
+  --leaf:     #5FDCB4;
+  --rose:     #FF7FA8;
+
+  /* Soft tint backgrounds become dark tints of the same hue. */
+  --leaf-soft:    #15352B;
+  --rose-soft:    #3B1D2A;
+  --sky-soft-bg:  #152C3E;
+  --sun-soft:     #322815;
+
+  /* Gradients: the warm ones stay (they sit behind white text), the page
+     glows drop right down so the background reads as night, not sunrise. */
+  --glow-a: rgba(255, 214, 74, 0.07);
+  --glow-b: rgba(255, 94, 142, 0.06);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.40), 0 10px 28px rgba(0, 0, 0, 0.48);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.45), 0 24px 60px rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
+}
+
+/* Per-topic accents (--m-color / --m-deep / --m-soft on <html>, --c / --cd /
+   --cs on <body>) are written as inline styles from the data files, so they
+   can't be overridden by a variable here. Instead every page derives two
+   theme-aware colours from them — --m-ink for text, --m-tint for tinted
+   panels — and uses those. In light mode they pass the originals straight
+   through; in dark mode they're mixed against the night palette. */
+/* A custom property is resolved against the element it is DECLARED on, not
+   the element that eventually reads it — so the derived pair has to be
+   re-declared in every scope an accent can land in: <html> (art.html and
+   random.html set --m-* there from the data files), <body> (each page's own
+   brand colour), and the individual tiles and hero headers, which carry their
+   own inline --c / --cd. Each scope shadows the one above it. Miss one and
+   its children silently fall back to the default blue. */
+/* Every element that can carry an inline accent. Enumerated from the markup:
+   grep for style="--c: / style="--m- before adding a new tile type. */
+:root, body, .method-hero, .rtile, .stile, .tile, .random-card, .today-bar {
+  --m-ink:  var(--m-deep, var(--sky-deep));
+  --m-tint: var(--m-soft, var(--sky-soft));
+  /* No fallback on purpose: these stand in for a bare var(--cd) / var(--cs),
+     which resolves to nothing on a page that sets no accent. Give them a
+     fallback and elements inherit a colour — or gain a background — they
+     never had (the listen player bar, the random-card eyebrow). */
+  --c-ink:  var(--cd);
+  --c-tint: var(--cs);
+  --t-ink:  var(--tcd);
+}
+[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] .method-hero,
+[data-theme="dark"] .rtile,
+[data-theme="dark"] .stile,
+[data-theme="dark"] .tile,
+[data-theme="dark"] .random-card,
+[data-theme="dark"] .today-bar {
+  --m-ink:  color-mix(in srgb, var(--m-deep, var(--sky-deep)) 45%, #FFFFFF);
+  --m-tint: color-mix(in srgb, var(--m-color, var(--sky)) 16%, var(--paper-card));
+  --c-ink:  color-mix(in srgb, var(--cd) 45%, #FFFFFF);
+  --c-tint: color-mix(in srgb, var(--c) 16%, var(--paper-card));
+  --t-ink:  color-mix(in srgb, var(--tcd) 42%, #FFFFFF);
+}
+
+/* The soft wash behind the top of every inner page. At night it becomes a
+   faint tint of the topic colour rather than a daylight pastel, otherwise the
+   top of every page glares. */
+body { --page-glow: var(--m-soft, var(--sky-soft)); }
+[data-theme="dark"] body {
+  --page-glow: color-mix(in srgb, var(--m-color, var(--c, #4F6D7A)) 20%, var(--paper));
+}
+
+/* Photos and video thumbnails are shot in daylight; knocking a little light
+   off them stops them glaring out of a dark page. */
+[data-theme="dark"] .rtile-photo img,
+[data-theme="dark"] .stile-photo img,
+[data-theme="dark"] .tb-photo img,
+[data-theme="dark"] .op-hero-photo img,
+[data-theme="dark"] .mm-vid-play img,
+[data-theme="dark"] .op-vid-play img { filter: brightness(0.86) saturate(0.94); }
+
+/* Correct / incorrect answer states: the light tints go to dark tints of the
+   same hue, and the text lifts, otherwise they'd be light-on-light. */
+[data-theme="dark"] .cm-opt.right,
+[data-theme="dark"] .fl-opt.correct { border-color: #3FBE86; background: #14352A; color: #7FE0B4; }
+[data-theme="dark"] .cm-opt.chosen.wrong,
+[data-theme="dark"] .fl-opt.wrong { border-color: #E0706C; background: #38191B; color: #F0A19D; }
+
+/* The "try it" quiz on the arts pages shares the answer-state palette above. */
+[data-theme="dark"] .tryit-opt.correct { border-color: #3FBE86; background: #14352A; color: #7FE0B4; }
+[data-theme="dark"] .tryit-opt.wrong   { border-color: #E0706C; background: #38191B; color: #F0A19D; }
+[data-theme="dark"] .tryit-fb.ok       { background: #14352A; color: #7FE0B4; }

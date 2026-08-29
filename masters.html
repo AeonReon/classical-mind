@@ -8,12 +8,30 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v64">
+  <link rel="stylesheet" href="assets/style.css?v65">
+  <!-- Theme, applied before first paint so a dark-mode load never flashes
+       white. The choice lives in localStorage and is set ONLY by the logo
+       toggle in the top-left of the home page; the OS setting is deliberately
+       ignored so the toggle is the single source of truth. -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', '#17141F');
+      } catch (e) {}
+    })();
+  </script>
   <style>
-    body{ --c:#A9793E; --cd:#77531F; --cs:#F3EAD6; }
+    body{ --c:#A9793E; --cd:#77531F; --cs:#F3EAD6;
+          /* This page has no per-topic accent, so the shared --m-ink /
+             --m-tint pair falls back to its own warm slate instead of
+             the default sky blue. */
+          --m-ink:var(--m-deep,#2F4550); --m-tint:var(--m-soft,#F3EADA); }
     .mm-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
     .mm-hero{ margin:0 0 8px; }
-    .mm-hero .mm-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .mm-hero .mm-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--c-ink); margin-bottom:9px; }
     .mm-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
     .mm-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:56ch; }
 
@@ -22,7 +40,7 @@
     .mm-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .mm-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .mm-card{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .mm-card{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .mm-card[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(122,83,31,.16); }
     .mm-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .mm-sum::-webkit-details-marker{ display:none; }
@@ -34,10 +52,10 @@
     .mm-body{ padding:0 16px 16px; }
     .mm-hook{ font-size:1.06em; line-height:1.55; color:var(--ink); font-weight:600; margin:0 0 14px; }
     .mm-sec{ margin:0 0 13px; }
-    .mm-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
+    .mm-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--c-ink); margin:0 0 5px; }
     .mm-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
     .mm-quotes{ margin:2px 0 6px; }
-    .mm-quote{ margin:0 0 10px; padding:12px 15px; background:var(--cs); border-radius:12px; border-left:4px solid var(--c); font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:1.05em; line-height:1.5; color:var(--ink); }
+    .mm-quote{ margin:0 0 10px; padding:12px 15px; background:var(--c-tint); border-radius:12px; border-left:4px solid var(--c); font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:1.05em; line-height:1.5; color:var(--ink); }
     .mm-quote cite{ display:block; margin-top:8px; font:700 .74em var(--sans); font-style:normal; color:var(--ink-mute); }
     .mm-bullets{ margin:4px 0 0; padding-left:1.15em; }
     .mm-bullets li{ font-size:.96em; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
@@ -47,7 +65,7 @@
 
     /* Watch — one curated video per mind. Facade: thumbnail until tapped, then
        the real player is injected. Nothing loads from YouTube on page load. */
-    .mm-vid{ border-radius:14px; overflow:hidden; background:#fff; border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
+    .mm-vid{ border-radius:14px; overflow:hidden; background:var(--paper-card); border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
     .mm-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer; position:relative; aspect-ratio:16/9; line-height:0; }
     .mm-vid-play img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1); }
     .mm-vid-play:hover img{ opacity:1; transform:scale(1.03); }
@@ -61,12 +79,12 @@
     .mm-vid iframe{ display:block; width:100%; aspect-ratio:16/9; border:0; }
     .mm-vid-tt{ padding:11px 13px 12px; }
     .mm-vid-name{ font:800 .98em/1.3 -apple-system,system-ui,sans-serif; color:var(--ink,#2A2038); }
-    .mm-vid-meta{ margin-top:4px; font:700 .8em -apple-system,system-ui,sans-serif; color:var(--m-deep,#2F4550); }
+    .mm-vid-meta{ margin-top:4px; font:700 .8em -apple-system,system-ui,sans-serif; color:var(--m-ink); }
     .mm-vid-meta span{ color:var(--ink-mute,#7a7488); font-weight:600; }
     .mm-vid-why{ margin:8px 0 0; font-size:.92em; line-height:1.55; color:var(--ink-soft,#4d4658); }
-    .mm-vid-note{ margin-top:9px; padding:8px 10px; border-radius:9px; background:var(--m-soft,#F3EADA);
+    .mm-vid-note{ margin-top:9px; padding:8px 10px; border-radius:9px; background:var(--m-tint);
       font-size:.85em; line-height:1.5; color:var(--ink-soft,#4d4658); }
-    .mm-vid-note b{ color:var(--m-deep,#2F4550); }
+    .mm-vid-note b{ color:var(--m-ink); }
   </style>
 </head>
 <body class="method-page">

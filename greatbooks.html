@@ -8,24 +8,38 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v64">
+  <link rel="stylesheet" href="assets/style.css?v65">
+  <!-- Theme, applied before first paint so a dark-mode load never flashes
+       white. The choice lives in localStorage and is set ONLY by the logo
+       toggle in the top-left of the home page; the OS setting is deliberately
+       ignored so the toggle is the single source of truth. -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', '#17141F');
+      } catch (e) {}
+    })();
+  </script>
   <style>
     body{ --c:#4C63B6; --cd:#33468C; --cs:#E7EAF8; }
     .gb-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
     .gb-hero{ margin:0 0 8px; }
-    .gb-hero .gb-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .gb-hero .gb-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--c-ink); margin-bottom:9px; }
     .gb-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
     .gb-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:56ch; }
     .gb-voice{ margin-top:14px; }
     .voice-pick{ display:inline-flex; align-items:center; gap:7px; font:700 .72em var(--sans); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-mute); }
-    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
+    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:var(--paper-card); border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
 
     .gb-era{ margin:26px 0 12px; }
     .gb-era-title{ font-weight:800; font-size:1.28em; letter-spacing:-.02em; color:var(--ink); }
     .gb-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .gb-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .gb-book{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .gb-book{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .gb-book[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(51,70,140,.14); }
     .gb-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .gb-sum::-webkit-details-marker{ display:none; }
@@ -37,19 +51,19 @@
     .gb-body{ padding:0 16px 16px; }
     .gb-text{ font-size:1em; line-height:1.6; color:var(--ink-soft); }
     .gb-hook{ font-size:1.06em; line-height:1.55; color:var(--ink); font-weight:600; margin:0 0 14px; }
-    .gb-taste{ margin:0 0 16px; padding:14px 16px; background:var(--cs); border-radius:12px; border-left:4px solid var(--c); }
-    .gb-taste-label{ font:800 .62rem var(--sans); letter-spacing:.09em; text-transform:uppercase; color:var(--cd); margin-bottom:7px; }
+    .gb-taste{ margin:0 0 16px; padding:14px 16px; background:var(--c-tint); border-radius:12px; border-left:4px solid var(--c); }
+    .gb-taste-label{ font:800 .62rem var(--sans); letter-spacing:.09em; text-transform:uppercase; color:var(--c-ink); margin-bottom:7px; }
     .gb-taste-text{ font-family:Georgia,'Times New Roman',serif; font-size:1.08em; line-height:1.5; color:var(--ink); font-style:italic; white-space:pre-line; }
     .gb-taste-cite{ font:700 .76em var(--sans); color:var(--ink-mute); margin-top:9px; }
     .gb-sec{ margin:0 0 13px; }
-    .gb-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--cd); margin:0 0 5px; }
+    .gb-sec-h{ font:800 .72rem var(--sans); letter-spacing:.07em; text-transform:uppercase; color:var(--c-ink); margin:0 0 5px; }
     .gb-sec-p{ font-size:.98em; line-height:1.6; color:var(--ink-soft); margin:0; }
     .gb-bullets{ margin:4px 0 0; padding-left:1.15em; }
     .gb-bullets li{ font-size:.96em; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
     .gb-actions{ display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }
     .gb-btn{ display:inline-flex; align-items:center; gap:7px; text-decoration:none; cursor:pointer; font:800 .86em var(--sans); border-radius:999px; padding:.6em 1.1em; border:0; }
     .gb-listen{ color:#fff; background:linear-gradient(135deg,var(--c),var(--cd)); }
-    .gb-free{ color:var(--cd); background:var(--cs); }
+    .gb-free{ color:var(--c-ink); background:var(--c-tint); }
     .gb-listen:active, .gb-free:active{ transform:scale(.97); }
   </style>
 </head>
@@ -59,7 +73,7 @@
       <div class="gb-eyebrow">Beyond the arts · the canon</div>
       <h1>The Great Books</h1>
       <p>The long conversation of the West — the works that shaped how we think, argue, govern, and imagine. Tap any title for the general idea of what it is and why it has mattered for centuries. Read them in any order; you are joining a conversation, not sitting an exam.</p>
-      <p style="margin-top:.7em"><a href="art.html?id=great-books" style="color:var(--cd);font-weight:800;text-decoration:none">Why read them, and how →</a></p>
+      <p style="margin-top:.7em"><a href="art.html?id=great-books" style="color:var(--c-ink);font-weight:800;text-decoration:none">Why read them, and how →</a></p>
       <div class="gb-voice"><span class="voice-pick" hidden></span></div>
     </header>
     <div id="eras"></div>

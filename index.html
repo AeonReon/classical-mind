@@ -8,7 +8,21 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v64">
+  <link rel="stylesheet" href="assets/style.css?v65">
+  <!-- Theme, applied before first paint so a dark-mode load never flashes
+       white. The choice lives in localStorage and is set ONLY by the logo
+       toggle in the top-left of the home page; the OS setting is deliberately
+       ignored so the toggle is the single source of truth. -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', '#17141F');
+      } catch (e) {}
+    })();
+  </script>
   <style>
     /* ---- App bar ---- */
     body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A);
@@ -26,18 +40,18 @@
     /* ---- Compact hero ---- */
     .cm-hero{ margin:6px 0 20px; }
     .cm-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,36px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink,#2A2038); }
-    .cm-hero p{ margin:.5em 0 0; font-size:16px; line-height:1.5; color:#6b6478; max-width:52ch; }
+    .cm-hero p{ margin:.5em 0 0; font-size:16px; line-height:1.5; color:var(--dk-mute,#6b6478); max-width:52ch; }
 
     /* ---- "New here?" welcome ---- */
     .welcome{ margin:0 0 20px; border-radius:15px; overflow:hidden; background:linear-gradient(135deg,#FFF6E2,#FDEFCF); border:1.5px solid #F0DCA8; }
-    .welcome[open]{ background:#fff; border-color:#EADFC6; box-shadow:0 2px 4px rgba(60,45,20,.06),0 10px 24px rgba(60,45,20,.08); }
+    .welcome[open]{ background:var(--paper-card); border-color:var(--dk-rule,#EADFC6); box-shadow:0 2px 4px rgba(60,45,20,.06),0 10px 24px rgba(60,45,20,.08); }
     .welcome-sum{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; padding:12px 14px; color:#8A6410; }
     .welcome-sum::-webkit-details-marker{ display:none; }
-    .welcome[open] .welcome-sum{ color:var(--ink,#2A2038); border-bottom:1px solid #EADFC6; }
+    .welcome[open] .welcome-sum{ color:var(--ink,#2A2038); border-bottom:1px solid var(--dk-rule,#EADFC6); }
     .wl-badge{ font-size:19px; line-height:1; }
     .wl-sumtxt{ flex:1; font:600 14px/1.35 -apple-system,system-ui,sans-serif; } .wl-sumtxt b{ font-weight:800; }
     .wl-chev{ transition:transform .2s; opacity:.6; } .welcome[open] .wl-chev{ transform:rotate(180deg); }
-    .welcome-body{ padding:14px 15px 16px; font-size:15px; line-height:1.55; color:#4d4658; }
+    .welcome-body{ padding:14px 15px 16px; font-size:15px; line-height:1.55; color:var(--dk-soft,#4d4658); }
     .welcome-body p{ margin:0 0 .7em; } .welcome-body p:last-child{ margin-bottom:0; }
     .welcome-body b{ color:var(--ink,#2A2038); }
     .wl-play{ display:inline-flex; align-items:center; gap:9px; border:0; cursor:pointer; background:var(--grad-sky-app); color:#fff; font:800 14.5px -apple-system,system-ui,sans-serif; padding:.7em 1.25em; border-radius:999px; margin:0 0 13px; box-shadow:0 4px 13px rgba(46,132,189,.32); transition:transform .15s ease; }
@@ -48,17 +62,17 @@
     /* ---- "For today" feed ---- */
     .today-head{ display:flex; align-items:center; justify-content:space-between; margin:0 0 12px; }
     .daily-lead{ font-weight:800; font-size:1.22em; letter-spacing:-.02em; color:var(--ink,#2A2038); }
-    .today-shuffle{ cursor:pointer; font:800 .8em -apple-system,system-ui,sans-serif; color:var(--gold-deep); background:#fff; border:1.5px solid #EADFC6; border-radius:999px; display:inline-flex; gap:.45em; align-items:center; padding:.5em .95em; box-shadow:0 2px 4px rgba(60,45,20,.06); transition:transform .15s ease, border-color .15s ease; }
+    .today-shuffle{ cursor:pointer; font:800 .8em -apple-system,system-ui,sans-serif; color:var(--gold-deep); background:var(--paper-card); border:1.5px solid var(--dk-rule,#EADFC6); border-radius:999px; display:inline-flex; gap:.45em; align-items:center; padding:.5em .95em; box-shadow:0 2px 4px rgba(60,45,20,.06); transition:transform .15s ease, border-color .15s ease; }
     .today-shuffle:hover{ border-color:var(--gold); } .today-shuffle:active{ transform:scale(.95); }
     .today-list{ display:flex; flex-direction:column; gap:.7em; margin-bottom:30px; }
-    .today-bar{ position:relative; display:flex; align-items:stretch; width:100%; border:none; padding:0; cursor:pointer; text-align:left; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 10px 24px rgba(60,45,20,.09); transition:transform .15s cubic-bezier(0.34,1.56,0.64,1), box-shadow .15s ease; }
+    .today-bar{ position:relative; display:flex; align-items:stretch; width:100%; border:none; padding:0; cursor:pointer; text-align:left; background:var(--paper-card); border-radius:16px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 10px 24px rgba(60,45,20,.09); transition:transform .15s cubic-bezier(0.34,1.56,0.64,1), box-shadow .15s ease; }
     .today-bar::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; z-index:3; background:linear-gradient(180deg,var(--tc),var(--tcd)); }
     .today-bar:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(60,45,20,.13); }
     .today-bar:active{ transform:scale(.99); }
     .today-bar .tb-text{ flex:1; min-width:0; padding:.85em 1em .85em 1.2em; display:flex; flex-direction:column; justify-content:center; gap:.22em; }
-    .today-bar .tb-kicker{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--tcd); display:inline-flex; gap:.4em; align-items:center; }
+    .today-bar .tb-kicker{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--t-ink); display:inline-flex; gap:.4em; align-items:center; }
     .today-bar .tb-title{ font-weight:800; font-size:1.05em; letter-spacing:-.01em; color:var(--ink,#2A2038); line-height:1.18; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .today-bar .tb-teaser{ font-size:.88em; color:#7a7488; line-height:1.34; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .today-bar .tb-teaser{ font-size:.88em; color:var(--dk-mute,#7a7488); line-height:1.34; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
     .today-bar .tb-photo{ flex:none; width:92px; align-self:stretch; position:relative; overflow:hidden; background:linear-gradient(150deg,var(--tc),var(--tcd)); }
     .today-bar .tb-glyph{ position:absolute; inset:0; display:grid; place-items:center; font-size:2rem; color:#fff; z-index:0; filter:drop-shadow(0 1px 2px rgba(0,0,0,.3)); }
     .today-bar .tb-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
@@ -67,24 +81,24 @@
     .cm-modal-overlay{ position:fixed; inset:0; z-index:80; background:rgba(30,22,15,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center;
       padding:max(36px,calc(env(safe-area-inset-top) + 20px)) 24px max(36px,calc(env(safe-area-inset-bottom) + 20px)); opacity:0; pointer-events:none; transition:opacity .2s ease; }
     .cm-modal-overlay.open{ opacity:1; pointer-events:auto; }
-    .cm-modal{ position:relative; width:100%; max-width:440px; max-height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; background:#fff; border-radius:22px; box-shadow:0 24px 64px rgba(0,0,0,.38);
+    .cm-modal{ position:relative; width:100%; max-width:440px; max-height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--paper-card); border-radius:22px; box-shadow:0 24px 64px rgba(0,0,0,.38);
       transform:scale(.9); opacity:0; transition:transform .26s cubic-bezier(0.34,1.56,0.64,1), opacity .18s ease; }
     .cm-modal-overlay.open .cm-modal{ transform:scale(1); opacity:1; }
     .cm-mhead{ padding:22px 22px 16px; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); }
     .cm-mkicker{ display:inline-flex; align-items:center; gap:.5em; font:800 11px/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; opacity:.95; }
     .cm-mtitle{ margin:.5em 0 0; font-weight:800; font-size:clamp(22px,5.5vw,28px); letter-spacing:-.02em; line-height:1.12; }
-    .cm-mbody{ padding:20px 22px 26px; color:#3a3448; font-size:16px; line-height:1.6; }
+    .cm-mbody{ padding:20px 22px 26px; color:var(--dk-soft,#3a3448); font-size:16px; line-height:1.6; }
     .cm-mbody p{ margin:0 0 .9em; } .cm-mbody p:last-child{ margin-bottom:0; }
     .cm-quote{ font-size:1.28em; font-weight:600; line-height:1.4; color:var(--ink,#2A2038); }
     .cm-verse{ white-space:pre-wrap; font-size:1.05em; line-height:1.55; color:var(--ink,#2A2038); }
-    .cm-source{ margin-top:.4em; font-weight:700; color:var(--mcd,#8A5A0F); }
-    .cm-note{ margin-top:1em; padding-top:.9em; border-top:1px solid #EEE7DA; font-size:.92em; color:#7a7488; font-style:italic; }
+    .cm-source{ margin-top:.4em; font-weight:700; color:var(--mc-ink); }
+    .cm-note{ margin-top:1em; padding-top:.9em; border-top:1px solid var(--dk-rule,#EEE7DA); font-size:.92em; color:var(--dk-mute,#7a7488); font-style:italic; }
     .cm-word-line{ display:flex; gap:.6em; margin:0 0 .55em; font-size:.98em; }
-    .cm-word-line b{ flex:none; width:5.5em; color:var(--mcd,#8A5A0F); }
+    .cm-word-line b{ flex:none; width:5.5em; color:var(--mc-ink); }
     .cm-morelink{ display:inline-block; margin-top:1.1em; font:800 14px -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(140deg,var(--mc,#C6811A),var(--mcd,#8A5A0F)); padding:.6em 1.15em; border-radius:999px; text-decoration:none; }
     .cm-opts{ display:grid; gap:.55em; margin:1.2em 0 .2em; }
     .cm-opt{ text-align:left; cursor:pointer; font:700 15px -apple-system,system-ui,sans-serif; color:var(--ink,#2A2038);
-      background:#fff; border:1.8px solid #E4DED6; padding:.8em 1em; border-radius:14px; line-height:1.35;
+      background:var(--paper-card); border:1.8px solid var(--dk-rule,#E4DED6); padding:.8em 1em; border-radius:14px; line-height:1.35;
       transition:transform .18s cubic-bezier(0.34,1.56,0.64,1), border-color .18s, background .18s; }
     .cm-opt:not(:disabled):hover{ transform:translateY(-2px); border-color:var(--mc,#D6455E); }
     .cm-opt:disabled{ cursor:default; }
@@ -92,30 +106,86 @@
     .cm-opt.wrong{ opacity:.55; }
     .cm-opt.chosen.wrong{ opacity:1; border-color:#D6455E; background:#FDF0F2; color:#9B2740; }
     .cm-opt .mark{ float:right; font-weight:900; }
-    .cm-explain{ margin-top:1.1em; padding:.9em 1.05em; border-radius:14px; background:#FBF7F1;
+    .cm-explain{ margin-top:1.1em; padding:.9em 1.05em; border-radius:14px; background:var(--dk-tint,#FBF7F1);
       border-left:4px solid var(--mc,#D6455E); font-size:.97em; line-height:1.5; }
-    .cm-read{ display:inline-flex; align-items:center; gap:.5em; margin-top:1.1em; margin-right:.6em; cursor:pointer; font:800 14px -apple-system,system-ui,sans-serif; color:var(--mcd,#8A5A0F); background:#fff; border:1.6px solid currentColor; padding:.55em 1.05em; border-radius:999px; }
+    .cm-read{ display:inline-flex; align-items:center; gap:.5em; margin-top:1.1em; margin-right:.6em; cursor:pointer; font:800 14px -apple-system,system-ui,sans-serif; color:var(--mc-ink); background:var(--paper-card); border:1.6px solid currentColor; padding:.55em 1.05em; border-radius:999px; }
     .cm-mclose{ position:absolute; top:14px; right:14px; z-index:2; width:34px; height:34px; border-radius:50%; border:0; cursor:pointer; background:rgba(255,255,255,.22); color:#fff; font-size:20px; line-height:34px; text-align:center; }
 
     /* ---- School photo tiles (Conscious Parenting style) ---- */
-    .stile{ position:relative; display:block; text-decoration:none; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 12px 26px rgba(60,45,20,.10); transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s ease; }
+    .stile{ position:relative; display:block; text-decoration:none; background:var(--paper-card); border-radius:18px; overflow:hidden; box-shadow:0 2px 4px rgba(60,45,20,.07),0 12px 26px rgba(60,45,20,.10); transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s ease; }
     .stile::before{ content:""; position:absolute; inset:0; border-radius:inherit; padding:2px; background:linear-gradient(135deg,var(--c),var(--cd)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:4; }
     .stile:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(60,45,20,.16); }
     .stile:active{ transform:scale(.99); }
     .stile-photo{ position:relative; height:118px; background:linear-gradient(150deg,var(--c),var(--cd)); overflow:hidden; }
     .stile-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
     .stile-photo::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 52%,rgba(0,0,0,.30)); }
-    .stile-badge{ position:absolute; left:13px; top:94px; z-index:3; width:46px; height:46px; border-radius:13px; background:linear-gradient(150deg,var(--c),var(--cd)); display:grid; place-items:center; box-shadow:0 3px 9px rgba(0,0,0,.26); border:2.5px solid #fff; }
+    .stile-badge{ position:absolute; left:13px; top:94px; z-index:3; width:46px; height:46px; border-radius:13px; background:linear-gradient(150deg,var(--c),var(--cd)); display:grid; place-items:center; box-shadow:0 3px 9px rgba(0,0,0,.26); border:2.5px solid var(--paper-card); }
     .stile-badge svg{ width:27px; height:27px; color:#fff; }
     .stile-body{ padding:28px 15px 15px; }
     .stile-name{ font-weight:800; font-size:1.08em; letter-spacing:-.01em; color:var(--ink,#2A2038); }
-    .stile-tagline{ margin-top:.22em; font-size:.9em; line-height:1.35; color:#6b6478; }
+
+    /* ---- The logo IS the dark-mode toggle (home page only) ---- */
+    .abico-btn{ justify-self:start; position:relative; display:block; padding:0; border:0; background:none; cursor:pointer;
+      line-height:0; border-radius:11px; -webkit-tap-highlight-color:transparent;
+      transition:transform .18s cubic-bezier(.34,1.56,.64,1); }
+    .abico-btn:hover{ transform:scale(1.06) rotate(-3deg); }
+    .abico-btn:active{ transform:scale(.93); }
+    .abico-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+    .abico-btn .abico{ display:block; }
+    /* Small moon/sun badge on the corner of the logo, so it reads as a switch
+       rather than a decoration. Moon while light, sun while dark. */
+    .abico-badge{ position:absolute; right:-4px; bottom:-4px; width:17px; height:17px; border-radius:50%;
+      background:#fff; color:#3F8FCB; display:grid; place-items:center;
+      box-shadow:0 1px 4px rgba(0,0,0,.32); }
+    .abico-badge svg{ width:11px; height:11px; display:block; }
+    .abico-badge .ab-sun{ display:none; }
+    [data-theme="dark"] .abico-badge{ background:#FFDD7A; color:#4A3410; }
+    [data-theme="dark"] .abico-badge .ab-moon{ display:none; }
+    [data-theme="dark"] .abico-badge .ab-sun{ display:block; }
+
+    /* ---- Dark-mode touch-ups: the few spots no variable reaches ---- */
+    /* Brand accents on the home page are declared on <body>, so they need a
+       more specific rule to flip. The gold/sky hues stay — they just lift
+       enough to read as text on a dark ground. */
+    /* The launcher's muted greys and hairlines are written as
+       var(--dk-*, <original light value>). The --dk-* variables exist ONLY in
+       dark mode, so light mode keeps its exact original colours and dark mode
+       picks up the theme neutrals. */
+    [data-theme="dark"] body{
+      --dk-mute:var(--ink-mute); --dk-soft:var(--ink-soft);
+      --dk-rule:var(--rule);     --dk-tint:var(--paper-surface);
+      --gold:#F2C35E; --gold-deep:#F0BE6A; --grad-gold:linear-gradient(135deg,#F2C35E,#C6811A);
+      --sky:#6FBEEC; --sky-deep:#8ED0F2; --grad-sky-app:linear-gradient(135deg,#1E4463,#152F45);
+    }
+    /* The app bar drops the daylight blue and becomes a night band, so the top
+       of the app isn't a bright slab at 11pm. */
+    [data-theme="dark"] .appbar{ box-shadow:0 1px 0 var(--rule), 0 2px 14px rgba(0,0,0,.5); }
+    [data-theme="dark"] .appbar .brand{ text-shadow:none; }
+
+    /* "New here?" card: warm cream gradient -> warm dark panel. */
+    [data-theme="dark"] .welcome{ background:linear-gradient(135deg,#2C2417,#221C13); border-color:#443722; }
+    [data-theme="dark"] .welcome[open]{ background:var(--paper-card); border-color:var(--rule); }
+    [data-theme="dark"] .welcome-sum{ color:#F0C97A; }
+
+    /* Daily modal: --mc/--mcd are written inline per card, so the readable
+       text colour is derived from them rather than overridden. */
+    .cm-mbody{ --mc-ink:var(--mcd,#8A5A0F); }
+    [data-theme="dark"] .cm-mbody{ --mc-ink:color-mix(in srgb, var(--mc,#C6811A) 58%, #FFFFFF); }
+
+    .stile-tagline{ margin-top:.22em; font-size:.9em; line-height:1.35; color:var(--dk-mute,#6b6478); }
   </style>
 </head>
 <body class="launcher">
   <div class="appbar">
     <div class="row">
-      <img src="icon-192.png" alt="" class="abico">
+      <button type="button" class="abico-btn" id="themeToggle" aria-pressed="false"
+              title="Switch to dark mode" aria-label="Switch to dark mode">
+        <img src="icon-192.png" alt="Classical Mind" class="abico">
+        <span class="abico-badge" aria-hidden="true">
+          <svg class="ab-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="ab-sun" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4.6"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1.6v2.6M12 19.8v2.6M1.6 12h2.6M19.8 12h2.6M4.6 4.6l1.9 1.9M17.5 17.5l1.9 1.9M19.4 4.6l-1.9 1.9M6.5 17.5l-1.9 1.9"/></g></svg>
+        </span>
+      </button>
       <span class="brand">Classical Mind</span>
       <button class="hbtn" onclick="openInstall()" title="Add to Home Screen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l-4 4M12 3l4 4"/><path d="M4 13v6a2 2 0 002 2h12a2 2 0 002-2v-6"/></svg>
@@ -632,6 +702,37 @@
       if (deferredInstallPrompt) { deferredInstallPrompt.prompt(); deferredInstallPrompt.userChoice.finally(() => { deferredInstallPrompt = null; }); return; }
       alert('To add to your home screen:\n\niPhone/iPad — tap the Share icon at the bottom of Safari, then "Add to Home Screen".\n\nAndroid — tap the ⋮ menu in Chrome, then "Add to Home screen".');
     }
+  
+    /* ---------- Dark mode ----------
+       The logo in the top-left is the only switch in the app. Tapping it
+       writes the choice to localStorage; every page reads that on load (see
+       the bootstrap script in <head>), so one tap here changes the whole app
+       and it stays that way until it's tapped again. */
+    (function () {
+      var KEY = 'classicalmind.theme';
+      var btn = document.getElementById('themeToggle');
+      var meta = document.querySelector('meta[name="theme-color"]');
+
+      function paint(theme) {
+        var dark = theme === 'dark';
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (meta) meta.setAttribute('content', dark ? '#17141F' : '#3F8FCB');
+        if (!btn) return;
+        var label = dark ? 'Switch to light mode' : 'Switch to dark mode';
+        btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        btn.setAttribute('aria-label', label);
+        btn.title = label;
+      }
+
+      paint(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+      if (btn) btn.addEventListener('click', function () {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+        paint(next);
+      });
+    })();
+
   </script>
 </body>
 </html>

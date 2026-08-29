@@ -8,32 +8,46 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v64">
+  <link rel="stylesheet" href="assets/style.css?v65">
+  <!-- Theme, applied before first paint so a dark-mode load never flashes
+       white. The choice lives in localStorage and is set ONLY by the logo
+       toggle in the top-left of the home page; the OS setting is deliberately
+       ignored so the toggle is the single source of truth. -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', '#17141F');
+      } catch (e) {}
+    })();
+  </script>
   <style>
     body{ --c:#3F6FB0; --cd:#294E85; --cs:#E6EEF8; }
     .fl-main{ max-width:640px; margin:0 auto; padding:4em 1.2em calc(40px + env(safe-area-inset-bottom)); }
     .fl-hero{ margin:0 0 18px; }
-    .fl-hero .fl-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--cd); margin-bottom:9px; }
+    .fl-hero .fl-eyebrow{ font:800 12px/1 var(--sans); letter-spacing:.12em; text-transform:uppercase; color:var(--c-ink); margin-bottom:9px; }
     .fl-hero h1{ font-weight:800; font-size:clamp(26px,6.5vw,34px); letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
     .fl-hero p{ margin:.5em 0 0; font-size:15px; line-height:1.5; color:var(--ink-soft); max-width:54ch; }
 
-    .fl-tabs{ display:flex; gap:8px; margin:18px 0 20px; background:var(--cs); padding:5px; border-radius:14px; }
-    .fl-tab{ flex:1; cursor:pointer; border:0; background:transparent; color:var(--cd); font:800 15px var(--sans); padding:.7em; border-radius:10px; transition:all .15s ease; }
-    .fl-tab.active{ background:#fff; color:var(--ink); box-shadow:var(--shadow-sm); }
+    .fl-tabs{ display:flex; gap:8px; margin:18px 0 20px; background:var(--c-tint); padding:5px; border-radius:14px; }
+    .fl-tab{ flex:1; cursor:pointer; border:0; background:transparent; color:var(--c-ink); font:800 15px var(--sans); padding:.7em; border-radius:10px; transition:all .15s ease; }
+    .fl-tab.active{ background:var(--paper-card); color:var(--ink); box-shadow:var(--shadow-sm); }
 
     /* Practice */
     .fl-score{ display:flex; gap:16px; margin:0 0 14px; font:800 .82em var(--sans); color:var(--ink-mute); }
-    .fl-score b{ color:var(--cd); }
-    .fl-qcard{ background:#fff; border:1.5px solid var(--rule); border-radius:18px; box-shadow:var(--shadow-sm); padding:20px 18px; }
-    .fl-qlabel{ font:800 .72rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--cd); margin-bottom:10px; }
+    .fl-score b{ color:var(--c-ink); }
+    .fl-qcard{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:18px; box-shadow:var(--shadow-sm); padding:20px 18px; }
+    .fl-qlabel{ font:800 .72rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--c-ink); margin-bottom:10px; }
     .fl-q{ font-size:1.18em; line-height:1.4; font-weight:700; color:var(--ink); font-style:italic; margin-bottom:18px; }
     .fl-opts{ display:flex; flex-direction:column; gap:9px; }
-    .fl-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule); border-radius:12px; padding:13px 15px; font:700 1em var(--sans); color:var(--ink); transition:border-color .12s ease, background .12s ease; }
+    .fl-opt{ text-align:left; cursor:pointer; background:var(--paper-card); border:1.5px solid var(--rule); border-radius:12px; padding:13px 15px; font:700 1em var(--sans); color:var(--ink); transition:border-color .12s ease, background .12s ease; }
     .fl-opt:hover:not(:disabled){ border-color:var(--c); }
     .fl-opt:disabled{ cursor:default; }
     .fl-opt.correct{ border-color:#1F8F5E; background:#E7F6EE; color:#13603f; }
     .fl-opt.wrong{ border-color:#D9534F; background:#FBEAEA; color:#a3312d; }
-    .fl-fb{ margin-top:16px; padding:14px 15px; border-radius:13px; background:var(--cs); line-height:1.5; }
+    .fl-fb{ margin-top:16px; padding:14px 15px; border-radius:13px; background:var(--c-tint); line-height:1.5; }
     .fl-fb-name{ font-weight:800; color:var(--ink); font-size:1.05em; }
     .fl-fb-def{ color:var(--ink-soft); font-size:.95em; margin-top:5px; }
     .fl-fb-why{ color:var(--ink-mute); font-size:.9em; margin-top:6px; font-style:italic; }
@@ -42,7 +56,7 @@
 
     /* Learn */
     .fl-learn{ display:flex; flex-direction:column; gap:.55em; }
-    .fl-item{ background:#fff; border:1.5px solid var(--rule); border-radius:14px; overflow:hidden; }
+    .fl-item{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:14px; overflow:hidden; }
     .fl-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:9px; padding:14px 16px; }
     .fl-sum::-webkit-details-marker{ display:none; }
     .fl-num{ font:800 .8em var(--sans); color:var(--ink-mute); opacity:.55; }
@@ -53,8 +67,8 @@
     .fl-detail{ padding:0 16px 16px; }
     .fl-detail .d-def{ font-size:1em; color:var(--ink); line-height:1.5; }
     .fl-detail .d-why{ font-size:.92em; color:var(--ink-mute); font-style:italic; margin-top:7px; line-height:1.5; }
-    .fl-detail .d-eg-label{ font:800 .68rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--cd); margin:13px 0 6px; }
-    .fl-detail .d-eg{ background:var(--cs); border-radius:10px; padding:9px 12px; font-size:.95em; font-style:italic; color:var(--ink-soft); line-height:1.4; margin-bottom:6px; }
+    .fl-detail .d-eg-label{ font:800 .68rem var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--c-ink); margin:13px 0 6px; }
+    .fl-detail .d-eg{ background:var(--c-tint); border-radius:10px; padding:9px 12px; font-size:.95em; font-style:italic; color:var(--ink-soft); line-height:1.4; margin-bottom:6px; }
   </style>
 </head>
 <body class="method-page">

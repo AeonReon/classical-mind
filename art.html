@@ -8,8 +8,25 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v64">
+  <link rel="stylesheet" href="assets/style.css?v65">
+  <!-- Theme, applied before first paint so a dark-mode load never flashes
+       white. The choice lives in localStorage and is set ONLY by the logo
+       toggle in the top-left of the home page; the OS setting is deliberately
+       ignored so the toggle is the single source of truth. -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', '#17141F');
+      } catch (e) {}
+    })();
+  </script>
   <style>
+    /* --dk-card exists only in dark mode, so light keeps its exact
+       original off-white and dark gets the night card surface. */
+    [data-theme="dark"] body{ --dk-card:var(--paper-card); }
     /* ============================================================
        One-page topic template. Everything about a School or an Art
        on a single scrolling page — but broken into drop-down
@@ -48,13 +65,13 @@
     /* At a glance — scannable chips: when, where, who, the one idea */
     .op-glance{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0 4px; }
     .op-glance.one{ grid-template-columns:1fr; }
-    .op-gcard{ background:#fff; border-radius:14px; padding:12px 14px; box-shadow:0 2px 4px rgba(60,45,20,.05),0 7px 18px rgba(60,45,20,.06); }
+    .op-gcard{ background:var(--paper-card); border-radius:14px; padding:12px 14px; box-shadow:0 2px 4px rgba(60,45,20,.05),0 7px 18px rgba(60,45,20,.06); }
     .op-gcard.wide{ grid-column:1 / -1; }
-    .op-gk{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--m-deep,#2F4550); opacity:.8; }
+    .op-gk{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--m-ink); opacity:.8; }
     .op-gv{ margin-top:.4em; font-size:.98em; line-height:1.4; font-weight:600; color:var(--ink,#2A2038); }
 
     /* ---- Section drop-downs — the backbone of the page ---- */
-    .op-drop{ background:#fff; border-radius:18px; margin:14px 0 0; overflow:hidden;
+    .op-drop{ background:var(--paper-card); border-radius:18px; margin:14px 0 0; overflow:hidden;
       box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.07); }
     .op-drop > summary{ list-style:none; cursor:pointer; padding:17px 18px; display:flex; align-items:center; gap:13px; -webkit-tap-highlight-color:transparent; }
     .op-drop > summary::-webkit-details-marker{ display:none; }
@@ -62,10 +79,10 @@
     .op-sum-title{ display:flex; align-items:center; gap:.55em; font-weight:800; font-size:1.12em; letter-spacing:-.015em; color:var(--ink,#2A2038); line-height:1.2; }
     .op-sum-title::before{ content:""; flex:none; width:9px; height:9px; border-radius:3px; background:linear-gradient(150deg,var(--m-color),var(--m-deep)); }
     .op-count{ font:800 .62rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.03em; text-transform:uppercase;
-      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); padding:.42em .62em; border-radius:999px; }
+      color:var(--m-ink); background:var(--m-tint); padding:.42em .62em; border-radius:999px; }
     .op-sub{ font-weight:600; font-size:.83em; color:var(--ink-mute,#7a7488); margin-top:.28em; letter-spacing:0; }
     .op-chev{ margin-left:auto; flex:none; width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
-      color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); font-weight:800; transition:transform .22s ease; }
+      color:var(--m-ink); background:var(--m-tint); font-weight:800; transition:transform .22s ease; }
     .op-drop[open] > summary .op-chev{ transform:rotate(90deg); }
     .op-drop-body{ padding:0 18px 18px; }
     .op-drop-body .op-intro{ margin:0 0 15px; }
@@ -81,18 +98,18 @@
       font:800 .9em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(150deg,var(--m-color),var(--m-deep)); }
     .op-idea h3{ margin:0; font-weight:800; font-size:1.1em; letter-spacing:-.015em; line-height:1.24; color:var(--ink,#2A2038); }
     .op-idea p{ margin:.5em 0 0; font-size:.99em; line-height:1.56; color:var(--ink-soft,#4d4658); }
-    .op-why{ margin:.7em 0 0; padding:.7em .9em; border-radius:11px; background:#fff; box-shadow:0 1px 3px rgba(60,45,20,.06);
+    .op-why{ margin:.7em 0 0; padding:.7em .9em; border-radius:11px; background:var(--paper-card); box-shadow:0 1px 3px rgba(60,45,20,.06);
       font-size:.93em; line-height:1.5; color:var(--ink-soft,#3f3a4c); }
-    .op-why b{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); display:block; margin-bottom:.35em; }
+    .op-why b{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-ink); display:block; margin-bottom:.35em; }
 
     /* Remember it by — visible highlight that breaks the page in half */
     .op-remember{ position:relative; border-radius:18px; padding:18px 20px 18px 22px; margin:22px 0 6px; overflow:hidden;
-      background:linear-gradient(155deg,var(--m-soft,#E3ECF0),#FFFDF9); box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.06); }
+      background:linear-gradient(155deg,var(--m-tint),var(--dk-card,#FFFDF9)); box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.06); }
     .op-remember::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:linear-gradient(180deg,var(--m-color),var(--m-deep)); }
-    .op-remember .op-rk{ font:800 .68rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
+    .op-remember .op-rk{ font:800 .68rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--m-ink); }
     .op-remember p{ margin:.5em 0 0; font-size:1.05em; line-height:1.55; color:var(--ink,#2A2038); }
     .op-remember p + p{ margin-top:.55em; font-size:.98em; color:var(--ink-soft,#4d4658); }
-    .op-remember b{ color:var(--m-deep,#2F4550); }
+    .op-remember b{ color:var(--m-ink); }
 
     /* Key figures — compact people rows, ready to take a portrait later */
     .op-fig{ display:flex; gap:13px; align-items:flex-start; padding:13px 0; border-bottom:1px solid var(--rule,#EADFC6); }
@@ -108,7 +125,7 @@
     /* Path stages — bullets, a change of texture from the cards */
     .op-stage{ margin:0 0 16px; }
     .op-stage:last-child{ margin-bottom:0; }
-    .op-stage h4{ margin:0 0 .55em; font-weight:800; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); }
+    .op-stage h4{ margin:0 0 .55em; font-weight:800; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--m-ink); }
     .op-stage ul{ margin:0; padding-left:1.1em; list-style:none; }
     .op-stage li{ position:relative; font-size:.97em; line-height:1.55; color:var(--ink-soft,#4d4658); margin:0 0 .5em; padding-left:.2em; }
     .op-stage li::before{ content:""; position:absolute; left:-.85em; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--m-color); }
@@ -136,48 +153,48 @@
     .op-tag{ display:inline-block; font:800 .58rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase;
       padding:.35em .6em; border-radius:999px; margin-right:.5em; vertical-align:.08em; }
     .op-tag.primary{ color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
-    .op-tag.onramp{ color:var(--m-deep,#2F4550); background:var(--m-soft,#E3ECF0); }
+    .op-tag.onramp{ color:var(--m-ink); background:var(--m-tint); }
 
     /* Section label (used above the FAQ group) */
     .op-label{ font:800 .8rem/1.1 -apple-system,system-ui,sans-serif; letter-spacing:.05em; text-transform:uppercase;
-      color:var(--m-deep,#2F4550); margin:30px 0 4px; display:flex; align-items:center; gap:.7em; }
+      color:var(--m-ink); margin:30px 0 4px; display:flex; align-items:center; gap:.7em; }
     .op-label::after{ content:""; flex:1; height:2px; border-radius:2px; background:linear-gradient(90deg,color-mix(in srgb, var(--m-color) 50%, transparent),transparent); }
 
     /* Read aloud + back */
     .op-actions{ display:flex; align-items:center; gap:12px; margin:30px 0 0; flex-wrap:wrap; }
     .op-read{ display:inline-flex; align-items:center; gap:.5em; cursor:pointer; font:800 .96em -apple-system,system-ui,sans-serif;
-      color:var(--m-deep,#2F4550); background:#fff; border:1.7px solid currentColor; padding:.62em 1.2em; border-radius:999px; box-shadow:0 2px 5px rgba(60,45,20,.08); }
+      color:var(--m-ink); background:var(--paper-card); border:1.7px solid currentColor; padding:.62em 1.2em; border-radius:999px; box-shadow:0 2px 5px rgba(60,45,20,.08); }
     .op-back{ font:700 .92em -apple-system,system-ui,sans-serif; color:var(--ink-mute,#7a7488); text-decoration:none; }
 
     /* The bigger picture — a philosophy's own cosmos/worldview, in its own voice */
     .op-world p{ font-size:1.01em; line-height:1.64; color:var(--ink-soft,#4d4658); margin:0 0 .85em; }
     .op-world p:first-child{ margin-top:2px; }
     .op-world p:last-child{ margin-bottom:0; }
-    .op-world p:first-child::first-letter{ font-weight:800; font-size:1.15em; color:var(--m-deep,#2F4550); }
+    .op-world p:first-child::first-letter{ font-weight:800; font-size:1.15em; color:var(--m-ink); }
 
     /* Interactive "test yourself" (reuses tryit data) */
     .tryit-q{ font-weight:700; color:var(--ink); font-size:1.02em; line-height:1.4; margin-bottom:12px; }
     .tryit-opts{ display:flex; flex-direction:column; gap:8px; }
-    .tryit-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule,#EADFC6); border-radius:12px; padding:11px 13px; font:600 .98em -apple-system,system-ui,sans-serif; color:var(--ink); }
+    .tryit-opt{ text-align:left; cursor:pointer; background:var(--paper-card); border:1.5px solid var(--rule,#EADFC6); border-radius:12px; padding:11px 13px; font:600 .98em -apple-system,system-ui,sans-serif; color:var(--ink); }
     .tryit-opt.correct{ border-color:#1F8F5E; background:#E7F6EE; color:#13603f; font-weight:800; }
     .tryit-opt.wrong{ border-color:#D9534F; background:#FBEAEA; color:#a3312d; }
-    .tryit-fb{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); font-size:.93em; line-height:1.5; }
+    .tryit-fb{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-tint); color:var(--ink-soft); font-size:.93em; line-height:1.5; }
     .tryit-fb.ok{ background:#E7F6EE; }
     .tryit-card{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
     .tryit-card:first-child{ padding-top:2px; }
     .tryit-card:last-child{ border-bottom:0; }
     .tryit-hint{ font-size:.9em; color:var(--ink-mute); font-style:italic; margin-bottom:10px; }
     .tryit-reveal-btn, .tryit-mem-btn{ cursor:pointer; border:0; border-radius:999px; padding:.55em 1.1em; font:800 .88em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(135deg,var(--m-color),var(--m-deep)); }
-    .tryit-reveal{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); line-height:1.55; }
-    .tryit-mem-label{ font:800 .7rem -apple-system,system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--m-deep); margin-bottom:8px; }
+    .tryit-reveal{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-tint); color:var(--ink-soft); line-height:1.55; }
+    .tryit-mem-label{ font:800 .7rem -apple-system,system-ui,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--m-ink); margin-bottom:8px; }
     .tryit-mem-text{ font-size:1.08em; line-height:1.5; color:var(--ink); transition:filter .2s ease; }
     .tryit-mem-text.blurred{ filter:blur(7px); user-select:none; }
-    .tryit-mem-src{ margin-top:8px; font-weight:700; color:var(--m-deep); font-size:.9em; }
+    .tryit-mem-src{ margin-top:8px; font-weight:700; color:var(--m-ink); font-size:.9em; }
     .tryit-mem-btn{ margin-top:11px; }
 
     /* Watch — curated YouTube. Facade only: a thumbnail until tapped, then the
        real player is injected. Keeps the page fast and sets no cookies on load. */
-    .op-vid{ position:relative; border-radius:16px; overflow:hidden; background:#fff;
+    .op-vid{ position:relative; border-radius:16px; overflow:hidden; background:var(--paper-card);
       border:1.5px solid var(--rule,#EADFC6); margin:0 0 14px; }
     .op-vid:last-child{ margin-bottom:0; }
     .op-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer;
@@ -195,12 +212,12 @@
     .op-vid iframe{ display:block; width:100%; aspect-ratio:16/9; border:0; }
     .op-vid-tt{ padding:13px 15px 14px; }
     .op-vid-name{ font:800 1.02em/1.32 -apple-system,system-ui,sans-serif; color:var(--ink,#2A2038); letter-spacing:-.01em; }
-    .op-vid-meta{ margin-top:5px; font:700 .84em -apple-system,system-ui,sans-serif; color:var(--m-deep,#2F4550); }
+    .op-vid-meta{ margin-top:5px; font:700 .84em -apple-system,system-ui,sans-serif; color:var(--m-ink); }
     .op-vid-meta .op-vid-views{ color:var(--ink-mute,#7a7488); font-weight:600; }
     .op-vid-why{ margin:9px 0 0; font-size:.95em; line-height:1.55; color:var(--ink-soft,#4d4658); }
-    .op-vid-note{ margin-top:10px; padding:9px 11px; border-radius:10px; background:var(--m-soft,#E3ECF0);
+    .op-vid-note{ margin-top:10px; padding:9px 11px; border-radius:10px; background:var(--m-tint);
       font-size:.87em; line-height:1.5; color:var(--ink-soft,#4d4658); }
-    .op-vid-note b{ color:var(--m-deep,#2F4550); }
+    .op-vid-note b{ color:var(--m-ink); }
     .op-vid-out{ display:inline-block; margin-top:10px; font:700 .86em -apple-system,system-ui,sans-serif;
       color:var(--ink-mute,#7a7488); text-decoration:none; }
   </style>
