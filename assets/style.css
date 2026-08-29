@@ -188,7 +188,7 @@ header.site {
   border-bottom: 1px solid var(--rule);
   padding: 0.7em 1.2em;
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   z-index: 50;
 }
 header.site .wrap {
@@ -776,7 +776,7 @@ button.primary-fill::before, .btn.primary-fill::before { display: none; }
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-sm);
   position: sticky;
-  top: 64px;
+  top: calc(64px + env(safe-area-inset-top, 0px));
   z-index: 20;
 }
 .tab-btn {
@@ -1867,3 +1867,46 @@ body { --page-glow: var(--m-soft, var(--sky-soft)); }
 [data-theme="dark"] .tryit-opt.correct { border-color: #3FBE86; background: #14352A; color: #7FE0B4; }
 [data-theme="dark"] .tryit-opt.wrong   { border-color: #E0706C; background: #38191B; color: #F0A19D; }
 [data-theme="dark"] .tryit-fb.ok       { background: #14352A; color: #7FE0B4; }
+
+/* =========================================================================
+   THE STATUS-BAR STRIP
+   With apple-mobile-web-app-status-bar-style: black-translucent the web view
+   runs UNDER the clock, so env(safe-area-inset-top) is a real number and the
+   PAGE paints that band. That takes iOS out of the loop entirely — no
+   theme-color meta, no manifest theme_color, nothing captured at install
+   time. It's an ordinary CSS variable, so it flips with data-theme the
+   instant you tap the logo, exactly like the rest of the app.
+
+   ONE mechanism on EVERY page: this band, and matching top padding so
+   nothing hides behind it. On anything that isn't a notched phone in
+   standalone the inset is 0px, the band has no height, and none of this is
+   visible — so desktop and Safari are untouched.
+
+   The light value is the app's own sky blue, not the cream paper, and that
+   is forced: black-translucent draws the clock, signal and battery WHITE
+   with no light variant, so a cream strip would make them disappear. Days
+   Out NI carries a blue strip in light mode for the same reason.
+   ========================================================================= */
+/* These two are chosen for the CLOCK, which black-translucent always draws
+   white. White on #2E7FB6 is 4.4:1 and on #17141F it's ~18:1, both readable.
+   The app's lighter sky #5FB1DD would only give the clock 2.4:1 — washed out.
+   The dark value is the page's own paper, so on inner pages the band is
+   seamless; in light it reads as a deep-sky bar above the cream, which is
+   what Days Out NI does and why its clock stays legible. */
+:root                  { --chrome: #2E7FB6; }
+[data-theme="dark"]    { --chrome: #17141F; }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--chrome);
+  z-index: 100;
+  pointer-events: none;
+}
+body { padding-top: env(safe-area-inset-top, 0px); }
+
+/* The home page's app bar is sticky, so it has to stick BELOW the band
+   rather than scroll up underneath it. */
+.appbar { top: env(safe-area-inset-top, 0px); }

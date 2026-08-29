@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-chrome-light="#3F8FCB" data-chrome-dark="#1E4463">
+<html lang="en" data-chrome-light="#2E7FB6" data-chrome-dark="#17141F">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Classical Mind">
-  <meta name="theme-color" content="#3F8FCB">
+  <meta name="theme-color" content="#2E7FB6">
   <title>Classical Mind — a little wisdom every day</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v66">
+  <link rel="stylesheet" href="assets/style.css?v67">
   <!-- Theme, applied before first paint so a dark-mode load never flashes
        white. The choice lives in localStorage and is set ONLY by the logo
        toggle in the top-left of the home page; the OS setting is deliberately
@@ -35,7 +35,9 @@
     /* ---- App bar ---- */
     body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A);
           --sky:#5FB1DD; --sky-deep:#3F8FCB; --grad-sky-app:linear-gradient(135deg,#5FB1DD,#3F8FCB); }
-    .appbar{ background:var(--grad-sky-app); box-shadow:0 2px 10px rgba(31,90,140,.22); position:sticky; top:0; z-index:40; }
+    .appbar{ background:var(--grad-sky-app); box-shadow:0 2px 10px rgba(31,90,140,.22); position:sticky;
+            /* sticks BELOW the status-bar band, not under it */
+            top:env(safe-area-inset-top,0px); z-index:40; }
     .appbar .row{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:56px; max-width:820px; margin:0 auto; padding:0 14px; }
     .appbar .abico{ width:34px; height:34px; border-radius:9px; justify-self:start; box-shadow:0 2px 6px rgba(0,0,0,.22); }
     .appbar .brand{ justify-self:center; font-weight:800; font-size:17px; letter-spacing:-.01em; color:#fff; text-shadow:0 1px 2px rgba(18,58,96,.4); }
