@@ -1852,15 +1852,6 @@ body.random-page {
    with no meta juggling. "default" was the wrong choice: iOS draws that strip
    light and ignores theme-color, which is why it stayed white in dark mode.
    Pages with no app bar get body padding so nothing hides under the clock. */
-/* ---- Clearing the iPhone clock ----------------------------------------
-   `black-translucent` lets the web view run under the status bar, so content
-   has to be pushed clear of it. The BAND ITSELF is not painted here — it is a
-   real element with inline styles, written by theme.js. See the long note at
-   the top of theme.js for why: inline styling is the one mechanism proven to
-   reach that band on the device, and this strip has burned four builds. ---- */
-.appbar { padding-top: env(safe-area-inset-top, 0px); }
-body:not(:has(.appbar)) { padding-top: env(safe-area-inset-top, 0px); }
-
 /* ---- Data-driven accents in dark mode ----------------------------------
    Generated, then kept by hand. Each page carries its own palette trio —
    --c / --cd / --cs and friends — set as INLINE styles from the page's data.

@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v61">
+  <link rel="stylesheet" href="assets/style.css?v62">
   <style>
     /* ============================================================
        One-page topic template. Everything about a School or an Art
@@ -205,15 +205,16 @@
       color:var(--ink-mute,#7a7488); text-decoration:none; }
   </style>
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- black-translucent makes the web view run UNDER the status bar so the PAGE
-       owns the band behind the clock. "default" does not follow theme-color, it
-       just draws that strip light whatever you do. -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- "default" — the same as Days Out NI, which follows the theme correctly on
+       this phone. iOS owns an opaque status bar and paints it from the live
+       <meta name="theme-color">, which theme.js keeps in step. An earlier build
+       used "black-translucent" so the page could paint that band itself; the
+       device reported safe-area-inset-top as 0px, proving the web view never
+       ran under the clock and the band was never the page's to paint. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <script>
-    /* Runs before first paint: sets the theme, and builds the band behind the
-       clock the moment <body> exists. The band is a real element with INLINE
-       styles because that is the only mechanism proven to move it on the
-       device — see the note at the top of assets/theme.js. */
+    /* Before first paint: set the theme and the chrome colour, so the bar is
+       right on the very first frame rather than flicking after load. */
     (function () {
       var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
       try { t = localStorage.getItem('theme'); } catch (e) {}
@@ -223,16 +224,6 @@
       document.documentElement.setAttribute('data-theme', t);
       var m = document.querySelector('meta[name="theme-color"]');
       if (m) m.setAttribute('content', CHROME[t]);
-      var build = function () {
-        if (document.getElementById('chromestrip') || !document.body) return;
-        var el = document.createElement('div');
-        el.id = 'chromestrip';
-        el.style.cssText = 'position:fixed;top:0;left:0;right:0;' +
-          'height:env(safe-area-inset-top,0px);z-index:9999;pointer-events:none;background:' + CHROME[t];
-        document.body.insertAdjacentElement('afterbegin', el);
-      };
-      if (document.body) build();
-      else document.addEventListener('DOMContentLoaded', build);
     })();
   </script>
 </head>
@@ -522,6 +513,6 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
     }
   </script>
-  <script src="assets/theme.js?v61"></script>
+  <script src="assets/theme.js?v62"></script>
 </body>
 </html>
