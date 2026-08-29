@@ -9,39 +9,6 @@
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="assets/style.css">
-  <!-- ================= TEMPORARY STRIP TEST (v57) =================
-       Does the page control the band behind the iPhone clock AT ALL? Two
-       separate channels can own it and they look identical in a screenshot:
-         A) the page paints it  — needs black-translucent + viewport-fit=cover
-            to be honoured, and then .appbar's safe-area padding fills it;
-         B) iOS paints it from <meta name="theme-color">, read once per load.
-       This build drives BOTH to the same loud colour and cycles purple -> red
-       -> blue on every tap of the app icon. If the app bar changes and the band
-       does not, the band is not ours and no CSS or meta will ever move it.
-       DELETE THIS BLOCK, and the matching one in theme.js, once we know. -->
-  <script>
-    window.STRIP_TEST = ['#7B2FF7', '#E01B24', '#1B6FE0'];   // purple, red, blue
-    window.stripTestApply = function (i) {
-      var c = window.STRIP_TEST[i % window.STRIP_TEST.length];
-      document.documentElement.style.setProperty('--chrome', c);   // channel A: strip element
-      // --grad-sky-app is declared on `body` in this page's own <style>, and a
-      // property set on body beats one inherited from html — so setting it on
-      // documentElement did nothing. It has to go on body, which does not exist
-      // yet while this runs in <head>, hence the deferral.
-      var paintBar = function () { document.body.style.setProperty('--grad-sky-app', c); };
-      if (document.body) paintBar();
-      else document.addEventListener('DOMContentLoaded', paintBar);
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', c);                         // channel B: the OS bar
-      return c;
-    };
-    (function () {
-      try {
-        var i = localStorage.getItem('stripTest');
-        if (i !== null) window.stripTestApply(parseInt(i, 10) || 0);
-      } catch (e) {}
-    })();
-  </script>
   <style>
     /* ---- App bar ---- */
     body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A);

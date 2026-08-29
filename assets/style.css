@@ -1860,29 +1860,35 @@ body.random-page {
    light and ignores theme-color, which is why it stayed white in dark mode.
    Pages with no app bar get body padding so nothing hides under the clock. */
 /* ---- The strip behind the iPhone clock --------------------------------
-   `apple-mobile-web-app-status-bar-style: black-translucent` makes iOS draw
-   the clock, signal and battery in WHITE, always — it has no light variant.
-   So whatever sits under them must be dark chrome in BOTH themes, or the
-   clock disappears. The home page already covers it: its app bar is padded by
-   the safe-area inset, so the bar itself fills the strip. Every other page has
-   no app bar, and used to leave cream (light) or bare navy (dark) up there —
-   which is why the top of the screen behaved differently page to page and
-   theme to theme. Paint it explicitly instead, from the same --chrome the
-   <meta name="theme-color"> uses, so the strip, the app bar and the browser
-   chrome are one colour everywhere. ------------------------------------- */
-:root { --chrome: #3F8FCB; }
+   PROVEN on device 2026-08-29 by cycling it purple/red/blue: the web view runs
+   UNDER the clock, so this strip is OURS. Nothing about iOS, theme-color or
+   the status-bar meta comes into it.
+
+   It used to be painted two different ways — by the app bar's safe-area padding
+   on the home page, and by a separate pseudo-element everywhere else — which is
+   why it behaved differently depending on which page you were on and appeared
+   to "stick" when you walked in and out of a section. It is ONE element painted
+   from ONE variable on EVERY page now.
+
+   The strip sits above the app bar (z-index) and is the same colour the bar
+   starts at, so the two read as one surface. `black-translucent` draws the
+   clock white with no light variant, which is why --chrome is a deep blue in
+   light mode rather than cream: white glyphs have to land on something. ---- */
+:root            { --chrome: #3F8FCB; }
 [data-theme="dark"] { --chrome: #12252F; }
 
-.appbar { padding-top: env(safe-area-inset-top, 0px); }
-body:not(:has(.appbar)) { padding-top: env(safe-area-inset-top, 0px); }
-body:not(:has(.appbar))::before {
+body::before {
   content: "";
   position: fixed; top: 0; left: 0; right: 0;
   height: env(safe-area-inset-top, 0px);
   background: var(--chrome);
-  z-index: 9998;
+  z-index: 9999;
   pointer-events: none;
 }
+
+/* Keep content clear of it: the app bar pads itself, other pages pad the body. */
+.appbar { padding-top: env(safe-area-inset-top, 0px); }
+body:not(:has(.appbar)) { padding-top: env(safe-area-inset-top, 0px); }
 
 /* ---- Data-driven accents in dark mode ----------------------------------
    Generated, then kept by hand. Each page carries its own palette trio —

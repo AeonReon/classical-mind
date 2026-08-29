@@ -5,12 +5,20 @@
 // lands before first paint and there is no flash of cream. This file only wires
 // up the control.
 //
-// THE APP ICON IS THE CONTROL. An earlier version added a separate round button
-// to the app bar, which broke it: `.appbar .row` is a three-column grid
-// (icon / title / share) and a fourth child spilled onto a second row, pushing
-// the icon and share button out of vertical centre. Tapping the logo is tidier
-// and keeps the bar symmetrical. Inner pages have no app bar — they get a pill
-// that matches the existing Back / Home corner controls.
+// THE APP ICON ON THE HOME PAGE IS THE ONE CONTROL. An earlier version put a
+// separate round button in `.appbar .row`, which broke the layout: that row is
+// a three-column grid (icon / title / share) and a fourth child spilled onto a
+// second row. A later version dropped a pill onto every inner page instead,
+// which read as a per-page setting. Inner pages WEAR the theme and offer no
+// switch.
+//
+// THE STRIP BEHIND THE iPHONE CLOCK IS OURS. Proven on device 2026-08-29 by
+// cycling it purple/red/blue on command: with black-translucent plus
+// viewport-fit=cover the web view runs underneath the clock, so `body::before`
+// in style.css paints that band from --chrome and it follows data-theme like
+// anything else. Earlier builds tried to steer it through the theme-color meta,
+// then through a reload, then through a real navigation — all of that was aimed
+// at an OS-owned bar that turned out not to be OS-owned. It is gone.
 (function () {
   // ONE key for the whole app, not one per page. This used to be built from
   // location.pathname, which on a flat site resolved to '/index.html',
@@ -27,12 +35,13 @@
       }
     }
   } catch (e) {}
+
   var meta = document.querySelector('meta[name="theme-color"]');
   // The boot script may already have darkened the meta, so take the page's real
   // light colour from the attribute it stashed rather than from the live meta.
   var LIGHT_CHROME = document.documentElement.getAttribute('data-chrome-light')
                   || (meta ? meta.getAttribute('content') : '#3F8FCB');
-  var DARK_CHROME = '#12252F';   // matches the darkened app bar
+  var DARK_CHROME = '#12252F';   // matches --chrome and the top of the app bar
 
   function current() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -40,69 +49,30 @@
 
   function label(dark) { return dark ? 'Switch to light mode' : 'Switch to dark mode'; }
 
-  function apply(theme, ctrl, isPill) {
+  function apply(theme, ctrl) {
     var dark = theme === 'dark';
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     if (ctrl) {
       ctrl.title = label(dark);
       ctrl.setAttribute('aria-label', label(dark));
-      if (isPill) ctrl.textContent = dark ? '☀' : '☾';
     }
+    // Still kept in step for Safari's own browser chrome, which does read it
+    // live. The installed app does not use it.
     if (meta) meta.setAttribute('content', dark ? DARK_CHROME : LIGHT_CHROME);
+    // WebKit is lazy about repainting the safe-area band when only a custom
+    // property underneath it changed — the colour arrived a beat late, which
+    // showed up as the toggle looking glitchy. Reading a layout property forces
+    // the repaint to happen now.
+    void document.documentElement.offsetHeight;
   }
 
-  // Installed on the Home Screen, iOS reads <meta name="theme-color"> ONCE, when
-  // the document loads, and ignores every change to it after that. So flipping
-  // the theme repainted the whole page and left the strip behind the clock at
-  // whatever it was when you arrived — and walking into a section and back
-  // "set" it again, because that was a fresh load. Nothing in CSS can reach it.
-  // In a standalone window the toggle therefore reloads: the boot script in the
-  // head sets the theme and the meta before first paint, so the reload is
-  // invisible apart from the strip finally moving with everything else.
-  // Safari repaints its own chrome live, so there it just toggles.
-  var STANDALONE = window.navigator.standalone === true ||
-                   (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-
-  function reloadForChrome(next) {
-    try { sessionStorage.setItem('theme:scroll', String(window.scrollY || 0)); } catch (e) {}
-    // A same-URL reload is NOT enough. iOS treats it as the same document and
-    // keeps the strip colour it already has — which is why v55 changed nothing.
-    // Walking into a section and back out DID move it, because that is a real
-    // navigation, so that is what this does: go to a URL the app does not
-    // currently have open. `?t=` flips between two values, so the next toggle
-    // is always a different URL again.
-    var base = location.href.split('#')[0].split('?')[0];
-    location.replace(base + '?t=' + next);
-  }
-
-  function wire(ctrl, isPill) {
-    apply(current(), ctrl, isPill);
+  function wire(ctrl) {
+    apply(current(), ctrl);
     function toggle() {
       var next = current() === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
-      apply(next, ctrl, isPill);
-      if (STANDALONE) reloadForChrome(next);
+      apply(next, ctrl);
     }
-    // ===== TEMPORARY STRIP TEST (v57) — remove with the block in index.html ==
-    // The icon cycles purple -> red -> blue instead of toggling the theme, and
-    // drives the app bar, the strip element and the theme-color meta together.
-    // Watch the APP BAR and the BAND above it separately: if the bar changes
-    // and the band does not, the band is the OS's and we cannot reach it.
-    if (window.stripTestApply) {
-      var idx = 0;
-      try { idx = parseInt(localStorage.getItem('stripTest'), 10) || 0; } catch (e) {}
-      ctrl.addEventListener('click', function (e) {
-        e.preventDefault();
-        idx = (idx + 1) % window.STRIP_TEST.length;
-        try { localStorage.setItem('stripTest', String(idx)); } catch (err) {}
-        window.stripTestApply(idx);
-        var pill = document.querySelector('.version-pill');
-        if (pill) pill.textContent = 'tap ' + (idx + 1) + ' · ' + window.STRIP_TEST[idx];
-      });
-      return;
-    }
-    // ===== end strip test ====================================================
-
     ctrl.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
     ctrl.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
@@ -111,13 +81,13 @@
 
   // Until they choose for themselves, the OS setting wins — on every page, with
   // or without a control on it.
-  function watchOS(ctrl, isPill) {
+  function watchOS(ctrl) {
     if (!window.matchMedia) return;
     var mq = matchMedia('(prefers-color-scheme: dark)');
     var onChange = function (e) {
       var saved = null;
       try { saved = localStorage.getItem(KEY); } catch (err) {}
-      if (!saved) apply(e.matches ? 'dark' : 'light', ctrl, isPill);
+      if (!saved) apply(e.matches ? 'dark' : 'light', ctrl);
     };
     if (mq.addEventListener) mq.addEventListener('change', onChange);
     else if (mq.addListener) mq.addListener(onChange);
@@ -129,60 +99,14 @@
       icon.classList.add('theme-icon-btn');
       icon.setAttribute('role', 'button');
       icon.setAttribute('tabindex', '0');
-      wire(icon, false);
-      watchOS(icon, false);
+      wire(icon);
+      watchOS(icon);
       return;
     }
-    // ONE control, on the home page, and nowhere else — the user's call
-    // 2026-08-28. Inner pages still WEAR the theme (the boot script in their
-    // head sets it before paint from the same key); they just do not offer a
-    // second switch. An earlier build dropped a pill between the Back and Home
-    // corners on all ~50 inner pages, which read as a per-page setting.
-    apply(current(), null, false);
-    watchOS(null, false);
+    apply(current(), null);
+    watchOS(null);
   }
 
-  // ---- Strip diagnostic (temporary, v56) --------------------------------
-  // We cannot see the device, and the three possible iOS behaviours look alike
-  // in a screenshot. The version pill reports the one number that separates
-  // them for twelve seconds after launch, then goes back to the version.
-  //   inset > 0  -> the web view runs UNDER the clock, so the PAGE paints the
-  //                 strip: a pure CSS fix, guaranteed, no reload tricks.
-  //   inset 0    -> iOS owns an opaque bar and only re-reads its colour when a
-  //                 document loads, which is what the ?t= navigation is for.
-  // The pill is pointer-events:none by design, so this must not need a tap.
-  function mountDiag() {
-    var tries = 0;
-    var timer = setInterval(function () {
-      var pill = document.querySelector('.version-pill');
-      if (!pill) { if (++tries > 40) clearInterval(timer); return; }
-      clearInterval(timer);
-      var probe = document.createElement('div');
-      probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px)';
-      document.body.appendChild(probe);
-      var inset = Math.round(probe.getBoundingClientRect().height);
-      probe.remove();
-      var where = (window.navigator.standalone === true) ? 'home'
-                : (window.matchMedia && matchMedia('(display-mode: standalone)').matches) ? 'standalone'
-                : 'browser';
-      // Left up permanently for the test build — the inset is the whole answer.
-      // 0 means the web view stops BELOW the clock, so the band is the OS's and
-      // nothing the page does can reach it. Anything above 0 means the page runs
-      // underneath and paints it, and this is a CSS problem we can win.
-      pill.textContent = pill.textContent + ' · inset ' + inset + ' · ' + where;
-    }, 100);
-  }
-
-  function restoreScroll() {
-    try {
-      var y = sessionStorage.getItem('theme:scroll');
-      if (y === null) return;
-      sessionStorage.removeItem('theme:scroll');
-      window.scrollTo(0, parseInt(y, 10) || 0);
-    } catch (e) {}
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { mount(); restoreScroll(); mountDiag(); });
-  } else { mount(); restoreScroll(); mountDiag(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
+  else mount();
 })();
