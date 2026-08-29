@@ -11,38 +11,26 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v68">
+  <link rel="stylesheet" href="assets/style.css?v69">
   <!-- Theme, applied before first paint so a dark-mode load never flashes
        white. The choice lives in localStorage and is set ONLY by the logo
        toggle in the top-left of the home page.
 
-       The status strip is handled DIFFERENTLY per theme, and it has to be:
-
-       - DARK: black-translucent. The web view runs under the clock and the
-         page paints the band itself from var(--chrome). iOS draws the clock
-         white, which is right on a near-black strip.
-       - LIGHT: `default`. iOS draws the strip and, crucially, draws the clock
-         BLACK — which is the only way to get a cream strip you can still read
-         the time on. Under black-translucent the clock is white with no light
-         variant, so cream would make it vanish. That is why light mode was
-         blue until now.
-
-       The meta in the HTML stays black-translucent, so if iOS ever ignores
-       this script the DARK strip still works and light mode simply keeps the
-       blue band it has today. It cannot regress. And when `default` is in
-       force, env(safe-area-inset-top) is 0, so the painted band collapses to
-       no height on its own — the two mechanisms can never both be visible. -->
+       The strip behind the clock is painted by the page itself — see "THE
+       STATUS-BAR STRIP" in style.css. iOS is not involved: it reads
+       status-bar-style and theme-color from the STATIC metas at load and
+       ignores any change made from script (tested — v66 changed theme-color
+       per theme and the strip never moved; v68 relaxed status-bar-style to
+       `default` for light and a fresh reinstall still showed our band). So the
+       only thing this script does for the strip is keep theme-color roughly
+       honest for Android and Safari. -->
   <script>
     (function () {
       var d = document.documentElement, dark = false;
       try { dark = localStorage.getItem('classicalmind.theme') === 'dark'; } catch (e) {}
       d.setAttribute('data-theme', dark ? 'dark' : 'light');
-
       var tc = document.querySelector('meta[name="theme-color"]');
       if (tc) tc.setAttribute('content', dark ? '#17141F' : '#FAF6EC');
-
-      var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
-      if (sb && !dark) sb.setAttribute('content', 'default');
     })();
   </script>
   <style>

@@ -1887,16 +1887,20 @@ body { --page-glow: var(--m-soft, var(--sky-soft)); }
    with no light variant, so a cream strip would make them disappear. Days
    Out NI carries a blue strip in light mode for the same reason.
    ========================================================================= */
-/* DARK is the case that matters here: black-translucent is in force, the band
-   is ours, and #17141F is the page's own paper so the seam disappears. The
-   clock is drawn white over it at ~18:1.
+/* The band is the page's own paper in both themes, so the strip simply reads
+   as more of the app: cream in light, near-black in dark.
 
-   LIGHT normally hands the strip back to iOS (see the boot script), which
-   collapses this band to no height because env(safe-area-inset-top) becomes
-   0. The blue below is only the fallback for if that hand-back is ignored —
-   and it has to be a deep blue, not the cream paper, because in that case the
-   clock is white and white on cream is invisible. */
-:root                  { --chrome: #2E7FB6; }
+   KNOWN TRADE-OFF, and it is the user's explicit call (asked for three times,
+   2026-08-29): black-translucent draws the clock, signal and battery WHITE
+   with no light variant, so on the cream strip the clock is white-on-cream and
+   may be faint or invisible. The deep-sky #2E7FB6 that was here before gave it
+   4.4:1 but read as a blue bar, which is not what was wanted. There is no
+   third option — white needs a background at or below ~30% luminance and cream
+   is 91%. Reverting is one line: put #2E7FB6 back below.
+
+   `color-scheme: light` is declared explicitly on the off-chance WebKit uses
+   it to darken the status-bar glyphs; harmless either way. */
+:root                  { --chrome: #FAF6EC; color-scheme: light; }
 [data-theme="dark"]    { --chrome: #17141F; }
 
 body::before {
