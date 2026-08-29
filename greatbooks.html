@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-chrome-light="#FAF6EC" data-chrome-dark="#17141F">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#33468C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Classical Mind">
+  <meta name="theme-color" content="#FAF6EC">
   <title>The Great Books — Classical Mind</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v65">
+  <link rel="stylesheet" href="assets/style.css?v66">
   <!-- Theme, applied before first paint so a dark-mode load never flashes
        white. The choice lives in localStorage and is set ONLY by the logo
        toggle in the top-left of the home page; the OS setting is deliberately
-       ignored so the toggle is the single source of truth. -->
+       ignored so the toggle is the single source of truth.
+
+       It also sets theme-color, which is what iOS fills the status bar with.
+       The value comes from data-chrome-light / data-chrome-dark on <html> —
+       the colour of whatever sits directly under the bar on THIS page — so the
+       strip is always the same colour as the top of the page it's sitting on.
+       Copied from Days Out NI, where this exact recipe works. -->
   <script>
     (function () {
-      try {
-        if (localStorage.getItem('classicalmind.theme') !== 'dark') return;
-        document.documentElement.setAttribute('data-theme', 'dark');
-        var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute('content', '#17141F');
-      } catch (e) {}
+      var d = document.documentElement, dark = false;
+      try { dark = localStorage.getItem('classicalmind.theme') === 'dark'; } catch (e) {}
+      d.setAttribute('data-theme', dark ? 'dark' : 'light');
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', d.getAttribute(dark ? 'data-chrome-dark' : 'data-chrome-light'));
     })();
   </script>
   <style>
