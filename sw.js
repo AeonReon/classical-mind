@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v63';
+const CACHE = 'classical-mind-v64';
 const ASSETS = [
   './',
   './index.html',

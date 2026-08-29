@@ -52,6 +52,23 @@
     if (meta) meta.setAttribute('content', CHROME[theme]);
   }
 
+  // Running from the Home Screen, iOS samples <meta name="theme-color"> ONCE,
+  // when the document LOADS, and never looks at it again. That is the whole
+  // bug, and the user described it correctly from the first report: toggle and
+  // the bar stays behind; walk into a section and back out and it comes right,
+  // because that is a fresh load. Sometimes matching, sometimes not, depending
+  // on which theme you last arrived in.
+  //
+  // So the toggle gives it a load. The <head> boot script sets the theme and
+  // the meta before the first pixel is drawn, so there is no flash — the page
+  // comes back already in the new theme, with the bar finally agreeing. Scroll
+  // position is carried over so you land where you were.
+  //
+  // Only in the installed app. Safari repaints its own chrome live and a reload
+  // there would be visible churn for nothing.
+  var STANDALONE = window.navigator.standalone === true ||
+                   (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+
   function wire(ctrl) {
     ctrl.classList.add('theme-icon-btn');
     ctrl.setAttribute('role', 'button');
@@ -60,6 +77,10 @@
       var next = current() === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) {}
       apply(next, ctrl);
+      if (STANDALONE) {
+        try { sessionStorage.setItem('theme:y', String(window.scrollY || 0)); } catch (e) {}
+        location.reload();
+      }
     }
     ctrl.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
     ctrl.addEventListener('keydown', function (e) {
@@ -94,7 +115,17 @@
     }, 100);
   }
 
+  function restoreScroll() {
+    try {
+      var y = sessionStorage.getItem('theme:y');
+      if (y === null) return;
+      sessionStorage.removeItem('theme:y');
+      window.scrollTo(0, parseInt(y, 10) || 0);
+    } catch (e) {}
+  }
+
   function mount() {
+    restoreScroll();
     var icon = document.querySelector('.appbar .abico');
     if (icon) { wire(icon); watchOS(icon); }
     else { apply(current(), null); watchOS(null); }
