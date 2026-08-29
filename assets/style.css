@@ -1887,12 +1887,15 @@ body { --page-glow: var(--m-soft, var(--sky-soft)); }
    with no light variant, so a cream strip would make them disappear. Days
    Out NI carries a blue strip in light mode for the same reason.
    ========================================================================= */
-/* These two are chosen for the CLOCK, which black-translucent always draws
-   white. White on #2E7FB6 is 4.4:1 and on #17141F it's ~18:1, both readable.
-   The app's lighter sky #5FB1DD would only give the clock 2.4:1 — washed out.
-   The dark value is the page's own paper, so on inner pages the band is
-   seamless; in light it reads as a deep-sky bar above the cream, which is
-   what Days Out NI does and why its clock stays legible. */
+/* DARK is the case that matters here: black-translucent is in force, the band
+   is ours, and #17141F is the page's own paper so the seam disappears. The
+   clock is drawn white over it at ~18:1.
+
+   LIGHT normally hands the strip back to iOS (see the boot script), which
+   collapses this band to no height because env(safe-area-inset-top) becomes
+   0. The blue below is only the fallback for if that hand-back is ignored —
+   and it has to be a deep blue, not the cream paper, because in that case the
+   clock is white and white on cream is invisible. */
 :root                  { --chrome: #2E7FB6; }
 [data-theme="dark"]    { --chrome: #17141F; }
 

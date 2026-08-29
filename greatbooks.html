@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" data-chrome-light="#2E7FB6" data-chrome-dark="#17141F">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Classical Mind">
-  <meta name="theme-color" content="#2E7FB6">
+  <meta name="theme-color" content="#FAF6EC">
   <title>The Great Books — Classical Mind</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v67">
+  <link rel="stylesheet" href="assets/style.css?v68">
   <!-- Theme, applied before first paint so a dark-mode load never flashes
        white. The choice lives in localStorage and is set ONLY by the logo
-       toggle in the top-left of the home page; the OS setting is deliberately
-       ignored so the toggle is the single source of truth.
+       toggle in the top-left of the home page.
 
-       It also sets theme-color, which is what iOS fills the status bar with.
-       The value comes from data-chrome-light / data-chrome-dark on <html> —
-       the colour of whatever sits directly under the bar on THIS page — so the
-       strip is always the same colour as the top of the page it's sitting on.
-       Copied from Days Out NI, where this exact recipe works. -->
+       The status strip is handled DIFFERENTLY per theme, and it has to be:
+
+       - DARK: black-translucent. The web view runs under the clock and the
+         page paints the band itself from var(--chrome). iOS draws the clock
+         white, which is right on a near-black strip.
+       - LIGHT: `default`. iOS draws the strip and, crucially, draws the clock
+         BLACK — which is the only way to get a cream strip you can still read
+         the time on. Under black-translucent the clock is white with no light
+         variant, so cream would make it vanish. That is why light mode was
+         blue until now.
+
+       The meta in the HTML stays black-translucent, so if iOS ever ignores
+       this script the DARK strip still works and light mode simply keeps the
+       blue band it has today. It cannot regress. And when `default` is in
+       force, env(safe-area-inset-top) is 0, so the painted band collapses to
+       no height on its own — the two mechanisms can never both be visible. -->
   <script>
     (function () {
       var d = document.documentElement, dark = false;
       try { dark = localStorage.getItem('classicalmind.theme') === 'dark'; } catch (e) {}
       d.setAttribute('data-theme', dark ? 'dark' : 'light');
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', d.getAttribute(dark ? 'data-chrome-dark' : 'data-chrome-light'));
+
+      var tc = document.querySelector('meta[name="theme-color"]');
+      if (tc) tc.setAttribute('content', dark ? '#17141F' : '#FAF6EC');
+
+      var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+      if (sb && !dark) sb.setAttribute('content', 'default');
     })();
   </script>
   <style>
