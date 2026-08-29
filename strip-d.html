@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-title" content="Classical Mind">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#E07A1B">
+  <title>Strip test D</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    html,body{margin:0;padding:0;font:16px/1.5 -apple-system,system-ui,sans-serif;}
+    body{min-height:100vh;}
+    .wrap{padding:22px 18px 60px;max-width:600px;margin:0 auto;}
+    h1{font-size:44px;margin:.1em 0 0;letter-spacing:-.03em;}
+    .look{font-size:21px;font-weight:800;margin:.6em 0 1em;line-height:1.35;}
+    .swatch{display:inline-block;width:26px;height:26px;border-radius:7px;vertical-align:-6px;margin-right:8px;border:2px solid rgba(0,0,0,.25);}
+    .readout{background:rgba(0,0,0,.06);border-radius:12px;padding:12px 14px;font:13px/1.7 ui-monospace,Menlo,monospace;margin:0 0 18px;white-space:pre-wrap;}
+    .nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+    .nav a{display:inline-block;padding:.75em 1.2em;border-radius:999px;background:#222;color:#fff;text-decoration:none;font-weight:800;font-size:15px;}
+    .nav a.ghost{background:#ddd;color:#222;}
+    p{margin:.7em 0;}
+  </style>
+  <script>
+    addEventListener('DOMContentLoaded', function () {
+      var probe = document.createElement('div');
+      probe.style.cssText = 'position:fixed;top:0;height:env(safe-area-inset-top);width:1px;';
+      document.body.appendChild(probe);
+      var inset = probe.getBoundingClientRect().height;
+      probe.remove();
+      var m = document.querySelector('meta[name="theme-color"]');
+      var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+      var standalone = (navigator.standalone === true) ||
+        (matchMedia && matchMedia('(display-mode: standalone)').matches);
+      document.getElementById('readout').textContent =
+        'safe-area-inset-top : ' + inset + 'px' +
+        (inset > 0 ? '   <- page runs UNDER the clock' : '   <- iOS owns the strip') +
+        '\nstatus-bar-style    : ' + (sb ? sb.content : '(none)') +
+        '\ntheme-color         : ' + (m ? m.content : '(none)') +
+        '\nbody background     : ' + getComputedStyle(document.body).backgroundColor +
+        '\nrunning standalone  : ' + (standalone ? 'YES (home screen app)' : 'no (Safari tab)') +
+        '\nscreen width        : ' + innerWidth + 'px';
+    });
+  </script>
+</head>
+<body style="background:#FFFFFF">
+  <div class="wrap">
+    <h1>D</h1>
+    <div class="look"><span class="swatch" style="background:#111111"></span>Is the strip behind the clock SOLID BLACK?</div>
+    <div class="readout" id="readout">reading…</div>
+    <p>Tests: the third setting. Strip should be plain black whatever the page does.</p>
+    <p><b>Just remember which letters turn the strip its colour.</b> Then go back and tell me.</p>
+  <div class="nav">
+    <a href="strip-a.html">A</a><a href="strip-b.html">B</a><a href="strip-c.html">C</a>
+    <a href="strip-d.html">D</a><a href="strip-e.html">E</a>
+    <a class="ghost" href="striptest.html">Menu</a>
+    <a class="ghost" href="index.html">Leave</a>
+  </div>
+  </div>
+</body>
+</html>
