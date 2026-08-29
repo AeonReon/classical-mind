@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v69">
+  <link rel="stylesheet" href="assets/style.css?v70">
   <!-- Theme, applied before first paint so a dark-mode load never flashes
        white. The choice lives in localStorage and is set ONLY by the logo
        toggle in the top-left of the home page.
@@ -42,7 +42,11 @@
             top:env(safe-area-inset-top,0px); z-index:40; }
     .appbar .row{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:56px; max-width:820px; margin:0 auto; padding:0 14px; }
     .appbar .abico{ width:34px; height:34px; border-radius:9px; justify-self:start; box-shadow:0 2px 6px rgba(0,0,0,.22); }
-    .appbar .brand{ justify-self:center; font-weight:800; font-size:17px; letter-spacing:-.01em; color:#fff; text-shadow:0 1px 2px rgba(18,58,96,.4); }
+    .appbar .brand{ justify-self:center; font-weight:900; font-size:21px; letter-spacing:-.025em;
+                   white-space:nowrap; color:#fff; text-shadow:0 1px 2px rgba(18,58,96,.4); }
+    /* On the narrowest phones the icon and the Get-app pill leave less room,
+       so the title eases off rather than wrapping or colliding. */
+    @media(max-width:360px){ .appbar .brand{ font-size:19px; } }
     .appbar .hbtn{ justify-self:end; display:inline-flex; align-items:center; gap:6px; color:#fff; background:rgba(255,255,255,.18); border:0; cursor:pointer; font:700 12.5px/1 -apple-system,system-ui,sans-serif; padding:9px 13px; border-radius:999px; }
     .appbar .hbtn svg{ width:15px; height:15px; }
     @media(max-width:440px){ .appbar .hbtn span{ display:none; } }
@@ -144,16 +148,6 @@
     .abico-btn:active{ transform:scale(.93); }
     .abico-btn:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
     .abico-btn .abico{ display:block; }
-    /* Small moon/sun badge on the corner of the logo, so it reads as a switch
-       rather than a decoration. Moon while light, sun while dark. */
-    .abico-badge{ position:absolute; right:-4px; bottom:-4px; width:17px; height:17px; border-radius:50%;
-      background:#fff; color:#3F8FCB; display:grid; place-items:center;
-      box-shadow:0 1px 4px rgba(0,0,0,.32); }
-    .abico-badge svg{ width:11px; height:11px; display:block; }
-    .abico-badge .ab-sun{ display:none; }
-    [data-theme="dark"] .abico-badge{ background:#FFDD7A; color:#4A3410; }
-    [data-theme="dark"] .abico-badge .ab-moon{ display:none; }
-    [data-theme="dark"] .abico-badge .ab-sun{ display:block; }
 
     /* ---- Dark-mode touch-ups: the few spots no variable reaches ---- */
     /* Brand accents on the home page are declared on <body>, so they need a
@@ -193,10 +187,6 @@
       <button type="button" class="abico-btn" id="themeToggle" aria-pressed="false"
               title="Switch to dark mode" aria-label="Switch to dark mode">
         <img src="icon-192.png" alt="Classical Mind" class="abico">
-        <span class="abico-badge" aria-hidden="true">
-          <svg class="ab-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="ab-sun" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4.6"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1.6v2.6M12 19.8v2.6M1.6 12h2.6M19.8 12h2.6M4.6 4.6l1.9 1.9M17.5 17.5l1.9 1.9M19.4 4.6l-1.9 1.9M6.5 17.5l-1.9 1.9"/></g></svg>
-        </span>
       </button>
       <span class="brand">Classical Mind</span>
       <button class="hbtn" onclick="openInstall()" title="Add to Home Screen">
