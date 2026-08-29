@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v59">
+  <link rel="stylesheet" href="assets/style.css?v60">
   <style>
     body{ --c:#A9793E; --cd:#77531F; --cs:#F3EAD6; }
     .mm-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
@@ -22,7 +22,7 @@
     .mm-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .mm-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .mm-card{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .mm-card{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .mm-card[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(122,83,31,.16); }
     .mm-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .mm-sum::-webkit-details-marker{ display:none; }
@@ -47,7 +47,7 @@
 
     /* Watch — one curated video per mind. Facade: thumbnail until tapped, then
        the real player is injected. Nothing loads from YouTube on page load. */
-    .mm-vid{ border-radius:14px; overflow:hidden; background:#fff; border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
+    .mm-vid{ border-radius:14px; overflow:hidden; background:var(--paper-card); border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
     .mm-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer; position:relative; aspect-ratio:16/9; line-height:0; }
     .mm-vid-play img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1); }
     .mm-vid-play:hover img{ opacity:1; transform:scale(1.03); }
@@ -68,6 +68,37 @@
       font-size:.85em; line-height:1.5; color:var(--ink-soft,#4d4658); }
     .mm-vid-note b{ color:var(--m-deep,#2F4550); }
   </style>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- black-translucent makes the web view run UNDER the status bar so the PAGE
+       owns the band behind the clock. "default" does not follow theme-color, it
+       just draws that strip light whatever you do. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <script>
+    /* Runs before first paint: sets the theme, and builds the band behind the
+       clock the moment <body> exists. The band is a real element with INLINE
+       styles because that is the only mechanism proven to move it on the
+       device — see the note at the top of assets/theme.js. */
+    (function () {
+      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') {
+        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', CHROME[t]);
+      var build = function () {
+        if (document.getElementById('chromestrip') || !document.body) return;
+        var el = document.createElement('div');
+        el.id = 'chromestrip';
+        el.style.cssText = 'position:fixed;top:0;left:0;right:0;' +
+          'height:env(safe-area-inset-top,0px);z-index:9999;pointer-events:none;background:' + CHROME[t];
+        document.body.insertAdjacentElement('afterbegin', el);
+      };
+      if (document.body) build();
+      else document.addEventListener('DOMContentLoaded', build);
+    })();
+  </script>
 </head>
 <body class="method-page">
   <main class="mm-main">
@@ -189,5 +220,6 @@
     audio.addEventListener('ended', () => { reset(activeBtn); activeBtn = null; });
     audio.addEventListener('error', () => { if (activeBtn) activeBtn.textContent = 'Audio coming soon'; });
   </script>
+  <script src="assets/theme.js?v60"></script>
 </body>
 </html>

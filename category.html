@@ -8,7 +8,38 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v59">
+  <link rel="stylesheet" href="assets/style.css?v60">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- black-translucent makes the web view run UNDER the status bar so the PAGE
+       owns the band behind the clock. "default" does not follow theme-color, it
+       just draws that strip light whatever you do. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <script>
+    /* Runs before first paint: sets the theme, and builds the band behind the
+       clock the moment <body> exists. The band is a real element with INLINE
+       styles because that is the only mechanism proven to move it on the
+       device — see the note at the top of assets/theme.js. */
+    (function () {
+      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') {
+        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', CHROME[t]);
+      var build = function () {
+        if (document.getElementById('chromestrip') || !document.body) return;
+        var el = document.createElement('div');
+        el.id = 'chromestrip';
+        el.style.cssText = 'position:fixed;top:0;left:0;right:0;' +
+          'height:env(safe-area-inset-top,0px);z-index:9999;pointer-events:none;background:' + CHROME[t];
+        document.body.insertAdjacentElement('afterbegin', el);
+      };
+      if (document.body) build();
+      else document.addEventListener('DOMContentLoaded', build);
+    })();
+  </script>
 </head>
 <body class="method-page">
   <main id="root" class="method-main"></main>
@@ -78,5 +109,6 @@
         </section>`;
     }
   </script>
+  <script src="assets/theme.js?v60"></script>
 </body>
 </html>
