@@ -1,4 +1,4 @@
-const CACHE = 'classical-mind-v64';
+const CACHE = 'classical-mind-v65';
 const ASSETS = [
   './',
   './index.html',
@@ -16,7 +16,6 @@ const ASSETS = [
   './apple-touch-icon.png',
   './assets/style.css',
   './assets/app.js',
-  './assets/theme.js',
   './assets/reader.js',
   './assets/arts-data.js',
   './assets/schools-data.js',
@@ -104,14 +103,7 @@ self.addEventListener('fetch', (e) => {
           caches.open(CACHE).then((c) => c.put(e.request, copy));
           return res;
         })
-        .catch(() =>
-          // Offline. The precache holds './assets/theme.js', but the page asks
-          // for './assets/theme.js?v60' — an exact match misses and the old
-          // fallback then handed back index.html for a script request, which
-          // breaks the app offline. Ignore the cache-busting query.
-          caches.match(e.request, { ignoreSearch: true })
-            .then((hit) => hit || (e.request.mode === 'navigate' ? caches.match('./index.html') : undefined))
-        )
+        .catch(() => caches.match(e.request).then((hit) => hit || caches.match('./index.html')))
     );
     return;
   }

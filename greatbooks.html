@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v63">
+  <link rel="stylesheet" href="assets/style.css?v64">
   <style>
     body{ --c:#4C63B6; --cd:#33468C; --cs:#E7EAF8; }
     .gb-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
@@ -18,14 +18,14 @@
     .gb-hero p{ margin:.5em 0 0; font-size:15.5px; line-height:1.5; color:var(--ink-soft); max-width:56ch; }
     .gb-voice{ margin-top:14px; }
     .voice-pick{ display:inline-flex; align-items:center; gap:7px; font:700 .72em var(--sans); letter-spacing:.03em; text-transform:uppercase; color:var(--ink-mute); }
-    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:var(--paper-card); border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
+    .voice-pick select{ font:600 .95em/1 var(--sans); text-transform:none; letter-spacing:0; color:var(--ink); background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:.4em .8em; max-width:180px; }
 
     .gb-era{ margin:26px 0 12px; }
     .gb-era-title{ font-weight:800; font-size:1.28em; letter-spacing:-.02em; color:var(--ink); }
     .gb-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .gb-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .gb-book{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .gb-book{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .gb-book[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(51,70,140,.14); }
     .gb-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .gb-sum::-webkit-details-marker{ display:none; }
@@ -52,28 +52,6 @@
     .gb-free{ color:var(--cd); background:var(--cs); }
     .gb-listen:active, .gb-free:active{ transform:scale(.97); }
   </style>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- "default" — the same as Days Out NI, which follows the theme correctly on
-       this phone. iOS owns an opaque status bar and paints it from the live
-       <meta name="theme-color">, which theme.js keeps in step. An earlier build
-       used "black-translucent" so the page could paint that band itself; the
-       device reported safe-area-inset-top as 0px, proving the web view never
-       ran under the clock and the band was never the page's to paint. -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <script>
-    /* Before first paint: set the theme and the chrome colour, so the bar is
-       right on the very first frame rather than flicking after load. */
-    (function () {
-      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
-      try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'dark' && t !== 'light') {
-        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', CHROME[t]);
-    })();
-  </script>
 </head>
 <body class="method-page">
   <main class="gb-main">
@@ -158,6 +136,5 @@
 
     if (window.Reader && Reader.mountPicker) Reader.mountPicker(document.querySelector('.voice-pick'));
   </script>
-  <script src="assets/theme.js?v63"></script>
 </body>
 </html>

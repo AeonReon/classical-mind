@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v63">
+  <link rel="stylesheet" href="assets/style.css?v64">
   <style>
     /* ============================================================
        One-page topic template. Everything about a School or an Art
@@ -48,13 +48,13 @@
     /* At a glance — scannable chips: when, where, who, the one idea */
     .op-glance{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0 4px; }
     .op-glance.one{ grid-template-columns:1fr; }
-    .op-gcard{ background:var(--paper-card); border-radius:14px; padding:12px 14px; box-shadow:0 2px 4px rgba(60,45,20,.05),0 7px 18px rgba(60,45,20,.06); }
+    .op-gcard{ background:#fff; border-radius:14px; padding:12px 14px; box-shadow:0 2px 4px rgba(60,45,20,.05),0 7px 18px rgba(60,45,20,.06); }
     .op-gcard.wide{ grid-column:1 / -1; }
     .op-gk{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--m-deep,#2F4550); opacity:.8; }
     .op-gv{ margin-top:.4em; font-size:.98em; line-height:1.4; font-weight:600; color:var(--ink,#2A2038); }
 
     /* ---- Section drop-downs — the backbone of the page ---- */
-    .op-drop{ background:var(--paper-card); border-radius:18px; margin:14px 0 0; overflow:hidden;
+    .op-drop{ background:#fff; border-radius:18px; margin:14px 0 0; overflow:hidden;
       box-shadow:0 2px 4px rgba(60,45,20,.05),0 9px 22px rgba(60,45,20,.07); }
     .op-drop > summary{ list-style:none; cursor:pointer; padding:17px 18px; display:flex; align-items:center; gap:13px; -webkit-tap-highlight-color:transparent; }
     .op-drop > summary::-webkit-details-marker{ display:none; }
@@ -81,7 +81,7 @@
       font:800 .9em -apple-system,system-ui,sans-serif; color:#fff; background:linear-gradient(150deg,var(--m-color),var(--m-deep)); }
     .op-idea h3{ margin:0; font-weight:800; font-size:1.1em; letter-spacing:-.015em; line-height:1.24; color:var(--ink,#2A2038); }
     .op-idea p{ margin:.5em 0 0; font-size:.99em; line-height:1.56; color:var(--ink-soft,#4d4658); }
-    .op-why{ margin:.7em 0 0; padding:.7em .9em; border-radius:11px; background:var(--paper-card); box-shadow:0 1px 3px rgba(60,45,20,.06);
+    .op-why{ margin:.7em 0 0; padding:.7em .9em; border-radius:11px; background:#fff; box-shadow:0 1px 3px rgba(60,45,20,.06);
       font-size:.93em; line-height:1.5; color:var(--ink-soft,#3f3a4c); }
     .op-why b{ font:800 .64rem/1 -apple-system,system-ui,sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--m-deep,#2F4550); display:block; margin-bottom:.35em; }
 
@@ -146,7 +146,7 @@
     /* Read aloud + back */
     .op-actions{ display:flex; align-items:center; gap:12px; margin:30px 0 0; flex-wrap:wrap; }
     .op-read{ display:inline-flex; align-items:center; gap:.5em; cursor:pointer; font:800 .96em -apple-system,system-ui,sans-serif;
-      color:var(--m-deep,#2F4550); background:var(--paper-card); border:1.7px solid currentColor; padding:.62em 1.2em; border-radius:999px; box-shadow:0 2px 5px rgba(60,45,20,.08); }
+      color:var(--m-deep,#2F4550); background:#fff; border:1.7px solid currentColor; padding:.62em 1.2em; border-radius:999px; box-shadow:0 2px 5px rgba(60,45,20,.08); }
     .op-back{ font:700 .92em -apple-system,system-ui,sans-serif; color:var(--ink-mute,#7a7488); text-decoration:none; }
 
     /* The bigger picture — a philosophy's own cosmos/worldview, in its own voice */
@@ -158,11 +158,11 @@
     /* Interactive "test yourself" (reuses tryit data) */
     .tryit-q{ font-weight:700; color:var(--ink); font-size:1.02em; line-height:1.4; margin-bottom:12px; }
     .tryit-opts{ display:flex; flex-direction:column; gap:8px; }
-    .tryit-opt{ text-align:left; cursor:pointer; background:var(--paper-card); border:1.5px solid var(--rule,#EADFC6); border-radius:12px; padding:11px 13px; font:600 .98em -apple-system,system-ui,sans-serif; color:var(--ink); }
-    .tryit-opt.correct{ border-color:#1F8F5E; background:var(--ok-soft); color:#13603f; font-weight:800; }
-    .tryit-opt.wrong{ border-color:#D9534F; background:var(--bad-soft); color:#a3312d; }
+    .tryit-opt{ text-align:left; cursor:pointer; background:#fff; border:1.5px solid var(--rule,#EADFC6); border-radius:12px; padding:11px 13px; font:600 .98em -apple-system,system-ui,sans-serif; color:var(--ink); }
+    .tryit-opt.correct{ border-color:#1F8F5E; background:#E7F6EE; color:#13603f; font-weight:800; }
+    .tryit-opt.wrong{ border-color:#D9534F; background:#FBEAEA; color:#a3312d; }
     .tryit-fb{ margin-top:11px; padding:11px 13px; border-radius:12px; background:var(--m-soft,#E3ECF0); color:var(--ink-soft); font-size:.93em; line-height:1.5; }
-    .tryit-fb.ok{ background:var(--ok-soft); }
+    .tryit-fb.ok{ background:#E7F6EE; }
     .tryit-card{ padding:12px 0; border-bottom:1px solid var(--rule,#EADFC6); }
     .tryit-card:first-child{ padding-top:2px; }
     .tryit-card:last-child{ border-bottom:0; }
@@ -177,7 +177,7 @@
 
     /* Watch — curated YouTube. Facade only: a thumbnail until tapped, then the
        real player is injected. Keeps the page fast and sets no cookies on load. */
-    .op-vid{ position:relative; border-radius:16px; overflow:hidden; background:var(--paper-card);
+    .op-vid{ position:relative; border-radius:16px; overflow:hidden; background:#fff;
       border:1.5px solid var(--rule,#EADFC6); margin:0 0 14px; }
     .op-vid:last-child{ margin-bottom:0; }
     .op-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer;
@@ -204,28 +204,6 @@
     .op-vid-out{ display:inline-block; margin-top:10px; font:700 .86em -apple-system,system-ui,sans-serif;
       color:var(--ink-mute,#7a7488); text-decoration:none; }
   </style>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- "default" — the same as Days Out NI, which follows the theme correctly on
-       this phone. iOS owns an opaque status bar and paints it from the live
-       <meta name="theme-color">, which theme.js keeps in step. An earlier build
-       used "black-translucent" so the page could paint that band itself; the
-       device reported safe-area-inset-top as 0px, proving the web view never
-       ran under the clock and the band was never the page's to paint. -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <script>
-    /* Before first paint: set the theme and the chrome colour, so the bar is
-       right on the very first frame rather than flicking after load. */
-    (function () {
-      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
-      try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'dark' && t !== 'light') {
-        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', CHROME[t]);
-    })();
-  </script>
 </head>
 <body class="method-page">
   <main id="root" class="op-main"></main>
@@ -513,6 +491,5 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
     }
   </script>
-  <script src="assets/theme.js?v63"></script>
 </body>
 </html>

@@ -8,29 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v63">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- "default" — the same as Days Out NI, which follows the theme correctly on
-       this phone. iOS owns an opaque status bar and paints it from the live
-       <meta name="theme-color">, which theme.js keeps in step. An earlier build
-       used "black-translucent" so the page could paint that band itself; the
-       device reported safe-area-inset-top as 0px, proving the web view never
-       ran under the clock and the band was never the page's to paint. -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <script>
-    /* Before first paint: set the theme and the chrome colour, so the bar is
-       right on the very first frame rather than flicking after load. */
-    (function () {
-      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
-      try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'dark' && t !== 'light') {
-        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', CHROME[t]);
-    })();
-  </script>
+  <link rel="stylesheet" href="assets/style.css?v64">
 </head>
 <body class="random-page">
   <a href="index.html" class="home-link">← Home</a>
@@ -81,6 +59,5 @@
     document.getElementById('another-btn').addEventListener('click', render);
     render();
   </script>
-  <script src="assets/theme.js?v63"></script>
 </body>
 </html>

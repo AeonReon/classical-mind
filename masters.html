@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v63">
+  <link rel="stylesheet" href="assets/style.css?v64">
   <style>
     body{ --c:#A9793E; --cd:#77531F; --cs:#F3EAD6; }
     .mm-main{ max-width:680px; margin:0 auto; padding:4em 1.2em calc(48px + env(safe-area-inset-bottom)); }
@@ -22,7 +22,7 @@
     .mm-era-sub{ font-size:.85em; color:var(--ink-mute); margin-top:2px; }
     .mm-list{ display:flex; flex-direction:column; gap:.55em; }
 
-    .mm-card{ background:var(--paper-card); border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
+    .mm-card{ background:#fff; border:1.5px solid var(--rule); border-radius:15px; overflow:hidden; box-shadow:var(--shadow-sm); }
     .mm-card[open]{ border-color:var(--c); box-shadow:0 4px 16px rgba(122,83,31,.16); }
     .mm-sum{ list-style:none; cursor:pointer; display:flex; align-items:baseline; gap:10px; padding:14px 16px; }
     .mm-sum::-webkit-details-marker{ display:none; }
@@ -47,7 +47,7 @@
 
     /* Watch — one curated video per mind. Facade: thumbnail until tapped, then
        the real player is injected. Nothing loads from YouTube on page load. */
-    .mm-vid{ border-radius:14px; overflow:hidden; background:var(--paper-card); border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
+    .mm-vid{ border-radius:14px; overflow:hidden; background:#fff; border:1.5px solid var(--rule,#EADFC6); margin:10px 0 4px; }
     .mm-vid-play{ display:block; width:100%; padding:0; border:0; background:#0d0b12; cursor:pointer; position:relative; aspect-ratio:16/9; line-height:0; }
     .mm-vid-play img{ width:100%; height:100%; object-fit:cover; opacity:.92; transition:opacity .25s ease, transform .35s cubic-bezier(0.34,1.56,0.64,1); }
     .mm-vid-play:hover img{ opacity:1; transform:scale(1.03); }
@@ -68,28 +68,6 @@
       font-size:.85em; line-height:1.5; color:var(--ink-soft,#4d4658); }
     .mm-vid-note b{ color:var(--m-deep,#2F4550); }
   </style>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- "default" — the same as Days Out NI, which follows the theme correctly on
-       this phone. iOS owns an opaque status bar and paints it from the live
-       <meta name="theme-color">, which theme.js keeps in step. An earlier build
-       used "black-translucent" so the page could paint that band itself; the
-       device reported safe-area-inset-top as 0px, proving the web view never
-       ran under the clock and the band was never the page's to paint. -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <script>
-    /* Before first paint: set the theme and the chrome colour, so the bar is
-       right on the very first frame rather than flicking after load. */
-    (function () {
-      var CHROME = { light: '#3F8FCB', dark: '#12252F' }, t = null;
-      try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'dark' && t !== 'light') {
-        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-      var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', CHROME[t]);
-    })();
-  </script>
 </head>
 <body class="method-page">
   <main class="mm-main">
@@ -211,6 +189,5 @@
     audio.addEventListener('ended', () => { reset(activeBtn); activeBtn = null; });
     audio.addEventListener('error', () => { if (activeBtn) activeBtn.textContent = 'Audio coming soon'; });
   </script>
-  <script src="assets/theme.js?v63"></script>
 </body>
 </html>
