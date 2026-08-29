@@ -24,7 +24,12 @@
 // and offer no second switch.
 (function () {
   var KEY = 'theme';
-  var CHROME = { light: '#3F8FCB', dark: '#12252F' };
+  // ===== DIAGNOSTIC v61 — revert to { light:'#3F8FCB', dark:'#12252F' } =====
+  // The band is forced MAGENTA in both themes. Nothing else in this app is
+  // magenta, so "did the band change?" cannot be confused with "did the app bar
+  // change?" — which is the ambiguity that misdirected three builds. The page
+  // itself still goes properly light and dark; only the band is flagged.
+  var CHROME = { light: '#FF00AA', dark: '#FF00AA' };
 
   function current() {
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';

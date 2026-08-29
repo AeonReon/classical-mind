@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/style.css?v60">
+  <link rel="stylesheet" href="assets/style.css?v61">
   <style>
     /* ---- App bar ---- */
     body{ --gold:#E7A83C; --gold-deep:#C6811A; --grad-gold:linear-gradient(135deg,#E7A83C,#C6811A);
@@ -135,7 +135,7 @@
         var el = document.createElement('div');
         el.id = 'chromestrip';
         el.style.cssText = 'position:fixed;top:0;left:0;right:0;' +
-          'height:env(safe-area-inset-top,0px);z-index:9999;pointer-events:none;background:' + CHROME[t];
+          'height:env(safe-area-inset-top,0px);z-index:9999;pointer-events:none;background:#FF00AA';  /* DIAGNOSTIC v61 */
         document.body.insertAdjacentElement('afterbegin', el);
       };
       if (document.body) build();
@@ -156,6 +156,39 @@
   </div>
 
   <main class="launcher-main">
+    <!-- ============ DIAGNOSTIC PANEL v61 — delete with the magenta strip ====
+         Five builds have failed on the band behind the clock and I cannot see
+         the device. These five numbers decide it, and INSET decides it alone:
+         0px means the web view stops below the clock, the band belongs to iOS,
+         and no CSS, element or meta tag will ever reach it — the only fix then
+         is deleting and re-adding the Home Screen icon, because iOS locks that
+         behaviour in when the icon is created. Anything above 0 means the page
+         runs underneath and the band is ours. ============================ -->
+    <div id="diag" style="background:#FF00AA;color:#fff;padding:16px 18px;border-radius:14px;
+         margin:0 0 18px;font:800 20px/1.5 -apple-system,system-ui,sans-serif;letter-spacing:.01em"></div>
+    <script>
+      window.addEventListener('load', function () {
+        var probe = document.createElement('div');
+        probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px)';
+        document.body.appendChild(probe);
+        var inset = Math.round(probe.getBoundingClientRect().height);
+        probe.remove();
+        var mode = (window.navigator.standalone === true) ? 'HOME SCREEN'
+                 : (window.matchMedia && matchMedia('(display-mode: standalone)').matches) ? 'STANDALONE'
+                 : 'SAFARI';
+        var root = document.documentElement, was = root.getAttribute('data-theme');
+        root.setAttribute('data-theme', 'dark');
+        var css = getComputedStyle(root).getPropertyValue('--dark-css-loaded').trim() === '1';
+        root.setAttribute('data-theme', was);
+        var strip = document.getElementById('chromestrip');
+        document.getElementById('diag').innerHTML =
+          'INSET: ' + inset + 'px<br>' +
+          'MODE: ' + mode + '<br>' +
+          'THEME: ' + (was || '?') + '<br>' +
+          'DARK CSS: ' + (css ? 'OK' : 'MISSING') + '<br>' +
+          'STRIP EL: ' + (strip ? 'yes, ' + getComputedStyle(strip).backgroundColor : 'NO');
+      });
+    </script>
 
     <div class="cm-hero">
       <h1>A little wisdom, every day.</h1>
@@ -664,6 +697,6 @@
       alert('To add to your home screen:\n\niPhone/iPad — tap the Share icon at the bottom of Safari, then "Add to Home Screen".\n\nAndroid — tap the ⋮ menu in Chrome, then "Add to Home screen".');
     }
   </script>
-  <script src="assets/theme.js?v60"></script>
+  <script src="assets/theme.js?v61"></script>
 </body>
 </html>
